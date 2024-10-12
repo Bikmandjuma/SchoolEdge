@@ -24,16 +24,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        // Force HTTPS in production
-        if (App::environment('production')) {
-            URL::forceScheme('https');
+        if (App::environment() === "production") {
+            URL::forceScheme("https");
         }
-
-        // Additional production-specific configurations
-        // if (App::environment('production')) {
-            // Configure any production-specific services, settings, etc.
-            // Example: Configure a custom cache setting
-            // config(['cache.default' => 'redis']);
-        // }
     }
 }
