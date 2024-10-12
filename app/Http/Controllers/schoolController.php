@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Customer;
 use App\Models\UserRole;
