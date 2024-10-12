@@ -141,32 +141,32 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
 
 //Single_School routes
 Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
-    Route::get('admin_Self_registration/{school_id}', [SchoolController::class, 'school_employee_admin_Self_registration'])->name('school_employee.admin_self_registration');
-    Route::post('admin_submit_registration/{school_id}', [SchoolController::class, 'school_employee_admin_submit_registration'])->name('school_employee_admin_submit_registration_form');
-    Route::get('home/{school_id}', [SchoolController::class, 'school_employee_account_home'])->name('school_employee.dashboard');
-    Route::get('manage_role/{school_id}', [SchoolController::class, 'school_employee_manage_role'])->name('school_employee_manage_role');
-    Route::post('add_role/{school_id}', [SchoolController::class, 'school_employee_add_new_role'])->name('school_employee_add_new_role');
-    Route::post('school_employee_update_role', [SchoolController::class, 'school_employee_update_role'])->name('school_employee_update_role');
-    Route::get('school_employee_add_user/{school_id}', [SchoolController::class, 'school_employee_add_user'])->name('school_employee_add_user');
-    Route::post('school_employee_submit_user_data/{school_id}', [SchoolController::class, 'school_employee_submit_user_data'])->name('school_employee_submit_user_data');
-    Route::get('school_employee_view_user/{school_id}', [SchoolController::class, 'school_employee_view_user'])->name('school_employee_view_user');
-    Route::get('logout/{school_id}', [SchoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
+    Route::get('admin_Self_registration/{school_id}', [schoolController::class, 'school_employee_admin_Self_registration'])->name('school_employee.admin_self_registration');
+    Route::post('admin_submit_registration/{school_id}', [schoolController::class, 'school_employee_admin_submit_registration'])->name('school_employee_admin_submit_registration_form');
+    Route::get('home/{school_id}', [schoolController::class, 'school_employee_account_home'])->name('school_employee.dashboard');
+    Route::get('manage_role/{school_id}', [schoolController::class, 'school_employee_manage_role'])->name('school_employee_manage_role');
+    Route::post('add_role/{school_id}', [schoolController::class, 'school_employee_add_new_role'])->name('school_employee_add_new_role');
+    Route::post('school_employee_update_role', [schoolController::class, 'school_employee_update_role'])->name('school_employee_update_role');
+    Route::get('school_employee_add_user/{school_id}', [schoolController::class, 'school_employee_add_user'])->name('school_employee_add_user');
+    Route::post('school_employee_submit_user_data/{school_id}', [schoolController::class, 'school_employee_submit_user_data'])->name('school_employee_submit_user_data');
+    Route::get('school_employee_view_user/{school_id}', [schoolController::class, 'school_employee_view_user'])->name('school_employee_view_user');
+    Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 });
 //end of single school routes
 
 //single_school_page
 Route::group(['prefix' => ''], function() {
-    Route::get('home/{school_id}', [SchoolController::class, 'open'])->name('school.open');
-    Route::get('about/{school_id}', [SchoolController::class, 'about_home_page'])->name('school.about_home_page');
-    Route::get('news/{school_id}', [SchoolController::class, 'news_home_page'])->name('school.news_home_page');
-    Route::get('student/studying/{school_id}', [SchoolController::class, 'student_studying_home_page'])->name('school.student_studying_home_page');
-    Route::get('student/living/{school_id}', [SchoolController::class, 'student_living_home_page'])->name('school.student_living_home_page');
-    Route::get('administration/{school_id}', [SchoolController::class, 'administration_home_page'])->name('school.administration_home_page');
-    Route::get('contact/{school_id}', [SchoolController::class, 'contact_home_page'])->name('school.contact_home_page');
-    Route::get('login/{school_id}', [SchoolController::class, 'login_home_page'])->name('school.login_home_page');
-    Route::post('submit_login/{school_id}', [SchoolController::class, 'school_employee_submit_login'])->name('school.submit.login_home_page');
+    Route::get('home/{school_id}', [schoolController::class, 'open'])->name('school.open');
+    Route::get('about/{school_id}', [schoolController::class, 'about_home_page'])->name('school.about_home_page');
+    Route::get('news/{school_id}', [schoolController::class, 'news_home_page'])->name('school.news_home_page');
+    Route::get('student/studying/{school_id}', [schoolController::class, 'student_studying_home_page'])->name('school.student_studying_home_page');
+    Route::get('student/living/{school_id}', [schoolController::class, 'student_living_home_page'])->name('school.student_living_home_page');
+    Route::get('administration/{school_id}', [schoolController::class, 'administration_home_page'])->name('school.administration_home_page');
+    Route::get('contact/{school_id}', [schoolController::class, 'contact_home_page'])->name('school.contact_home_page');
+    Route::get('login/{school_id}', [schoolController::class, 'login_home_page'])->name('school.login_home_page');
+    Route::post('submit_login/{school_id}', [schoolController::class, 'school_employee_submit_login'])->name('school.submit.login_home_page');
 
-    Route::get('forgot-password-form/{school_id}', [SchoolController::class, 'forgot_password_home_page'])->name('school.forgot_password_home_page');
+    Route::get('forgot-password-form/{school_id}', [schoolController::class, 'forgot_password_home_page'])->name('school.forgot_password_home_page');
 });
 //end single_school_page
 
