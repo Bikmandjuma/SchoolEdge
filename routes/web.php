@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\mainAuthController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\schoolController;
 
 Route::get('/school', function () {
     return view('homePage.home');
