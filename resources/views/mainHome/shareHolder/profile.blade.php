@@ -68,7 +68,7 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Username</div>
-                    <div class="col-lg-9 col-md-8">{{ auth()->guard('shareHolder')->user()->username }}&nbsp;&nbsp;&nbsp;<i class="bi bi-pen text-info" id=edit_admin_username></i> </div>
+                    <div class="col-lg-9 col-md-8">{{ auth()->guard('shareHolder')->user()->username }}&nbsp;&nbsp;&nbsp;<i class="bi bi-pen text-info" id=edit_admin_username onclick="window.location.href='{{ route('main.show.username') }}'" ></i> </div>
                   </div>
 
                 </div>

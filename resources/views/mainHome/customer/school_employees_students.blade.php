@@ -21,7 +21,7 @@
           	<!-- Left side columns -->
 	        <div class="col-lg-12">
 	        	<div class="card">
-		            <div class="card-body" style="overflow: auto;">
+		            <div class="card-body" style="overflow: auto ;">
 		              <h5 class="card-title text-center">Employees and students</h5>
 
 			            <!-- Default Tabs -->

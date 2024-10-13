@@ -1,6 +1,12 @@
 @extends('mainHome.shareHolder.cover')
 @section('content')
-
+    <style type="text/css">
+      #profile_picture{
+        position: absolute;
+        margin-top: -45px;
+        border-radius: 50%;
+      }
+    </style>
     <div class="pagetitle">
       <h1>Profile</h1>
       <nav>
@@ -46,10 +52,9 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="{{ URL::to('/') }}/adminPanel/assets/img/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile">
+                        <img src="{{ URL::to('/') }}/adminPanel/assets/img/profile_picture/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile"  style="width:150px;height:150px;">
                         <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image" data-bs-toggle="modal" data-bs-target="#deleteProfileModal"><i class="bi bi-trash"></i></a>
+                          <a href="#" id="profile_picture"  data-bs-toggle="modal" data-bs-target="#profile" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                         </div>
                       </div>
                     </div>
@@ -108,13 +113,6 @@
                       </div>
                     </div>
 
-                    <div class="row mb-3">
-                      <label for="Username" class="col-md-4 col-lg-3 col-form-label">Username</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="username" type="text" class="form-control" id="Username" value="{{ auth()->guard('shareHolder')->user()->username }}">
-                      </div>
-                    </div>
-
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">
                           Save Changes
@@ -133,4 +131,35 @@
       </div>
     </section>
 
+      <!-- start image Modal -->
+  <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modify your profile picture</h5>
+        </div>
+        <div class="modal-body">
+          <form action="{{ route('main.shareHolder.update.logo') }}" method="POST" enctype="multipart/form-data" class="text-center align-items-center">
+              @csrf            
+              <img id="blah" src="{{ URL::to('/') }}/adminPanel/assets/img/profile_picture/{{ auth()->guard('shareHolder')->user()->image }}" style="width:120px;height:120px;"/>
+              <br><br>
+              <input name="image" type="file" accept="image/*" id="imgInp" class="form-control" required><br>
+              <button class="btn btn-primary" type="submit" name="submit"><i class="fa fa-save"></i>&nbsp; Save changes</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end image modal-->
+<script type="text/javascript">
+imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file)
+  }
+}
+</script>
 @endsection

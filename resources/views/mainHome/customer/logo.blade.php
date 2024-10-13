@@ -60,7 +60,7 @@
                         
                           <div class="row">
                             <div class="col-md-12 text-center">
-                                <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ auth()->guard('customer')->user()->image }}" style="width:150px;height:150px;border:2px solid gray;">
+                              <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ auth()->guard('customer')->user()->image }}" alt="Logo image" style="width:150px;height:150px;" />
                             </div>
                           </div>
                           <br>
@@ -85,32 +85,32 @@
       </div>
     </section>
 
-<!-- start image Modal -->
-<div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modify your profile picture</h5>
-        <!-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> -->
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('main.customer.update.logo') }}" method="POST" enctype="multipart/form-data" class="text-center align-items-center">
-            @csrf            
-            <img id="blah" scr="{{ URL::to('/') }}/mainHomePage/img/school/{{ auth()->guard('customer')->user()->image }}" style="width:120px;height:120px;"/>
-            <br><br>
-            <input name="image" type="file" accept="image/*" id="imgInp" class="form-control" required><br>
-            <button class="btn btn-primary" type="submit" name="submit"><i class="fa fa-save"></i>&nbsp; Save changes</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+  <!-- start image Modal -->
+  <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modify your profile picture</h5>
+          <!-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+        <div class="modal-body">
+          <form action="{{ route('main.customer.update.logo') }}" method="POST" enctype="multipart/form-data" class="text-center align-items-center">
+              @csrf            
+              <img id="blah" src="{{ URL::to('/') }}/mainHomePage/img/school/{{ auth()->guard('customer')->user()->image }}" style="width:120px;height:120px;"/>
+              <br><br>
+              <input name="image" type="file" accept="image/*" id="imgInp" class="form-control" required><br>
+              <button class="btn btn-primary" type="submit" name="submit"><i class="fa fa-save"></i>&nbsp; Save changes</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!--end image modal-->
+  <!--end image modal-->
 <script type="text/javascript">
 imgInp.onchange = evt => {
   const [file] = imgInp.files

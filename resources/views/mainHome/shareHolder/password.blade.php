@@ -93,51 +93,40 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active pt-3" id="profile-change-password">
-                  
-                  @if($errors->any())
-                      <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;color: #e74c3c;font-size: 14px;" class="error-message" id="error_msg">
-                        @foreach($errors->all() as $error)
-                            {{ $error }}<br>
-                        @endforeach
-                      </p>
-                  @endif
-
-                  @if(session('current_password'))
-                      <div class="d-flex align-items-center justify-content-center" id="session_msg_container" id="error_msg">
-                          <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
-                              {{ session('current_password') }}
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                      </div>
-                  @endif
 
                   <form class="mt-8 space-y-6 ml-4" action="{{ route('main.submit.password') }}" method="POST" id="password-form">
-                    
                     @csrf
-                    
                     <div class="rounded-md">
-                        <div  class="form-group">
-                            <input name="current-password" value="{{old('current-password')}}" type="password" autocomplete="password" placeholder=" " id="password">
-                            <label for="password">Enter current password</label>
-                            <div class="error-message" id="password-error"></div>
-                        </div>
-                        
-                        <div style="margin-top:10px;"  class="form-group">
-                            <input name="new-password" type="password" autocomplete="current-password" placeholder=" " id="new-password" >
-                            <label for="new-password">Enter new password</label><div class="error-message" id="new-password-error"></div>
+                        <div class="form-group">
+                            <input name="old_password" value="{{ old('old_password') }}" type="password" autocomplete="current-password" placeholder=" " id="old_password">
+                            <label for="old_password">Enter old password</label>
+                            @error('old_password')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div style="margin-top:10px;"  class="form-group">
-                            <input name="password_confirmation" type="password" autocomplete="current-password" placeholder=" " id="repeat-new-password" >
-                            <label for="repeat-new-password">Repeat new-password</label><div class="error-message" id="repeat-new-password-error"></div>
+                        <div style="margin-top:10px;" class="form-group">
+                            <input name="new_password" value="{{ old('new_password') }}" type="password" autocomplete="new-password" placeholder=" " id="new_password">
+                            <label for="new_password">Enter new password</label>
+                            @error('new_password')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
                         </div>
-                        
+
+                        <div style="margin-top:10px;" class="form-group">
+                            <input name="new_password_confirmation" value="{{ old('new_password_confirmation') }}" type="password" autocomplete="new-password" placeholder=" " id="repeat-new-password">
+                            <label for="repeat-new-password">Repeat new password</label>
+                            @error('new_password_confirmation')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
-                   
+
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
                     </div>
-                  </form>
+                </form>
+
 
                 </div>
 

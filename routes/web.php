@@ -18,8 +18,16 @@ Route::get('login',[mainAuthController::class,'login'])->name('main.login.page')
 Route::post('submit_login',[mainAuthController::class,'submit_login'])->name('main.submit.login');
 
 Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');
+Route::post('submit_forgot-password-form',[mainAuthController::class,'submit_forgot_password'])->name('main.submit_forgot_password.page');
 Route::get('send_mail_to_register',[mainAuthController::class,'send_mail_to_register'])->name('main.send_mail_toRegister.page');
 Route::post('customer_partial_register',[mainAuthController::class,'customer_partial_register'])->name('main.customer_partial_register');
+
+
+Route::get('/reset/password/code/{email}/{code}',[mainAuthController::class,'code_toreset_passsword'])->name('main.code_to_Reset_password');
+Route::post('/verify_code/{email}/{code}',[mainAuthController::class,'verify_code'])->name('verify.code');
+Route::get('/reset_password_form/{email}',[mainAuthController::class,'reset_password_form'])->name('reset.password.form');
+Route::post('/submit_reset_password/{email}',[mainAuthController::class,'submit_reset_password'])->name('submit_reset_password');
+
 
 Route::get('/',[mainAuthController::class,'home'])->name('main.home');
 Route::get('/about-us',[mainAuthController::class,'about_us'])->name('main.about');
@@ -90,10 +98,9 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
     Route::get('customer_payment_status/{id}',[mainAuthController::class,'Customer_payment_status'])->name('main.Customer_payment_status');
 
     Route::post('submit_edit_customer_info/{id}',[mainAuthController::class,'edit_customer_info'])->name('main.editCustomerInfo');
-
+    Route::post('submit_edit_customer_info',[mainAuthController::class,'shareHolder_update_logo'])->name('main.shareHolder.update.logo');
 });
 //end mainController panel
-
 
 //School's admin Controller
 Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){

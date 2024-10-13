@@ -79,7 +79,7 @@
         <div class="w-full max-w-md">
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Forgot Password</h2>
-                <form class="mt-8 space-y-6" action="{{ route('submit-forgot-password') }}" method="POST" id="forgot-pswd-form">
+                <form class="mt-8 space-y-6" action="{{ route('main.submit_forgot_password.page') }}" method="POST" id="forgot-pswd-form">
                     @csrf
                     <div class="">
                         <div class="form-group">

@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
 use App\Models\price_range;
+use App\Mail\SendCodeResetPassword;
+use App\Models\ResetCodePassword;
 use App\Models\Customer;
 use App\Models\UserRole;
+use App\Models\SchoolSocialMedia;
 use App\Models\SchoolEmployee;
 use App\Models\AllowCustomerToRegiter;
 use App\Models\CustomerPartialRegister;
@@ -146,6 +149,120 @@ class mainAuthController extends Controller
 
     }
 
+    public function submit_forgot_password(Request $request){
+
+        $request->validate([
+            'email' => 'required|email'
+        ],[
+            'email.required' => 'Please enter an email !'
+        ]);
+
+        $email = $request->email;
+
+        $existsInAdmins = ShareHolder::where('email', $email)->exists();
+        $existsInUsers = Customer::where('email', $email)->exists();
+
+        if (!$existsInAdmins && !$existsInUsers) {
+        
+            return back()->withErrors(['email' => 'The email doesn\'t found in our database !']);
+        
+        }else{
+
+            // Delete all old code that user send before.
+            ResetCodePassword::where('email', $email)->delete();
+
+            // Generate random code
+            $data=[
+                'email' => $email,
+                'code' => mt_rand(100000, 999999),
+            ];
+
+            // Create a new code
+            $reset_data = ResetCodePassword::create($data);
+
+            // Send email to user
+            Mail::to($email)->send(new SendCodeResetPassword($reset_data->email,$reset_data->code));
+
+            $code=Crypt::encrypt($request->code);
+            $email=Crypt::encrypt($request->email);
+            
+            return redirect(url('/reset/password/code/'.$email.'/'.$code))
+                ->with('success','We sent you a code on your email !');
+        }
+
+    }
+
+    public function code_toreset_passsword($email,$code){
+        return view('mainHome.shareHolder.code_toreset_password',[
+            'email' => $email,
+            'code' => $code,
+        ]);
+    }
+
+    public function verify_code(Request $request , $email,$code){
+        // Validate the code input
+        $request->validate([
+            'code.*' => 'required|numeric|digits:1' // Ensure each input is a single digit
+        ]);
+
+        // Flatten the code array and convert to a string
+        $code = implode('', $request->code);
+
+        // Decrypt the email
+        $email = Crypt::decrypt($email);
+
+        // Check for the code in the database
+        $resetCode = ResetCodePassword::where('email', $email)->where('code', $code)->first();
+
+        if ($resetCode) {
+
+            // Check if the code is older than one hour
+            if ($resetCode->created_at < now()->subHour()) {
+                $resetCode->delete();
+                return redirect()->route('main.forgot_password.page')->with('error' , 'your code is expired !');
+            } else {
+                return redirect()->route('reset.password.form', ['email' => Crypt::encrypt($email)])->with('info','Reset your password !');
+            }
+
+        } else {
+            // Code does not match or has expired
+            return back()->with('error', 'The code is not valid. Please try again.');
+        }
+
+    }
+
+    public function reset_password_form($email){
+        return view('mainHome.shareHolder.ResetPasswordForm',['email' => Crypt::decrypt($email)]);   
+    }
+
+    public function submit_reset_password(Request $request, $email)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'new_password' => 'required|min:8|confirmed', // 'confirmed' checks for matching passwords
+        ]);
+
+        // Find the user by email in both ShareHolder and Customer models
+        $user = ShareHolder::where('email', $email)->first() ?? Customer::where('email', $email)->first();
+
+        if ($user) {
+            // Update the password
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            // Delete the reset code associated with the email
+            ResetCodePassword::where('email', $email)->delete();
+
+            // Redirect to login with success message
+            return redirect()->route('main.login.page')->with('success', 'Your password has been reset successfully. Please log in.');
+        }
+
+        // If the user is not found, redirect back with an error message
+        return redirect()->back()->withErrors(['email' => 'The provided email does not match any account.']);
+    }
+
+
+
     public function panel_home(){
         $customer_count=collect(Customer::all())->count();
         return view('mainHome.shareHolder.home',compact('customer_count'));
@@ -186,7 +303,6 @@ class mainAuthController extends Controller
         $gender=$request->gender;
         $phone=$request->phone;
         $email=$request->email;
-        $uname=$request->username;
         $dob=$request->dob;
 
         $user=ShareHolder::find($auth_user_id);
@@ -196,7 +312,6 @@ class mainAuthController extends Controller
         $user->phone=$phone;
         $user->email=$email;
         $user->dob=$dob;
-        $user->username=$uname;
         $user->save();
 
         // toastr()->info("Data updated successfully !", ['timeOut' =>5000]);
@@ -210,7 +325,9 @@ class mainAuthController extends Controller
         $request->validate([
             'username' => [
                 'required','string','between:8,32',
-                Rule::unique('share_holders')->ignore(Auth::guard('shareHolder')->user()->username,'username')
+                Rule::unique('share_holders')->ignore(Auth::guard('shareHolder')->user()->username,'username'),
+                'unique:customers,username',
+                'unique:school_employees,username',
             ]
         ]);
 
@@ -225,39 +342,41 @@ class mainAuthController extends Controller
 
 
     public function shareHolder_submit_password(Request $request){
-        // Validate the request for specific fields
 
+        // Trim whitespace from the password fields
+        $request->merge([
+            'old_password' => trim($request->old_password),
+            'new_password' => trim($request->new_password),
+            'new_password_confirmation' => trim($request->new_password_confirmation),
+        ]);
+
+        // Validate the input
         $validator = Validator::make($request->all(), [
-            'current-password' => 'required',
-            'new-password' => 'required|string|min:8|confirmed',
+            'old_password' => 'required',
+            'new_password' => 'required|string|between:8,32|confirmed',
         ]);
 
         // Check if validation fails
         if ($validator->fails()) {
-            // Set a general error message if any required field is missing
-            $errors = $validator->errors();
-            
-            // Check if any required field errors exist
-            if ($errors->has('current-password') || $errors->has('new-password')) {
-                return redirect()->back()->withErrors(['all_fields_required' => 'Please , all fields are required !']);
-            }
-
-            // Return specific errors if needed
             return redirect()->back()->withErrors($validator);
         }
 
+        // Get the currently authenticated user
+        $user = auth()->guard('shareHolder')->user();
 
-        if (!Hash::check($request->current_password, Auth::guard('shareHolder')->user()->password)) {
-            return redirect()->back()->withErrors(['current_password' => 'Current password does not match'])->withInput();
+        // Check if the old password matches
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->with('error', 'Old password doesn\'t match');
         }
 
-        Auth::guard('shareHolder')->user()->update(['password' => Hash::make($request->new_password)]);
+        // Update the password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
 
-        // toastr()->info('Password changed successfully',['timeOut' => 5000]);
-        
-        return redirect()->back()->with('info','Password changed successfully');
-
+        // Redirect back with a success message
+        return redirect()->back()->with('info', 'Password changed successfully');
     }
+
 
     public function customer_partial_register(Request $request){
         $request->validate([
@@ -358,7 +477,7 @@ class mainAuthController extends Controller
             'country' => 'Rwanda',
             'username' => $request->username,
             'password' => bcrypt($request->password),
-            'image' => 'school_logo.jpg',
+            'image' => 'no_logo.png',
         ]);
 
         //User role creation
@@ -429,6 +548,12 @@ class mainAuthController extends Controller
             ],
         ]);
 
+        SchoolSocialMedia::create([
+            'school_fk_id' => $school->id,
+            'phone' => $request->phone,
+            'email' => $request->email,
+        ]);
+
         // Redirect with success message
         return redirect()->route('main.login.page')->with('info', 'Account created successfully. You can now login!');
     }
@@ -449,12 +574,12 @@ class mainAuthController extends Controller
         $count = 1;
 
         $number = $school_data->count();
-        $school_count = $this->formatNumber($number); // Use $this-> to call a method within the same controller
+        $school_count = $this->formatNumber($number);
 
-        //Time ago
-        // Add the 'time ago' for each school
+        $school_not_allowed_yet=AllowCustomerToRegiter::all()->where('status','Not Allowed')->where('registration_done','Not yet');
+        $school_not_allowed_yet_count = $this->formatNumber($school_not_allowed_yet->count());
 
-        return view('mainHome.shareHolder.view_schools', compact('school_data', 'count', 'school_count'));
+        return view('mainHome.shareHolder.view_schools', compact('school_data', 'count', 'school_count','school_not_allowed_yet_count'));
     }
 
     public function formatNumber($number) {
@@ -588,6 +713,28 @@ class mainAuthController extends Controller
             ->update(['school_name' => $school_name , 'email' => $school_email,'phone' => $school_phone,'country' => $school_country]);
 
         return redirect()->back()->with('info','Data updated successfully');
+    }
+
+    public function shareHolder_update_logo(Request $request){
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $shareHolder_id = auth()->guard('shareHolder')->user()->id;
+    
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi').rand(0,999).$file->getClientOriginalName();
+            $file->move(public_path('/adminPanel/assets/img/profile_picture'),$filename);
+
+            DB::table('share_holders')->where('id',$shareHolder_id)
+                ->update(['image' => $filename]);
+            return redirect()->back()->with([
+                'success' => "Logo uploaded well !",
+            ]);
+        }else{
+            return redirect()->back()->with('success', 'Logo upload failed');
+        }
     }
 
 }

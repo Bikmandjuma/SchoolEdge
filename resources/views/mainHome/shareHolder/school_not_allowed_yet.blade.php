@@ -35,14 +35,14 @@
                                 @if($data->status == 'Allowed')
                                     <td>
                                         <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#allowedModal">
-                                            Allowed&nbsp;<i class="fas fa-check"></i>
+                                            Approved&nbsp;<i class="fas fa-check"></i>
                                         </button>
                                     </td>
                                 @else
                                     <td>
                                         <!-- Trigger the modal -->
                                         <button class="btn btn-danger allow-btn" data-id="{{ Crypt::encrypt($data->id) }}" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                                            Not yet&nbsp;<i class="fas fa-question"></i>
+                                            Approve
                                         </button>
                                     </td>
                                 @endif

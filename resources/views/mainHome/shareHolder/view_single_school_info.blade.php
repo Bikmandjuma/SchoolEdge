@@ -59,7 +59,7 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Link</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <a href="{{ URL::to('/') }}/{{ $school_data->school_name }}/{{ Crypt::encrypt($school_data->id) }}/{{ Crypt::encrypt($school_data->school_code) }}" target="self">Click me to go live</a>
+                                        <a href="{{ URL::to('/') }}/home/{{ Crypt::encrypt($school_data->id) }}" target="self">Click me to go live</a>
                                     </div>
                                 </div>
 

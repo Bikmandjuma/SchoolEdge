@@ -167,25 +167,22 @@ class CustomerController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
-        $customer = auth()->guard('customer')->user(); // Assuming you're using authentication to get the logged-in customer
+        $customer_id = auth()->guard('customer')->user()->id;
     
-        // Store the image
-        if ($request->hasFile('image')){
-            $image = $request->file('image');
-            $path = $image->store('images', 'public'); // Save in storage/app/public/profile_images
-            
-            // Update the customer's profile image in the database
-            $customer->image = $path;
-            $customer->save();
-    
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi').rand(0,999).$file->getClientOriginalName();
+            $file->move(public_path('mainHomePage/img/school'),$filename);
+
+            DB::table('customers')->where('id',$customer_id)
+                ->update(['image' => $filename]);
             return redirect()->back()->with([
-                'success' => "Image uploaded !",
-                'image_url' => asset('storage/' . $path) // Return the new image URL
+                'success' => "Logo uploaded well !",
             ]);
+        }else{
+            return redirect()->back()->with('success', 'Logo upload failed');
         }
-    
-        return redirect()->back()->with('success', 'Image upload failed');
-    
+
     }
 
     //terms and condition

@@ -169,7 +169,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{ URL::to('/') }}/adminPanel/assets/img/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile" class="rounded-circle" style="border:1px solid #eee;">
+            <img src="{{ URL::to('/') }}/adminPanel/assets/img/profile_picture/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile" class="rounded-circle" style="border:1px solid #eee;">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->guard('shareHolder')->user()->lastname }}</span>
             <div class='online_indicator_main_bar' title="You are actively online right now !">
                 <span class='blink_online_icon_main_bar'></span>
