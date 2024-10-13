@@ -221,7 +221,7 @@ class mainAuthController extends Controller
                 $resetCode->delete();
                 return redirect()->route('main.forgot_password.page')->with('error' , 'your code is expired !');
             } else {
-                return redirect()->route('reset.password.form', ['email' => Crypt::encrypt($email)])->with('info','Reset your password !');
+                return redirect()->route('reset.password.form', ['email' => Crypt::encrypt($email)])->with('info','Now reset your password !');
             }
 
         } else {

@@ -172,7 +172,7 @@ class CustomerController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi').rand(0,999).$file->getClientOriginalName();
-            $file->move(public_path('mainHomePage/img/school'),$filename);
+            $file->move(public_path('/mainHomePage/img/school'),$filename);
 
             DB::table('customers')->where('id',$customer_id)
                 ->update(['image' => $filename]);
