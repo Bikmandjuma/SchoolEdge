@@ -26,6 +26,7 @@ use App\Models\AllowCustomerToRegiter;
 use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
 use App\Mail\CustomerToRegiterMail;
+use App\Mail\NewCustomerPartialRegister;
 use Carbon\Carbon;
 use App\Models\customer_read_terms_condition;
 
@@ -423,7 +424,7 @@ class mainAuthController extends Controller
 
         $registrar_id = $partial_register->id;
 
-        $data=[
+        $data = [
             'id' => $registrar_id,
             'school_name' => $school_name,
             'email' => $email,
@@ -431,6 +432,13 @@ class mainAuthController extends Controller
         ];
 
         Mail::to($email)->send(new CustomerToRegiterMail($data));
+
+        //ShareHolder
+        $shareHolderEmails = ShareHolder::pluck('email');
+
+        foreach ($shareHolderEmails as $email_data) {
+            Mail::to($email_data)->send(new NewCustomerPartialRegister($data));
+        }
 
         return redirect()->back()->with('info','You’re registered! Please check your email for next steps');
 

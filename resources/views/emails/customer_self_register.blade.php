@@ -1,5 +1,5 @@
 @component('mail::message')
-    <h2>Hi, how are you doing !</h2>
+    <h3>Hi, how are you doing !</h3>
     <p>You can now register yourself to get access on <b style="color: blue;">{{ config('app.name','app_name') }}</b>'s system !</p>
 
 @component('mail::panel')
