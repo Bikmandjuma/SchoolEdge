@@ -1,5 +1,5 @@
 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-    <img src="{{ URL::to('/') }}/adminPanel/assets/img/profile_picture/{{ $school_data->image }}" alt="Profile" class="rounded-circle" style="border:4px solid #eee;height: 80px;width: 80px;">
+    <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_data->image }}" alt="Profile" class="rounded-circle" style="border:4px solid #eee;height: 80px;width: 80px;">
     @if(strlen($school_data->school_name) > 18)
         <h2 title="{{ $school_data->school_name }}">{{ substr($school_data->school_name,0,18).'..' }}</h2>
     @else

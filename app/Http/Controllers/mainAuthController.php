@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\validator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
+use App\Models\SchoolStudent;
 use App\Models\price_range;
 use App\Mail\SendCodeResetPassword;
 use App\Models\ResetCodePassword;
@@ -264,8 +265,14 @@ class mainAuthController extends Controller
 
 
     public function panel_home(){
-        $customer_count=collect(Customer::all())->count();
-        return view('mainHome.shareHolder.home',compact('customer_count'));
+        $shareHolder_count = (ShareHolder::all())->count();
+        $customer_count = (Customer::all())->count();
+        $schoolStudent_count = (SchoolStudent::all())->count();
+        
+        $count_sustem_users = $shareHolder_count + $customer_count;
+        
+        return view('mainHome.shareHolder.home',['count_sustem_users' => $count_sustem_users , 'school_count' => $customer_count , 'schoolStudent_count' => $schoolStudent_count]);
+
     }
 
     public function shareHolder_profile(){

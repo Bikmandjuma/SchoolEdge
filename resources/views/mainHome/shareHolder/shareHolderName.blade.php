@@ -1,4 +1,4 @@
-  <img src="{{ URL::to('/') }}/adminPanel/assets/img/profile_picture/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile" class="rounded-circle" style="border:4px solid #eee;">
+  <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile" class="rounded-circle" style="border:4px solid #eee;">
   <div class='online_indicator' title="You are actively online right now !">
       <span class='blink_online_icon'></span>
   </div>
