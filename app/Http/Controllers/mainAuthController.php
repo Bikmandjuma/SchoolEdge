@@ -436,8 +436,18 @@ class mainAuthController extends Controller
         //ShareHolder
         $shareHolderEmails = ShareHolder::pluck('email');
 
-        foreach ($shareHolderEmails as $email_data) {
-            Mail::to($email_data)->send(new NewCustomerPartialRegister($data));
+        foreach ($shareHolderEmails as $email) {
+            try {
+                
+                Mail::to($email)->send(new NewCustomerPartialRegister($data));
+                sleep(1); // Delay of 1 second between emails
+
+            } catch (\Exception $e) {
+                
+                // Log the error or handle it as needed
+                \Log::error('Failed to send email to ' . $email . ': ' . $e->getMessage());
+            
+            }
         }
 
         return redirect()->back()->with('info','You’re registered! Please check your email for next steps');
