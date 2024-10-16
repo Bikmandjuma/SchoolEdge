@@ -254,19 +254,20 @@
 						<div class="choose-left">
 							<h3>Who We Are</h3>
 							<p>SchoolEdge is an all-in-one educational management platform designed to revolutionize school operations. We provide tools for every school activity—finance, administration, secretarial tasks, library management, and more—enabling staff to efficiently manage their responsibilities within the system. Additionally, our platform offers real-time progress tracking and personalized support to prevent students from falling behind and reduce dropout rates, ensuring academic success for all. </p>
+
 							<div class="row">
 								<div class="col-lg-6">
 									<ul class="list">
-										<li><i class="fa fa-caret-right"></i>Maecenas vitae luctus nibh. </li>
-										<li><i class="fa fa-caret-right"></i>Duis massa massa.</li>
-										<li><i class="fa fa-caret-right"></i>Aliquam feugiat interdum.</li>
+										<li><i class="fa fa-caret-right"></i>Innovative Solutions. </li>
+										<li><i class="fa fa-caret-right"></i>Streamlined Management.</li>
+										<li><i class="fa fa-caret-right"></i>Data-Driven Insights.</li>
 									</ul>
 								</div>
 								<div class="col-lg-6">
 									<ul class="list">
-										<li><i class="fa fa-caret-right"></i>Maecenas vitae luctus nibh. </li>
-										<li><i class="fa fa-caret-right"></i>Duis massa massa.</li>
-										<li><i class="fa fa-caret-right"></i>Aliquam feugiat interdum.</li>
+										<li><i class="fa fa-caret-right"></i>Dedicated Support. </li>
+										<li><i class="fa fa-caret-right"></i>User-Friendly Interface.</li>
+										<li><i class="fa fa-caret-right"></i>Secure Environment.</li>
 									</ul>
 								</div>
 							</div>
@@ -394,7 +395,7 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="fa fa-wrench"></i>
+							<i class="fa-solid fa-bell"></i>
 							<h4><a href="service-details.html">Services updates</a></h4>
 						</div>
 						<!-- End Single Service -->
@@ -402,7 +403,7 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="fa fa-key"></i>
+							<i class="fa-solid fa-shield-alt"></i>
 							<h4><a href="service-details.html">Security & privacy</a></h4>
 						</div>
 						<!-- End Single Service -->
