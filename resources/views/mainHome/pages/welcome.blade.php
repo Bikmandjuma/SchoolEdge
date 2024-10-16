@@ -376,9 +376,9 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-title">
-							<h2>We Offer Different Services To Improve Your Health</h2>
+							<h2>Terms and conditions</h2>
 							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>The SchoolEdge Terms and Conditions outline the rules and guidelines for using our school management platform. By subscribing to SchoolEdge, schools agree to comply with our policies, including payment terms, data privacy standards, and acceptable usage protocols. The document details responsibilities for both SchoolEdge and the customer, covering areas such as access management, user obligations, data security, payment requirements, and customer support. It also explains the conditions for terminating the service and how disputes are governed. This agreement ensures a transparent and secure partnership between SchoolEdge and its users</p>
 						</div>
 					</div>
 				</div>
@@ -386,54 +386,48 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="icofont icofont-prescription"></i>
-							<h4><a href="service-details.html">General Treatment</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<i class="fa fa-money"></i>
+							<h4><a href="service-details.html">Payment terms</a></h4>
 						</div>
 						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="icofont icofont-tooth"></i>
-							<h4><a href="service-details.html">Teeth Whitening</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<i class="fa fa-wrench"></i>
+							<h4><a href="service-details.html">Services updates</a></h4>
 						</div>
 						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="icofont icofont-heart-alt"></i>
-							<h4><a href="service-details.html">Heart Surgery</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<i class="fa fa-key"></i>
+							<h4><a href="service-details.html">Security & privacy</a></h4>
 						</div>
 						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="icofont icofont-listening"></i>
-							<h4><a href="service-details.html">Ear Treatment</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<i class="fa fa-user"></i>
+							<h4><a href="service-details.html">User responsibilities</a></h4>
 						</div>
 						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="icofont icofont-eye-alt"></i>
-							<h4><a href="service-details.html">Vision Problems</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<i class="fa fa-cog"></i>
+							<h4><a href="service-details.html">Terminations</a></h4>
 						</div>
 						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="icofont icofont-blood"></i>
-							<h4><a href="service-details.html">Blood Transfusion</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<i class="fa fa-power"></i>
+							<h4><a href="service-details.html">Cutomer support</a></h4>
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -441,79 +435,5 @@
 			</div>
 		</section>
 		<!--/ End service -->
-		
-		<!-- Pricing Table -->
-		<section class="pricing-table section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="section-title">
-							<h2>Pricing and payment instructions</h2>
-							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#">
-							<p>At SchoolEdge, SchoolEdge, we believe in providing schools with flexible pricing options that scale with your needs. Our pricing is determined by the number of students enrolled in your school, ensuring that you only pay for what you need.</p>
-							<p>We offer three types of payment plans to fit your budget and scheduling preferences:</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<!-- Single Table -->
-					<div class="col-lg-2 col-md-12 col-12"></div>
-					<!-- End Single Table-->
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-									<i class="fa fa-university"></i>
-								</div>
-								<h4 class="title">Termly payment</h4>
-								<div class="price">
-									<p class="amount">$299<span>/ Frw</span></p>
-								</div>	
-							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
-								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
-							</ul>
-							<div class="table-bottom">
-								<a class="btn" href="#">Pay now</a>
-							</div>
-							<!-- Table Bottom -->
-						</div>
-					</div>
-					<!-- End Single Table-->
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-									<i class="fa fa-university"></i>
-								</div>
-								<h4 class="title">Yearly payment</h4>
-								<div class="price">
-									<p class="amount">$399<span>/ Frw</span></p>
-								</div>	
-							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
-								<li><i class="icofont icofont-ui-check"></i>Nullam interdum enim</li>
-							</ul>
-							<div class="table-bottom">
-								<a class="btn" href="#">Pay Now</a>
-							</div>
-							<!-- Table Bottom -->
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-12 col-12"></div>
-					<!-- End Single Table-->
-				</div>	
-			</div>	
-		</section>	
-		<!--/ End Pricing Table -->
-		
 
 @endsection
