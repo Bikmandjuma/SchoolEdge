@@ -44,7 +44,23 @@ class mainAuthController extends Controller
     }
 
     public function home(){
-        return view('mainHome.pages.welcome');
+        $shareHolder_count = (ShareHolder::all())->count();
+        $customer_count = (Customer::all())->count();
+        $schoolStudent_count = (SchoolStudent::all())->count();
+        $school_Employees_count = (SchoolEmployee::all())->count();
+        
+        $count_sustem_users = $shareHolder_count + $customer_count+$school_Employees_count;
+
+        //experiance period
+        $date = "2024-07-12 12:00:00";
+        $carbonDate = Carbon::createFromFormat('Y-m-d H:i:s', $date);
+
+        return view('mainHome.pages.welcome',[
+            'school_count' => $customer_count,
+            'sys_users_count' => $count_sustem_users,
+            'students_count' => $schoolStudent_count,
+            'time_ago_exp' => $carbonDate
+        ]);
     }
 
     public function about_us(){
@@ -268,9 +284,9 @@ class mainAuthController extends Controller
     public function panel_home(){
         $shareHolder_count = (ShareHolder::all())->count();
         $customer_count = (Customer::all())->count();
-        $schoolStudent_count = (SchoolStudent::all())->count();
+        $school_Employees_count = (SchoolEmployee::all())->count();
         
-        $count_sustem_users = $shareHolder_count + $customer_count;
+        $count_sustem_users = $shareHolder_count + $customer_count + $school_Employees_count;
         
         return view('mainHome.shareHolder.home',['count_sustem_users' => $count_sustem_users , 'school_count' => $customer_count , 'schoolStudent_count' => $schoolStudent_count]);
 

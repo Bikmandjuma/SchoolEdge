@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/animate.min.css">
 		<!-- Magnific Popup CSS -->
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/magnific-popup.css">
-		
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
 		<!-- Medipro CSS -->
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/normalize.css">
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/style.css">
