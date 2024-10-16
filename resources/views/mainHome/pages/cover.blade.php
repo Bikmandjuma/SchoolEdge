@@ -13,7 +13,7 @@
         <title>{{ config('app.name','laravel') }}</title>
 		
 		<!-- Favicon -->
-        <link rel="icon" href="{{URL::to('/')}}/mainHomePage/img/favicon.png">
+        <link rel="icon" href="{{URL::to('/')}}/mainHomePage/img/school_edge.png">
 		
 		<!-- Google Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
@@ -34,6 +34,7 @@
 		<link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/datepicker.css">
 		<!-- Animate CSS -->
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		<!-- Magnific Popup CSS -->
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/magnific-popup.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -99,12 +100,11 @@
 						<div class="row">
 							<div class="col-lg-3 col-md-3 col-12">
 								<!-- Start Logo -->
-								<div class="logo">
-									<h2><a href="index.html">{{ config('app.name','laravel') }}</a></h2>
-									<!-- <img src="{{URL::to('/')}}/mainHomePage/img/logo.png" alt="#"> -->
-									<!-- <img src="{{URL::to('/')}}/mainHomePage/img/icons.png" alt="#" style="width:60px;height:50px;"> -->
-
+								<div class="logo" style="display: flex; align-items: center;">
+								    <img src="{{ URL::to('/') }}/mainHomePage/img/new_logo.png" alt="#" style="width:200px; height: 45px; margin-right: 10px;">
+								    <!-- <h2 style="margin: 0;"><a href="index.html" style="text-decoration: none; color: inherit;">{{ config('app.name', 'laravel') }}</a></h2> -->
 								</div>
+
 								<!-- End Logo -->
 								<!-- Mobile Nav -->
 								<div class="mobile-nav"></div>

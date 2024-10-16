@@ -148,7 +148,7 @@
 						<!-- Start Single features -->
 						<div class="single-features">
 							<div class="signle-icon">
-								<i class="fa fa-superpowers"></i>
+								<i class="fa-solid fa-headset"></i>
 							</div>
 							<h3>Support at Your Fingertips</h3>
 							<p>Our dedicated support team is always available to assist you, ensuring your school management experience with SchoolEdge is smooth and hassle-free.</p>
@@ -410,7 +410,7 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="fa fa-user"></i>
+							<i class="fa-solid fa-list-check"></i>
 							<h4><a href="service-details.html">User responsibilities</a></h4>
 						</div>
 						<!-- End Single Service -->
@@ -418,7 +418,7 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="fa fa-cog"></i>
+							<i class="fa-solid fa-times"></i>
 							<h4><a href="service-details.html">Terminations</a></h4>
 						</div>
 						<!-- End Single Service -->
@@ -426,8 +426,8 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Service -->
 						<div class="single-service">
-							<i class="fa fa-power"></i>
-							<h4><a href="service-details.html">Cutomer support</a></h4>
+								<i class="fa-solid fa-headset"></i>
+							<h4><a href="service-details.html">Customer support</a></h4>
 						</div>
 						<!-- End Single Service -->
 					</div>
