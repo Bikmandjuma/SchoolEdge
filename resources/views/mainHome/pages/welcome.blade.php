@@ -302,7 +302,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-12">
 						<div class="content">
-							<h2>Do you need Emergency support ? Call @+250785389000</h2>
+							<h2>Do you need Emergency support ? Call +250785389000</h2>
 							<p>So ,if you need any emergency support , please feel free to contact with us.</p>
 							<div class="button">
 								<a href="{{ route('main.contact') }}" class="btn">Contact Now</a>
@@ -465,23 +465,20 @@
 							<!-- Table Head -->
 							<div class="table-head">
 								<div class="icon">
-									<i class="icofont icofont-tooth"></i>
+									<i class="fa fa-university"></i>
 								</div>
-								<h4 class="title">Teeth Whitening</h4>
+								<h4 class="title">Termly payment</h4>
 								<div class="price">
-									<p class="amount">$299<span>/ Per Visit</span></p>
+									<p class="amount">$299<span>/ Frw</span></p>
 								</div>	
 							</div>
 							<!-- Table List -->
 							<ul class="table-list">
 								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
 								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
-								<li><i class="icofont icofont-ui-check"></i>Nullam interdum enim</li>
-								<li class="cross"><i class="icofont icofont-ui-close"></i>Donec ultricies metus</li>
-								<li class="cross"><i class="icofont icofont-ui-close"></i>Pellentesque eget nibh</li>
 							</ul>
 							<div class="table-bottom">
-								<a class="btn" href="#">Book Now</a>
+								<a class="btn" href="#">Pay now</a>
 							</div>
 							<!-- Table Bottom -->
 						</div>
@@ -493,23 +490,20 @@
 							<!-- Table Head -->
 							<div class="table-head">
 								<div class="icon">
-									<i class="icofont-heart-beat"></i>
+									<i class="fa fa-university"></i>
 								</div>
-								<h4 class="title">Heart Suggery</h4>
+								<h4 class="title">Yearly payment</h4>
 								<div class="price">
-									<p class="amount">$399<span>/ Per Visit</span></p>
+									<p class="amount">$399<span>/ Frw</span></p>
 								</div>	
 							</div>
 							<!-- Table List -->
 							<ul class="table-list">
 								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
-								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
 								<li><i class="icofont icofont-ui-check"></i>Nullam interdum enim</li>
-								<li><i class="icofont icofont-ui-check"></i>Donec ultricies metus</li>
-								<li><i class="icofont icofont-ui-check"></i>Pellentesque eget nibh</li>
 							</ul>
 							<div class="table-bottom">
-								<a class="btn" href="#">Book Now</a>
+								<a class="btn" href="#">Pay Now</a>
 							</div>
 							<!-- Table Bottom -->
 						</div>
@@ -522,31 +516,4 @@
 		<!--/ End Pricing Table -->
 		
 
-		<!-- Start Newsletter Area -->
-		<section class="newsletter section">
-			<div class="container">
-				<div class="row ">
-					<div class="col-lg-6  col-12">
-						<!-- Start Newsletter Form -->
-						<div class="subscribe-text ">
-							<h6>Sign up for newsletter</h6>
-							<p class="">Cu qui soleat partiendo urbanitas. Eum aperiri indoctum eu,<br> homero alterum.</p>
-						</div>
-						<!-- End Newsletter Form -->
-					</div>
-					<div class="col-lg-6  col-12">
-						<!-- Start Newsletter Form -->
-						<div class="subscribe-form ">
-							<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-								<input name="EMAIL" placeholder="Your email address" class="common-input" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Your email address'" required="" type="email">
-								<button class="btn">Subscribe</button>
-							</form>
-						</div>
-						<!-- End Newsletter Form -->
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- /End Newsletter Area -->
 @endsection

@@ -202,9 +202,9 @@
 								<h2>Open Hours</h2>
 								<p></p>
 								<ul class="time-sidual">
-									<li class="day">Monday - Friday <span>8:00-17:00</span></li>
-									<li class="day">Saturday <span>closed</span></li>
-									<li class="day">Sunday <span>closed</span></li>
+									<li class="day">Monday-Friday <span>00:00-23:59</span></li>
+									<li class="day">Saturday <span>00.00 am : 23.59 pm</span></li>
+									<li class="day">Sunday <span>00.00 am : 23.59 pm</span></li>
 								</ul>
 							</div>
 						</div>
