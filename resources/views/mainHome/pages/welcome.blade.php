@@ -99,7 +99,7 @@
 										<ul class="time-sidual">
 											<li class="day">Monday <span>00.00 am - 23.59 pm</span></li>
 											<li class="day">Tuesday <span>00.00 am - 23.59 pm</span></li>
-											<li class="day">Wensday <span>00.00 am - 23.59 pm</span></li>
+											<li class="day">Wednesday <span>00.00 am - 23.59 pm</span></li>
 											<li class="day">Thursday <span>00:00 am - 23.59 pm</span></li>
 											<li class="day">Friday <span>00.00 am - 23.59 pm</span></li>
 											<li class="day">Saturday <span>00:00 am - 23.59 pm</span></li>
@@ -125,7 +125,7 @@
 						<div class="section-title">
 							<h2>We Are Always Ready to Help You</h2>
 							<img src="{{URL::to('/')}}/mainHomePage/img/section-img.png" alt="#">
-							<p>At {{ config('app.name'.'school_name') }}, we prioritize your needs. Our dedicated support team is available 24/7 to assist with any inquiries, ensuring you have a smooth experience with our school management system</p>
+							<p>At {{ config('app.name','school_name') }}, we prioritize your needs. Our dedicated support team is available 24/7 to assist with any inquiries, ensuring you have a smooth experience with our school management system</p>
 						</div>
 					</div>
 				</div>
@@ -134,7 +134,7 @@
 						<!-- Start Single features -->
 						<div class="single-features">
 							<div class="signle-icon">
-								<i class="fas fa-headset"></i>
+								<i class="fa fa-superpowers"></i>
 							</div>
 							<h3>Support at Your Fingertips</h3>
 							<p>Our dedicated support team is always available to assist you, ensuring your school management experience with SchoolEdge is smooth and hassle-free.</p>
@@ -145,7 +145,7 @@
 						<!-- Start Single features -->
 						<div class="single-features">
 							<div class="signle-icon">
-								<i class="fas fa-user-friends"></i>
+								<i class="fa fa-handshake-o"></i>
 							</div>
 							<h3>Your Partner in Education</h3>
 							<p>With SchoolEdge, you’re never alone. We provide continuous support and guidance to help you maximize the benefits of our system.</p>
@@ -156,7 +156,7 @@
 						<!-- Start Single features -->
 						<div class="single-features last">
 							<div class="signle-icon">
-								<i class="fas fa-life-ring"></i>
+								<i class="fa fa-clock-o"></i>
 							</div>
 							<h3>Reliable Assistance, Anytime</h3>
 							<p>We are committed to being there whenever you need us. Our team is ready to offer expert help and solutions to keep your school running efficiently.</p>
@@ -607,7 +607,7 @@
 					<div class="col-lg-12">
 						<div class="section-title" style="text-align:center;">
 							<h2>We Are Always Ready to Help You. Book An Appointment</h2>
-							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="display: block; margin: 0 auto;">
+							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="display: block;text-align: center;align-content: center;justify-content: center;">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
