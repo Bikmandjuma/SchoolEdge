@@ -302,11 +302,10 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-12">
 						<div class="content">
-							<h2>Do you need Emergency Medical Care? Call @ 1234 56789</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor dictum turpis nec gravida.</p>
+							<h2>Do you need Emergency support ? Call @+250785389000</h2>
+							<p>So ,if you need any emergency support , please feel free to contact with us.</p>
 							<div class="button">
-								<a href="#" class="btn">Contact Now</a>
-								<a href="#" class="btn second">Learn More<i class="fa fa-long-arrow-right"></i></a>
+								<a href="{{ route('main.contact') }}" class="btn">Contact Now</a>
 							</div>
 						</div>
 					</div>
@@ -316,7 +315,7 @@
 		<!--/ End Call to action -->
 		
 		<!-- Start portfolio -->
-		<section class="portfolio section" >
+		<!-- <section class="portfolio section" >
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
@@ -368,7 +367,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 		<!--/ End portfolio -->
 		
 		<!-- Start service -->
