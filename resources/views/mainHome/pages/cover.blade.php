@@ -83,7 +83,7 @@
                 <!-- Top Contact -->
                 <ul class="top-contact" style="list-style: none; padding: 0; margin: 0; color: #fff;">
                     <li style="color:white;"><i class="fa fa-phone" style="color:white;"></i>+250785389000</li>
-                    <li><i class="fa fa-envelope" style="color:white;"></i><a href="mailto:support@yourmail.com" style="color: #fff;">{{ config('app.name','laravel') }}@gmail.com</a></li>
+                    <li><i class="fa fa-envelope" style="color:white;"></i><a href="https://mailto:schools.edges@gmail.com" style="color: #fff;">schools.edges@gmail.com</a></li>
                 </ul>
                 <!-- End Top Contact -->
             </div>

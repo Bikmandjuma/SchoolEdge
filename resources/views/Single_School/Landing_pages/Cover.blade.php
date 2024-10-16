@@ -213,10 +213,9 @@
                         <span class="text-body"><a href="#" class="border-bottom text-primary"><i class="fas fa-copyright text-light me-2"></i>{{ $school_name }}</a>, All right reserved.</span>
                     </div>
                     <div class="col-md-6 text-center text-md-end text-body">
-                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom text-primary" href="https://schooledge.com" target="perent">{{ config('app.name','school-name') }}</a> Distributed By <a class="border-bottom text-primary" href="https://www.teclgroupeltd.com" target="perent">Tecla</a>
+                        
+                        Designed By <a class="border-bottom text-primary" href="{{ URL::to('/') }}" target="perent">{{ config('app.name','school-name') }}</a> Distributed By <a class="border-bottom text-primary" href="https://www.teclgroupeltd.com" target="perent">Tecla</a>
+
                     </div>
                 </div>
             </div>

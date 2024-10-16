@@ -9,12 +9,9 @@
 						<div class="row">
 							<div class="col-lg-7">
 								<div class="text">
-									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
-									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">Learn More</a>
-									</div>
+									<h1>Streamline Operations</h1>
+									<p style="font-size:20px;">Revolutionize your school management with SchoolEdge — streamline operations, track performance, and automate administrative tasks effortlessly. </p>
+									
 								</div>
 							</div>
 						</div>
@@ -27,12 +24,8 @@
 						<div class="row">
 							<div class="col-lg-7">
 								<div class="text">
-									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
-									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">About Us</a>
-									</div>
+									<h1>Real-Time Insights</h1>
+									<p style="font-size:20px;">Empower your school with real-time insights, simplified payments, and seamless communication, all in one platform</p>
 								</div>
 							</div>
 						</div>
@@ -45,12 +38,9 @@
 						<div class="row">
 							<div class="col-lg-7">
 								<div class="text">
-									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
-									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">Contact Now</a>
-									</div>
+									<h1>Automate Administration</h1>
+									<p style="font-size:20px;">Experience efficiency, transparency, and excellence in managing your school’s operations with {{ config('app.name','names') }}</p>
+									
 								</div>
 							</div>
 						</div>
@@ -71,13 +61,12 @@
 							<div class="single-schedule first">
 								<div class="inner">
 									<div class="icon">
-										<i class="fa fa-ambulance"></i>
+										<i class="fa fa-cog"></i>
 									</div>
 									<div class="single-content">
-										<span>Lorem Amet</span>
-										<h4>Emergency Cases</h4>
-										<p>Lorem ipsum sit amet consectetur adipiscing elit. Vivamus et erat in lacus convallis sodales.</p>
-										<a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a>
+										<h5 class="text-white">Boost Efficiency & Save Time</h5>
+										<p>Simplify school management with our all-in-one platform. From managing student records and tracking performance to handling payments and communication, SchoolEdge automates essential tasks, reducing manual effort and freeing up valuable time for educators and administrators. Experience a seamless, efficient, and transparent way to manage your school’s operations.</p>
+										<!-- <a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a> -->
 									</div>
 								</div>
 							</div>
@@ -87,13 +76,12 @@
 							<div class="single-schedule middle">
 								<div class="inner">
 									<div class="icon">
-										<i class="icofont-prescription"></i>
+										<i class="fa fa-graduation-cap"></i>
 									</div>
 									<div class="single-content">
-										<span>Fusce Porttitor</span>
-										<h4>Doctors Timetable</h4>
-										<p>Lorem ipsum sit amet consectetur adipiscing elit. Vivamus et erat in lacus convallis sodales.</p>
-										<a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a>
+										<h5 class="text-white">Enhance Student Success & Retention</h5>
+										<p>SchoolEdge not only tracks academic performance but also identifies students at risk of falling behind or dropping out. Our system provides real-time alerts and data-driven insights, enabling schools to intervene early and offer personalized support. By using SchoolEdge, your school can enhance student success and retention rates, ensuring every student reaches their full potential.</p>
+										<!-- <a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a> -->
 									</div>
 								</div>
 							</div>
@@ -106,14 +94,19 @@
 										<i class="icofont-ui-clock"></i>
 									</div>
 									<div class="single-content">
-										<span>Donec luctus</span>
+										<span>Time is proportional to work</span>
 										<h4>Opening Hours</h4>
 										<ul class="time-sidual">
-											<li class="day">Monday - Fridayp <span>8.00-20.00</span></li>
-											<li class="day">Saturday <span>9.00-18.30</span></li>
-											<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
+											<li class="day">Monday <span>00.00 am - 23.59 pm</span></li>
+											<li class="day">Tuesday <span>00.00 am - 23.59 pm</span></li>
+											<li class="day">Wensday <span>00.00 am - 23.59 pm</span></li>
+											<li class="day">Thursday <span>00:00 am - 23.59 pm</span></li>
+											<li class="day">Friday <span>00.00 am - 23.59 pm</span></li>
+											<li class="day">Saturday <span>00:00 am - 23.59 pm</span></li>
+											<li class="day">Sunday <span>00:00 am - 23.59 pm</span></li>
+											<li class="day mt-3 text-center">Means Opening hours 24/7<span></span></li>
 										</ul>
-										<a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a>
+										<!-- <a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a> -->
 									</div>
 								</div>
 							</div>
@@ -130,9 +123,9 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-title">
-							<h2>We Are Always Ready to Help You & Your Family</h2>
+							<h2>We Are Always Ready to Help You</h2>
 							<img src="{{URL::to('/')}}/mainHomePage/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>At {{ config('app.name'.'school_name') }}, we prioritize your needs. Our dedicated support team is available 24/7 to assist with any inquiries, ensuring you have a smooth experience with our school management system</p>
 						</div>
 					</div>
 				</div>
@@ -141,10 +134,10 @@
 						<!-- Start Single features -->
 						<div class="single-features">
 							<div class="signle-icon">
-								<i class="icofont icofont-ambulance-cross"></i>
+								<i class="fas fa-headset"></i>
 							</div>
-							<h3>Emergency Help</h3>
-							<p>Lorem ipsum sit, consectetur adipiscing elit. Maecenas mi quam vulputate.</p>
+							<h3>Support at Your Fingertips</h3>
+							<p>Our dedicated support team is always available to assist you, ensuring your school management experience with SchoolEdge is smooth and hassle-free.</p>
 						</div>
 						<!-- End Single features -->
 					</div>
@@ -152,10 +145,10 @@
 						<!-- Start Single features -->
 						<div class="single-features">
 							<div class="signle-icon">
-								<i class="icofont icofont-medical-sign-alt"></i>
+								<i class="fas fa-user-friends"></i>
 							</div>
-							<h3>Enriched Pharmecy</h3>
-							<p>Lorem ipsum sit, consectetur adipiscing elit. Maecenas mi quam vulputate.</p>
+							<h3>Your Partner in Education</h3>
+							<p>With SchoolEdge, you’re never alone. We provide continuous support and guidance to help you maximize the benefits of our system.</p>
 						</div>
 						<!-- End Single features -->
 					</div>
@@ -163,10 +156,10 @@
 						<!-- Start Single features -->
 						<div class="single-features last">
 							<div class="signle-icon">
-								<i class="icofont icofont-stethoscope"></i>
+								<i class="fas fa-life-ring"></i>
 							</div>
-							<h3>Medical Treatment</h3>
-							<p>Lorem ipsum sit, consectetur adipiscing elit. Maecenas mi quam vulputate.</p>
+							<h3>Reliable Assistance, Anytime</h3>
+							<p>We are committed to being there whenever you need us. Our team is ready to offer expert help and solutions to keep your school running efficiently.</p>
 						</div>
 						<!-- End Single features -->
 					</div>
