@@ -1,6 +1,19 @@
 @extends('mainHome.pages.cover')
 @section('content')
 <!-- Slider Area -->
+	<style type="text/css">
+		.section-title {
+		    text-align: center; /* Center text */
+		}
+
+		.section-title img {
+		    display: block; /* Ensure the image behaves like a block element */
+		    margin: 0 auto; /* Center the image */
+		    max-width: 100%; /* Make the image responsive */
+		    height: auto; /* Maintain aspect ratio */
+		}
+
+	</style>
 		<section class="slider">
 			<div class="hero-slider">
 				<!-- Start Single Slider -->
@@ -122,12 +135,13 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="section-title">
-							<h2>We Are Always Ready to Help You</h2>
-							<img src="{{URL::to('/')}}/mainHomePage/img/section-img.png" alt="#">
-							<p>At {{ config('app.name','school_name') }}, we prioritize your needs. Our dedicated support team is available 24/7 to assist with any inquiries, ensuring you have a smooth experience with our school management system</p>
-						</div>
+					    <div class="section-title text-center"> <!-- Added text-center class -->
+					        <h2>We Are Always Ready to Help You</h2>
+					        <img src="{{URL::to('/')}}/mainHomePage/img/section-img.png" alt="#" class="img-fluid"> <!-- Added img-fluid class for responsiveness -->
+					        <p>At {{ config('app.name','school_name') }}, we prioritize your needs. Our dedicated support team is available 24/7 to assist with any inquiries, ensuring you have a smooth experience with our school management system.</p>
+					    </div>
 					</div>
+
 				</div>
 				<div class="row">
 					<div class="col-lg-4 col-12">
@@ -607,7 +621,7 @@
 					<div class="col-lg-12">
 						<div class="section-title" style="text-align:center;">
 							<h2>We Are Always Ready to Help You. Book An Appointment</h2>
-							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="display: block;text-align: center;align-content: center;justify-content: center;">
+							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="display: block; margin: 0 auto;">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
