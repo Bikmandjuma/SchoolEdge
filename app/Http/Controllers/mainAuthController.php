@@ -808,5 +808,19 @@ class mainAuthController extends Controller
         return redirect()->back()->with('info','new payment plan added !');
     }
 
+    public function shareHolder_edit_payment_plan(Request $request){
+        $request->validate([
+            'id' => 'required|exists:period_prices,id',
+            'period' => 'required|string|max:255',
+        ]);
+
+        // Update the record in the database
+        $periodPrice = period_price::findOrFail($request->id);
+        $periodPrice->period = $request->period;
+        $periodPrice->save();
+
+        return redirect()->back()->with('info','Payment plan edited well !');
+    }
+
 
 }

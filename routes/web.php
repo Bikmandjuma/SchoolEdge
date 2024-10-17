@@ -104,6 +104,8 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::post('add_new_payment_plan',[mainAuthController::class,'shareHolder_add_new_payment_plan'])->name('main.add_new_payment_plan');
 
+    Route::post('shareHolder_update_payment_plan',[mainAuthController::class,'shareHolder_edit_payment_plan'])->name('main.update_payment_plan');
+
 });
 //end mainController panel
 
