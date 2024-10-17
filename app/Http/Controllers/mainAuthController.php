@@ -782,7 +782,17 @@ class mainAuthController extends Controller
 
     //Create price
     public function shareHolder_create_price(){
-        return view('mainHome.shareHolder.createPricing');
+        $all_payment_plan = period_price::all();
+        $count = 1;
+
+        $count_payment_plan = $all_payment_plan->count();
+        
+        return view('mainHome.shareHolder.createPricing',[
+            'payment_plan' => $all_payment_plan,
+            'count' => $count,
+            'count_payment_plan' => $count_payment_plan,
+        ]);
+
     }
 
     //main.add_new_payment_plan
@@ -792,7 +802,7 @@ class mainAuthController extends Controller
         ]);
 
         period_price::create([
-            'period' => $request->plan_name,
+            'period' => $request->plan_name,            
         ]);
 
         return redirect()->back()->with('info','new payment plan added !');

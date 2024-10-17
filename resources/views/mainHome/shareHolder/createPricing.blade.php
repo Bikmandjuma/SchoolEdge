@@ -30,13 +30,19 @@
                     <th>Action</th>
                   </tr>
                   <tbody>
+                    @foreach($payment_plan as $data)
                       <tr>
-                        <td>1</td>
-                        <td>plan name</td>
+                        <td>{{ $count++ }}</td>
+                        <td>{{ $data->period }}</td>
                         <td><span class="badge bg-primary"><i class="fa fa-edit"></i>&nbsp;Edit</span></td>
                       </tr>
-
+                    @endforeach
                   </tbody>
+                  @if($count_payment_plan == 0)
+                      <tr>
+                        <td colspan="3">No data found !</td>
+                      </tr>
+                  @endif
                 </table>
               </div>
           </div>
@@ -54,6 +60,7 @@
                 </div>
                 <div class="modal-body align-items-center justify-content-center" style="display: flex; flex-direction: column; align-items:center;">
                         <form class="form-group text-center" action="{{ route('main.add_new_payment_plan') }}" method="POST">
+                          @csrf
                           <input type="text" name="plan_name" placeholder="Enter payment plan" class="form-control" required>
                           <button class="btn btn-primary mt-2"><i class="fa fa-plus"></i>&nbspAdd</button>
                         </form>
