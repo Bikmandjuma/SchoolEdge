@@ -165,7 +165,7 @@
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
 								<h2>About Us</h2>
-								<p>SchoolEdge is a user-friendly management information system designed to streamline school operations, track student progress, and enhance communication between teachers, students, and parents.it helps schools improve efficiency by machine learning technology and prevent student dropouts</p>
+								<p>SchoolEdge is a user-friendly management information system designed to streamline school operations, track student progress, and enhance communication between teachers, students, and parents.it helps schools improve efficiency by machine learning technology and prevent student at risk of falling behind or dropouts</p>
 								<!-- Social -->
 								<ul class="social">
 									<li><a href="#"><i class="icofont-facebook"></i></a></li>
