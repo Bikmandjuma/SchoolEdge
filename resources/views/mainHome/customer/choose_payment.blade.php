@@ -19,7 +19,7 @@
               <!-- Single Table -->
               <div class="col-lg-1"></div>
               <div class="col-lg-10 col-md-12 col-12">
-                <div class="card text-center">
+                <div class="card text-center" style="box-shadow:0px 4px 8px 0px rgba(0, 0, 0, 0.2);">
         
                   <div class="card-body">
                       <i class="icofont-money" style="font-size:50px;"></i>
@@ -27,7 +27,7 @@
 
                       <div class="row">
                           <div class="col-xl-4 col-sm-6">
-                            <img src="{{ URL::to('/') }}/mainHomePage/img/mtn.png" style="margin-top:10px;height: 50px;width: 120px;">
+                            <img src="{{ URL::to('/') }}/mainHomePage/img/mtn.png" style="margin-top:10px;height: 50px;width: 120px;" onclick="window.location.href='{{ route("") }}'">
                           </div>
 
                           <div class="col-xl-4 col-sm-6">
