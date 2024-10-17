@@ -285,10 +285,11 @@ class mainAuthController extends Controller
         $shareHolder_count = (ShareHolder::all())->count();
         $customer_count = (Customer::all())->count();
         $school_Employees_count = (SchoolEmployee::all())->count();
+        $schoolStudent_count = (SchoolStudent::all())->count();
         
-        $count_sustem_users = $shareHolder_count + $customer_count + $school_Employees_count;
+        $count_system_users = $shareHolder_count + $customer_count + $school_Employees_count;
         
-        return view('mainHome.shareHolder.home',['count_sustem_users' => $count_sustem_users , 'school_count' => $customer_count , 'schoolStudent_count' => $schoolStudent_count]);
+        return view('mainHome.shareHolder.home',['count_sustem_users' => $count_system_users , 'school_count' => $customer_count , 'schoolStudent_count' => $schoolStudent_count]);
 
     }
 

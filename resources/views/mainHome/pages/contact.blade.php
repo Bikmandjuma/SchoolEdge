@@ -109,7 +109,7 @@
 								<i class="icofont icofont-ui-call"></i>
 								<div class="content">
 									<h3>+250785389000</h3>
-									<p>schools.edges@company.com</p>
+									<p>schools.edges@gmail.com</p>
 								</div>
 							</div>
 						</div>
@@ -130,8 +130,8 @@
 							<div class="single-info">
 								<i class="icofont icofont-wall-clock"></i>
 								<div class="content">
-									<h3>Mon - Frid: 8am - 5pm</h3>
-									<p>Saturday - Sunday : Closed</p>
+									<h3>Mon - Sun: 00.00 am - 23.59 pm</h3>
+									<p> Monday - Sunday : 24/7</p>
 								</div>
 							</div>
 						</div>

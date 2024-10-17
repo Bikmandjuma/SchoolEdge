@@ -2,6 +2,9 @@
 @section('content')
 
     <style type="text/css">
+        body{
+            overflow:hidden;
+        }
         .error-message {
             color: #e74c3c;
             font-size: 14px;

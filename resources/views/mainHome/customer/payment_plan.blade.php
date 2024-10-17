@@ -33,51 +33,42 @@
               <!-- Single Table -->
               <div class="col-lg-1"></div>
               <div class="col-lg-5 col-md-12 col-12">
-                
-                  <div class="card text-center">
-                    <div class="card-body">
+                <div class="card text-center">
+                  <div class="card-body">
                       <i class="icofont-university" style="font-size:50px;"></i>
                       <h5 class="card-header text-center">Termly Plan</h5>
-                          <ul style="list-style-type: none;">
-                            <br>
-                              <li><i class="icofont icofont-users"></i>&nbsp;Number of Students: <span id="min">0</span> - <span id="max">200</span></li>
-                              <br>
-                              <li><i class="icofont icofont-money"></i>&nbsp;Amount: <span id="amount">300,000 FRW</span></li>
-                          </ul>
-                          <input type="range" id="student-progress" min="0" max="3000" value="500">
-                          <p id="output"></p>
-
-                          <script type="text/javascript">
-                            var cool=document.getElementById('student-progress');
-                            cool.addEventListener('click',function(){
-                              document.getElementById('output').innerHTML=cool;
-                            });
-                          </script>
-                          
-                    </div>
-                    <div class="card-body">
-                          <a class="btn btn-primary" href="#">Choose</a>
-                    </div>
+                      <ul style="list-style-type: none;">
+                          <br>
+                          <li><i class="icofont icofont-users"></i>&nbsp;Number of Students: <span id="min-termly">0</span> - <span id="max-termly">200</span></li>
+                          <br>
+                          <li><i class="icofont icofont-money"></i>&nbsp;Amount: <span id="amount-termly">300,000 FRW</span></li>
+                      </ul>
+                      <input type="range" id="student-progress-termly" min="0" max="3000" value="500">
+                      <p id="output-termly"></p>
+                  </div>
+                  <div class="card-body">
+                      <a class="btn btn-primary" href="#" id="choose-termly">Choose</a>
                   </div>
               </div>
+              </div>
               <div class="col-lg-5 col-md-12 col-12">
-                  <div class="card text-center">
-                    <div class="card-body">
+                <div class="card text-center">
+                  <div class="card-body">
                       <i class="icofont-university" style="font-size:50px;"></i>
-                      <h5 class="card-header text-center">Annaully Plan</h5>
-                          <ul style="list-style-type: none;">
-                            <br>
-                              <li><i class="icofont icofont-users"></i>&nbsp;Number of Students: <span id="min">0</span> - <span id="max">200</span></li>
-                              <br>
-                              <li><i class="icofont icofont-money"></i>&nbsp;Amount: <span id="amount">300,000 FRW</span></li>
-                          </ul>
-                          <input type="range" id="student-progress" min="0" max="3000" value="500">
-                          
-                    </div>
-                    <div class="card-body">
-                          <a class="btn btn-primary" href="#">Choose</a>
-                    </div>
-                  </div>                  
+                      <h5 class="card-header text-center">Annually Plan</h5>
+                      <ul style="list-style-type: none;">
+                          <br>
+                          <li><i class="icofont icofont-users"></i>&nbsp;Number of Students: <span id="min-annually">0</span> - <span id="max-annually">200</span></li>
+                          <br>
+                          <li><i class="icofont icofont-money"></i>&nbsp;Amount: <span id="amount-annually">300,000 FRW</span></li>
+                      </ul>
+                      <input type="range" id="student-progress-annually" min="0" max="3000" value="500">
+                      <p id="output-annually"></p>
+                  </div>
+                  <div class="card-body">
+                      <a class="btn btn-primary" href="#" id="choose-annually">Choose</a>
+                  </div>
+              </div>                  
               </div>
               <div class="col-lg-1"></div>
           </div>   
@@ -86,41 +77,102 @@
       </div>
     </section>
 
-    <script type="text/javascript">
-    // Pricing ranges for monthly plan
+<script type="text/javascript">
+     const progressBarTermly = document.getElementById('student-progress-termly');
+      const minDisplayTermly = document.getElementById('min-termly');
+      const maxDisplayTermly = document.getElementById('max-termly');
+      const amountDisplayTermly = document.getElementById('amount-termly');
+      const chooseButtonTermly = document.getElementById('choose-termly');
 
-    const pricingRangesMonthly = [
-      <?php foreach ($price_range as $data): ?>
-        { min: 0, max: 200, price: 100000 },
-          { min: 201, max: 450, price: 200000 },
-          { min: 451, max: 500, price: 300000 },
-          { min: 501, max: 600, price: 320000 },
-          { min: 601, max: 700, price: 420000 },
-          { min: 701, max: 800, price: 520000 },
-          { min: 801, max: 900, price: 620000 },
-          { min: 901, max: 1000, price: 720000 },
-          { min: 1001, max: 1100, price: 820000 },
-          { min: 1101, max: 1200, price: 920000 },
-          { min: 1201, max: 1300, price: 1000000 },
-          { min: 1301, max: 1400, price: 1200000 },
-      <?php endforeach ?>
-        
-        // Add more ranges as needed
+      const pricingRangesTermly = [
+          { min: 0, max: 200, price: 300000 },
+          { min: 201, max: 450, price: 350000 },
+          { min: 451, max: 600, price: 400000 },
+          { min: 601, max: 800, price: 450000 },
+          { min: 801, max: 1000, price: 500000 },
+          { min: 1001, max: 1200, price: 550000 },
+          { min: 1201, max: 1400, price: 600000 },
+          { min: 1401, max: 1600, price: 650000 },
+          { min: 1601, max: 1800, price: 700000 },
+          { min: 1801, max: 2000, price: 750000 },
+          { min: 2001, max: 2200, price: 800000 },
+          { min: 2201, max: 2400, price: 850000 },
+          { min: 2401, max: 2600, price: 900000 },
+          { min: 2601, max: 2800, price: 950000 },
+          { min: 2801, max: 3000, price: 1000000 }
+      ];
+
+      function getPriceTermly(students) {
+          let price = 0;
+          let minRange = 0;
+          let maxRange = 0;
+
+          for (const range of pricingRangesTermly) {
+              if (students >= range.min && students <= range.max) {
+                  price = range.price;
+                  minRange = range.min;
+                  maxRange = range.max;
+                  break;
+              }
+          }
+
+          if (price === 0) {
+              price = "Pricing not available";
+              minRange = 0;
+              maxRange = 3000;
+          }
+
+          return { price, minRange, maxRange };
+      }
+
+      function updateAmountTermly() {
+          const students = parseInt(progressBarTermly.value);
+          const { price, minRange, maxRange } = getPriceTermly(students);
+
+          minDisplayTermly.textContent = minRange;
+          maxDisplayTermly.textContent = maxRange;
+          amountDisplayTermly.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
+
+          // Update the button link with the dynamically generated values
+          chooseButtonTermly.href = `/127.0.0.1:8000/${minRange}-${maxRange}/amount/${price}`;
+      }
+
+      // Initialize the display
+      updateAmountTermly();
+
+      // Add event listener to update the display when the progress bar changes
+      progressBarTermly.addEventListener('input', updateAmountTermly);
+    //======================================================================
+    const progressBarAnnually = document.getElementById('student-progress-annually');
+    const minDisplayAnnually = document.getElementById('min-annually');
+    const maxDisplayAnnually = document.getElementById('max-annually');
+    const amountDisplayAnnually = document.getElementById('amount-annually');
+    const chooseButtonAnnually = document.getElementById('choose-annually');
+
+    const pricingRangesAnnually = [
+        { min: 0, max: 200, price: 300000 },
+        { min: 201, max: 450, price: 350000 },
+        { min: 451, max: 600, price: 400000 },
+        { min: 601, max: 800, price: 450000 },
+        { min: 801, max: 1000, price: 500000 },
+        { min: 1001, max: 1200, price: 550000 },
+        { min: 1201, max: 1400, price: 600000 },
+        { min: 1401, max: 1600, price: 650000 },
+        { min: 1601, max: 1800, price: 700000 },
+        { min: 1801, max: 2000, price: 750000 },
+        { min: 2001, max: 2200, price: 800000 },
+        { min: 2201, max: 2400, price: 850000 },
+        { min: 2401, max: 2600, price: 900000 },
+        { min: 2601, max: 2800, price: 950000 },
+        { min: 2801, max: 3000, price: 1000000 }
     ];
 
-    // Get HTML elements
-    const progressBar = document.getElementById('student-progress');
-    const minDisplay = document.getElementById('min');
-    const maxDisplay = document.getElementById('max');
-    const amountDisplay = document.getElementById('amount');
-
-    // Function to get the price based on student count and update range
-    function getPrice(students) {
+    function getPriceAnnually(students) {
         let price = 0;
         let minRange = 0;
         let maxRange = 0;
 
-        for (const range of pricingRangesMonthly) {
+        for (const range of pricingRangesAnnually) {
             if (students >= range.min && students <= range.max) {
                 price = range.price;
                 minRange = range.min;
@@ -128,33 +180,33 @@
                 break;
             }
         }
-        
-        // Optionally handle cases where students are out of defined ranges
+
         if (price === 0) {
             price = "Pricing not available";
             minRange = 0;
-            maxRange = 3000; // Default max range
+            maxRange = 3000;
         }
 
         return { price, minRange, maxRange };
     }
 
-    // Function to update the displayed amount and ranges based on the number of students
-    function updateAmount() {
-        const students = parseInt(progressBar.value);
-        const { price, minRange, maxRange } = getPrice(students);
-        
-        minDisplay.textContent = minRange;
-        maxDisplay.textContent = maxRange;
-        amountDisplay.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
+    function updateAmountAnnually() {
+        const students = parseInt(progressBarAnnually.value);
+        const { price, minRange, maxRange } = getPriceAnnually(students);
+
+        minDisplayAnnually.textContent = minRange;
+        maxDisplayAnnually.textContent = maxRange;
+        amountDisplayAnnually.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
+
+        // Update the button link with the dynamically generated values
+        chooseButtonAnnually.href = `/127.0.0.1:8000/${minRange}-${maxRange}/amount/${price}`;
     }
 
     // Initialize the display
-    updateAmount();
+    updateAmountAnnually();
 
     // Add event listener to update the display when the progress bar changes
-    progressBar.addEventListener('input', updateAmount);
-
-  </script>
+    progressBarAnnually.addEventListener('input', updateAmountAnnually);
+</script>
 
 @endsection
