@@ -270,6 +270,16 @@ class CustomerController extends Controller
         return redirect()->route('school.open', ['school_id' => $school_id]);
     }
 
+    public function choose_payment($student_range,$amount){
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.choose_payment', [
+            'students_range' => $student_range,
+            'amount' => $amount,
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
+    }
+
     public function logout(){
         // Check which guard is currently authenticated
         if (Auth::guard('customer')->check()) {

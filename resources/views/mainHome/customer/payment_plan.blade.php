@@ -85,21 +85,34 @@
       const chooseButtonTermly = document.getElementById('choose-termly');
 
       const pricingRangesTermly = [
-          { min: 0, max: 200, price: 300000 },
-          { min: 201, max: 450, price: 350000 },
-          { min: 451, max: 600, price: 400000 },
-          { min: 601, max: 800, price: 450000 },
-          { min: 801, max: 1000, price: 500000 },
-          { min: 1001, max: 1200, price: 550000 },
-          { min: 1201, max: 1400, price: 600000 },
-          { min: 1401, max: 1600, price: 650000 },
-          { min: 1601, max: 1800, price: 700000 },
-          { min: 1801, max: 2000, price: 750000 },
-          { min: 2001, max: 2200, price: 800000 },
-          { min: 2201, max: 2400, price: 850000 },
-          { min: 2401, max: 2600, price: 900000 },
-          { min: 2601, max: 2800, price: 950000 },
-          { min: 2801, max: 3000, price: 1000000 }
+          { min: 0, max: 200, price: 100000 },
+          { min: 201, max: 450, price: 200000 },
+          { min: 451, max: 500, price: 300000 },
+          { min: 501, max: 600, price: 320000 },
+          { min: 601, max: 700, price: 420000 },
+          { min: 701, max: 800, price: 520000 },
+          { min: 801, max: 900, price: 620000 },
+          { min: 901, max: 1000, price: 720000 },
+          { min: 1001, max: 1100, price: 820000 },
+          { min: 1101, max: 1200, price: 920000 },
+          { min: 1201, max: 1300, price: 1000000 },
+          { min: 1301, max: 1400, price: 1200000 },
+          { min: 1401, max: 1500, price: 1300000 },
+          { min: 1501, max: 1600, price: 1400000 },
+          { min: 1601, max: 1700, price: 1500000 },
+          { min: 1701, max: 1800, price: 1600000 },
+          { min: 1801, max: 1900, price: 1700000 },
+          { min: 1901, max: 2000, price: 1800000 },
+          { min: 2001, max: 2100, price: 1900000 },
+          { min: 2101, max: 2200, price: 2000000 },
+          { min: 2201, max: 2300, price: 2100000 },
+          { min: 2301, max: 2400, price: 2200000 },
+          { min: 2401, max: 2500, price: 2300000 },
+          { min: 2501, max: 2600, price: 2400000 },
+          { min: 2601, max: 2700, price: 2500000 },
+          { min: 2701, max: 2800, price: 2600000 },
+          { min: 2801, max: 2900, price: 2700000 },
+          { min: 2901, max: 3000, price: 2800000 }
       ];
 
       function getPriceTermly(students) {
@@ -134,7 +147,7 @@
           amountDisplayTermly.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
 
           // Update the button link with the dynamically generated values
-          chooseButtonTermly.href = `/127.0.0.1:8000/${minRange}-${maxRange}/amount/${price}`;
+          chooseButtonTermly.href = `/customer/choose_payment/${minRange}-${maxRange}/${price}`;
       }
 
       // Initialize the display
@@ -151,20 +164,33 @@
 
     const pricingRangesAnnually = [
         { min: 0, max: 200, price: 300000 },
-        { min: 201, max: 450, price: 350000 },
-        { min: 451, max: 600, price: 400000 },
-        { min: 601, max: 800, price: 450000 },
-        { min: 801, max: 1000, price: 500000 },
-        { min: 1001, max: 1200, price: 550000 },
-        { min: 1201, max: 1400, price: 600000 },
-        { min: 1401, max: 1600, price: 650000 },
-        { min: 1601, max: 1800, price: 700000 },
-        { min: 1801, max: 2000, price: 750000 },
-        { min: 2001, max: 2200, price: 800000 },
-        { min: 2201, max: 2400, price: 850000 },
-        { min: 2401, max: 2600, price: 900000 },
-        { min: 2601, max: 2800, price: 950000 },
-        { min: 2801, max: 3000, price: 1000000 }
+        { min: 201, max: 450, price: 400000 },
+        { min: 451, max: 500, price: 500000 },
+        { min: 501, max: 600, price: 520000 },
+        { min: 601, max: 700, price: 620000 },
+        { min: 701, max: 800, price: 720000 },
+        { min: 801, max: 900, price: 820000 },
+        { min: 901, max: 1000, price: 920000 },
+        { min: 1001, max: 1100, price: 1020000 },
+        { min: 1101, max: 1200, price: 1120000 },
+        { min: 1201, max: 1300, price: 1220000 },
+        { min: 1301, max: 1400, price: 1320000 },
+        { min: 1401, max: 1500, price: 1420000 },
+        { min: 1501, max: 1600, price: 1520000 },
+        { min: 1601, max: 1700, price: 1620000 },
+        { min: 1701, max: 1800, price: 1720000 },
+        { min: 1801, max: 1900, price: 1820000 },
+        { min: 1901, max: 2000, price: 1920000 },
+        { min: 2001, max: 2100, price: 2020000 },
+        { min: 2101, max: 2200, price: 2120000 },
+        { min: 2201, max: 2300, price: 2220000 },
+        { min: 2301, max: 2400, price: 2320000 },
+        { min: 2401, max: 2500, price: 2420000 },
+        { min: 2501, max: 2600, price: 2520000 },
+        { min: 2601, max: 2700, price: 2620000 },
+        { min: 2701, max: 2800, price: 2720000 },
+        { min: 2801, max: 2900, price: 2820000 },
+        { min: 2901, max: 3000, price: 2920000 }
     ];
 
     function getPriceAnnually(students) {
@@ -199,7 +225,7 @@
         amountDisplayAnnually.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
 
         // Update the button link with the dynamically generated values
-        chooseButtonAnnually.href = `/127.0.0.1:8000/${minRange}-${maxRange}/amount/${price}`;
+        chooseButtonAnnually.href = `/customer/choose_payment/${minRange}-${maxRange}/${price}`;
     }
 
     // Initialize the display

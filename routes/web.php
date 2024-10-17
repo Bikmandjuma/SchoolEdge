@@ -148,6 +148,8 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
     Route::get('payment_plan', [CustomerController::class, 'customer_payment_plan'])->name('main.customer.payment_plan');
     Route::get('open_app/{id}', [CustomerController::class, 'customer_open_app'])->name('main.customer.open_app');
     Route::get('ask_question', [CustomerController::class, 'customer_ask_question'])->name('main.customer.ask_question');
+    Route::get('choose_payment/{student_range}/{amount}', [CustomerController::class, 'choose_payment'])->name('main.choose_payment');
+
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
 //end of customer block's route
