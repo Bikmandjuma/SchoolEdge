@@ -779,4 +779,11 @@ class mainAuthController extends Controller
         }
     }
 
+
+    //Create price
+    public function shareHolder_create_price(){
+        return view('mainHome.shareHolder.createPricing');
+    }
+
+
 }

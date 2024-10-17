@@ -270,6 +270,20 @@
         </ul>
       </li><!-- End Components Nav -->
 
+      <!--start of manage pricing -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#manage_price" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-coins"></i><span>Manage pricing</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="manage_price" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('main.createPrice') }}" >
+              <i class="bi bi-circle"></i><span>Create price</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End manage -->
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#employee" data-bs-toggle="collapse" href="#">
           <i class="fas fa-users"></i><span>Employee</span><i class="bi bi-chevron-down ms-auto"></i>

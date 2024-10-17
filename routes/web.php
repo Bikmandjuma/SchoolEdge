@@ -99,6 +99,9 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::post('submit_edit_customer_info/{id}',[mainAuthController::class,'edit_customer_info'])->name('main.editCustomerInfo');
     Route::post('submit_edit_customer_info',[mainAuthController::class,'shareHolder_update_logo'])->name('main.shareHolder.update.logo');
+
+    Route::get('create_price',[mainAuthController::class,'shareHolder_create_price'])->name('main.createPrice');
+
 });
 //end mainController panel
 

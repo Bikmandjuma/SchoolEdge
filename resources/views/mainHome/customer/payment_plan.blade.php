@@ -39,9 +39,9 @@
                       <h5 class="card-header text-center">Termly Plan</h5>
                       <ul style="list-style-type: none;">
                           <br>
-                          <li><i class="icofont icofont-users"></i>&nbsp;Number of Students: <span id="min-termly">0</span> - <span id="max-termly">200</span></li>
+                          <li><i class="icofont icofont-users"></i>&nbsp;Students range: <span id="min-termly">0</span> - <span id="max-termly">200</span></li>
                           <br>
-                          <li><i class="icofont icofont-money"></i>&nbsp;Amount: <span id="amount-termly">300,000 FRW</span></li>
+                          <li><i class="icofont icofont-money"></i>&nbsp;Amount per term: <span id="amount-termly">300,000 FRW</span></li>
                       </ul>
                       <input type="range" id="student-progress-termly" min="0" max="3000" value="500">
                       <p id="output-termly"></p>
@@ -58,9 +58,9 @@
                       <h5 class="card-header text-center">Annually Plan</h5>
                       <ul style="list-style-type: none;">
                           <br>
-                          <li><i class="icofont icofont-users"></i>&nbsp;Number of Students: <span id="min-annually">0</span> - <span id="max-annually">200</span></li>
+                          <li><i class="icofont icofont-users"></i>&nbsp;Students range : <span id="min-annually">0</span> - <span id="max-annually">200</span></li>
                           <br>
-                          <li><i class="icofont icofont-money"></i>&nbsp;Amount: <span id="amount-annually">300,000 FRW</span></li>
+                          <li><i class="icofont icofont-money"></i>&nbsp;Amount per year: <span id="amount-annually">300,000 FRW</span></li>
                       </ul>
                       <input type="range" id="student-progress-annually" min="0" max="3000" value="500">
                       <p id="output-annually"></p>
