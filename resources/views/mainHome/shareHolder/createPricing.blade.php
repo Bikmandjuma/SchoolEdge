@@ -53,8 +53,8 @@
                   <h5 class="modal-title">Add new payment plan</h5>
                 </div>
                 <div class="modal-body align-items-center justify-content-center" style="display: flex; flex-direction: column; align-items:center;">
-                        <form class="form-group text-center" action="" method="POST">
-                          <input type="text" name="plan_name" placeholder="Enter payment plan" class="form-control">
+                        <form class="form-group text-center" action="{{ route('main.add_new_payment_plan') }}" method="POST">
+                          <input type="text" name="plan_name" placeholder="Enter payment plan" class="form-control" required>
                           <button class="btn btn-primary mt-2"><i class="fa fa-plus"></i>&nbspAdd</button>
                         </form>
                 </div>

@@ -102,6 +102,8 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::get('create_price',[mainAuthController::class,'shareHolder_create_price'])->name('main.createPrice');
 
+    Route::post('add_new_payment_plan',[mainAuthController::class,'shareHolder_add_new_payment_plan'])->name('main.add_new_payment_plan');
+
 });
 //end mainController panel
 

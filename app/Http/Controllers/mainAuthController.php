@@ -785,5 +785,18 @@ class mainAuthController extends Controller
         return view('mainHome.shareHolder.createPricing');
     }
 
+    //main.add_new_payment_plan
+    public function shareHolder_add_new_payment_plan(Request $request){
+        $request->validate([
+            'plan_name' => 'required|string|unique:period_prices,period'
+        ]);
+
+        period_price::create([
+            'period' => $request->plan_name,
+        ]);
+
+        return redirect()->back()->with('info','new payment plan added !');
+    }
+
 
 }
