@@ -29,6 +29,7 @@
 					</div>
 				</div>
 				<br>
+				<div class="card" style="box-shadow:0px 4px 8px 0px rgba(0, 0, 0, 0.4);padding: 10px;">
 				<div class="row">
 					<div class="col-lg-4 col-12">
 						<h5>Comprehensive Student Information Management</h5>
@@ -55,7 +56,7 @@
 						<li class="mt-2"><b class="text-primary">Early intervention alerts:</b> Receive automated alerts that allow teachers and administrators to intervene early and provide personalized support to help students stay on track and succeed.</li>
 					</div>
 				</div>
-
+				</div>
 				<br>
 				<div class="row">
 					<div class="col-lg-4 col-12">
