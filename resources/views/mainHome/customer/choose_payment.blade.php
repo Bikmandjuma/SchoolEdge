@@ -27,15 +27,15 @@
 
                       <div class="row">
                           <div class="col-xl-4 col-sm-6">
-                            <img src="{{ URL::to('/') }}/mainHomePage/img/mtn.png" style="margin-top:10px;height: 50px;width: 120px;" onclick="window.location.href='{{ route("") }}'">
+                            <img src="{{ URL::to('/') }}/mainHomePage/img/mtn.png" style="margin-top:10px;height: 50px;width: 120px;box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);">
                           </div>
 
                           <div class="col-xl-4 col-sm-6">
-                            <img src="https://easyaffiliate.com/wp-content/uploads/2017/10/PayPal@2x.png" style="margin-top:10px;height: 45px;width: 120px;">
+                            <img src="https://easyaffiliate.com/wp-content/uploads/2017/10/PayPal@2x.png" style="margin-top:10px;height: 45px;width: 120px;box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);">
                           </div>
 
                           <div class="col-xl-4 col-sm-6">
-                            <img src="{{ URL::to('/') }}/mainHomePage/img/visa-mastercard-logos.jpg" style="margin-top:10px;height: 50px;width: 120px;">
+                            <img src="{{ URL::to('/') }}/mainHomePage/img/visa-mastercard-logos.jpg" style="margin-top:10px;height: 50px;width: 120px;box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);" onclick="window.location.href='{{ route("main.visa_payment_form", ["student_range" => $student_range, "amount" => $amount]) }}'" alt="visa card" title="pay by visa card">
                           </div>
                       </div>
 

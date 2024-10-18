@@ -273,7 +273,17 @@ class CustomerController extends Controller
     public function choose_payment($student_range,$amount){
         $terms_conditions = self::display_terms_conditions();
         return view('mainHome.customer.choose_payment', [
-            'students_range' => $student_range,
+            'student_range' => $student_range,
+            'amount' => $amount,
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
+    }
+
+    public function visa_payment_form($student_range,$amount){
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.visa_payment_form', [
+            'student_range' => $student_range,
             'amount' => $amount,
             'terms' => $terms_conditions['terms'],
             'count_terms' => $terms_conditions['count_terms']

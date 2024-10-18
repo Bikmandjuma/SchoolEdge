@@ -150,6 +150,8 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
     Route::get('ask_question', [CustomerController::class, 'customer_ask_question'])->name('main.customer.ask_question');
     Route::get('choose_payment/{student_range}/{amount}', [CustomerController::class, 'choose_payment'])->name('main.choose_payment');
 
+    Route::get('visa_payment_form/{student_range}/{amount}', [CustomerController::class, 'visa_payment_form'])->name('main.visa_payment_form');
+
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
 //end of customer block's route
