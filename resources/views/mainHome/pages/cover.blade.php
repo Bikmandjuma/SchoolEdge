@@ -70,12 +70,12 @@
         <div class="row">
             <div class="col-lg-6 col-md-5 col-12">
                 <!-- Contact -->
-                <ul class="top-link" style="list-style: none; padding: 0; margin: 0;"><!-- 
-                    <li style="display: inline; margin-right: 10px;"><a href="#about" style="color: #fff;"><i class="fa-solid fa-facebook"></i>&nbsp;</a></li>
-                    <li style="display: inline; margin-right: 10px;"><a href="#services" style="color: #fff;"><i class="fa fa-whatsapp"></i>&nbsp;</a></li> -->
-                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-phone"></i>&nbsp;</a></li><!-- 
-                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-instagram"></i>&nbsp;</a></li>
-                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-twitter"></i>&nbsp;</a></li> -->
+                <ul class="top-link" style="list-style: none; padding: 0; margin: 0;"> 
+                    <li style="display: inline; margin-right: 10px;"><a href="#about" style="color: #fff;"><i class="icofont icofont-facebook"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#services" style="color: #fff;"><i class="icofont icofont-whatsapp"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-phone"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="icofont icofont-instagram"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="icofont icofont-twitter"></i>&nbsp;</a></li>
                     <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-envelope"></i>&nbsp;</a></li>
                 </ul>
                 <!-- End Contact -->

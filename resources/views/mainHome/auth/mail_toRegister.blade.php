@@ -62,7 +62,7 @@
     <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top:-50px;">
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
-                <h2 class="text-2xl font-bold text-center text-gray-800">Registration here</h2>
+                <h2 class="text-2xl font-bold text-center text-gray-800">School Registration</h2>
                 
                 @if ($errors->any())
                     <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;color: red;  margin-top: 20px;color: #e74c3c;font-size: 14px;" id="error_msg">
