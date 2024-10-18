@@ -287,7 +287,7 @@
 									</div>
 								</div>
 								<!--/ End Video Animation -->
-								<a href="https://www.youtube.com/watch?v=GdgIvxd49lc" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
+								<a href="https://about-bikman-ntiruhungwa.my.canva.site/dagt7r9e9-g" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
 							</div>
 						</div>
 						<!-- End Choose Rights -->
