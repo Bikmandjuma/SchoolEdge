@@ -376,63 +376,14 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="section-title">
-							<h2>Terms and conditions</h2>
-							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#">
+						<!-- <div class="section-title"> -->
+							<h2 class="text-center">Terms and conditions</h2>
+							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="margin-top:5px; display: block; margin: 0 auto;">
 							<p>The SchoolEdge Terms and Conditions outline the rules and guidelines for using our school management platform. By subscribing to SchoolEdge, schools agree to comply with our policies, including payment terms, data privacy standards, and acceptable usage protocols. The document details responsibilities for both SchoolEdge and the customer, covering areas such as access management, user obligations, data security, payment requirements, and customer support. It also explains the conditions for terminating the service and how disputes are governed. This agreement ensures a transparent and secure partnership between SchoolEdge and its users</p>
-						</div>
+						<!-- </div> -->
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="fa fa-money"></i>
-							<h4><a href="service-details.html">Payment terms</a></h4>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="fa-solid fa-bell"></i>
-							<h4><a href="service-details.html">Services updates</a></h4>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="fa-solid fa-shield-alt"></i>
-							<h4><a href="service-details.html">Security & privacy</a></h4>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="fa-solid fa-list-check"></i>
-							<h4><a href="service-details.html">User responsibilities</a></h4>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="fa-solid fa-times"></i>
-							<h4><a href="service-details.html">Terminations</a></h4>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-								<i class="fa-solid fa-headset"></i>
-							<h4><a href="service-details.html">Customer support</a></h4>
-						</div>
-						<!-- End Single Service -->
-					</div>
-				</div>
+				
 			</div>
 		</section>
 		<!--/ End service -->

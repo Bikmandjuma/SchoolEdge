@@ -19,18 +19,25 @@
 	</div>
 	<!-- End Breadcrumbs -->
 
-	<!-- Start Feautes -->
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="margin-top:5px; display: block; margin: 0 auto;">
-			<div class="card" style="box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);padding: 8px;">
-				<p>SchoolEdge is an innovative school management system designed to transform education. Our platform empowers schools with advanced tools to streamline administrative tasks, track student progress, and enhance communication, ensuring smooth and efficient management. With a user-friendly interface, real-time analytics, and comprehensive reporting, SchoolEdge helps schools identify and support at-risk students, boosting overall performance. We prioritize transparency, reliability, and exceptional customer support, offering a system that promotes accountability and efficiency. Our dedicated team delivers customizable solutions tailored to each school’s unique needs, providing an affordable and modern approach to school management, making SchoolEdge the trusted choice for educational excellence.</p>		        
+		<section class="Feautes section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+					    <h3 class="mt-3">Transforming Education with Innovative Management</h3>
+					    <img src="{{URL::to('/')}}/mainHomePage/img/section-img.png" alt="#" style="margin-top:5px; display: block; margin: 0 auto;" class="img-fluid">
+					</div>
+				</div>
+				<!-- <br> -->
+				<div class="row">
+					<div class="col-lg-12 col-12">
+							<p class="mt-2">
+								SchoolEdge is an innovative school management system designed to revolutionize education management. Our platform equips schools with cutting-edge tools to streamline administrative tasks, monitor student progress, and improve communication, ensuring a smooth and efficient management experience. Featuring a user-friendly interface, real-time analytics, and detailed reporting capabilities, SchoolEdge enables schools to identify and support at-risk students, enhancing overall performance. We prioritize transparency, reliability, and exceptional customer support, providing a solution that fosters accountability and efficiency. Our dedicated team delivers customizable solutions tailored to each school’s unique requirements, offering an affordable, modern approach to school management. Choose SchoolEdge for trusted, exceptional educational excellence.
+							</p>
+					
+					</div>
+					
+				</div>
 			</div>
-		</div>
-		<div class="col-md-1"></div>
-	</div>
-
-	<br>
+		</section>
 	
 @endsection
