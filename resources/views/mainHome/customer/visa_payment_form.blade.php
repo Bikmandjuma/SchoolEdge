@@ -131,74 +131,77 @@
       }
 
     </style>
-    <div class="pagetitle">
-      <h1>Payment by Visa</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Student_range {{ $student_range }}</a></li>
-          <li class="breadcrumb-item active">Amount : {{ $amount }}</li>
-        </ol>
-      </nav>
-    </div>
-
-    <script src="https://js.stripe.com/v3/"></script>
-
-    <form action="//httpbin.org/post" method="POST">
-      <input type="hidden" name="token" />
-      <div class="group">
-        <label>
-          <span>Card</span>
-          <div id="card-element" class="field"></div>
-        </label>
-      </div>
-      <div class="group">
-        <label>
-          <span>First name</span>
-          <input id="first-name" name="first-name" class="field" placeholder="Elyse" />
-        </label>
-        <label>
-          <span>Last name</span>
-          <input id="last-name" name="last-name" class="field" placeholder="Niyonkuru" />
-        </label>
-      </div>
-      <div class="group">
-        <label>
-          <span>Address</span>
-          <input id="address-line1" name="address_line1" class="field" placeholder="KG 576 St ave 25" />
-        </label>
-        <label>
-          <span>Address (cont.)</span>
-          <input id="address-line2" name="address_line2" class="field" placeholder="" />
-        </label>
-        <label>
-          <span>City</span>
-          <input id="address-city" name="address_city" class="field" placeholder="Kigali" />
-        </label>
-        <label>
-          <span>State</span>
-          <input id="address-state" name="address_state" class="field" placeholder="Rwanda" />
-        </label>
-        <label>
-          <span>ZIP</span>
-          <input id="address-zip" name="address_zip" class="field" placeholder="00000" />
-        </label>
-        <label>
-          <span>Country</span>
-          <select name="address_country" id="address-country" class="field">
-            <option value="RW" selected>Rwanda</option>
-            <!-- <option value="SG" selected>Singapore</option> -->
-          </select>
-        </label>
-      </div>
-      <button type="submit">Pay {{ number_format($amount) }} Frw</button>
-      <div class="outcome">
-        <div class="error"></div>
-        <div class="success">
-          Success! Your Stripe token is <span class="token"></span>
+    <div class="row">
+      <div class="col-lg-12 col-sm-12">
+        <div class="pagetitle">
+          <h1>Payment by Visa</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Student_range {{ $student_range }}</a></li>
+              <li class="breadcrumb-item active">Amount : {{ $amount }}</li>
+            </ol>
+          </nav>
         </div>
-      </div>
-    </form>
 
+        <script src="https://js.stripe.com/v3/"></script>
+
+        <form action="//httpbin.org/post" method="POST">
+          <input type="hidden" name="token" />
+          <div class="group">
+            <label>
+              <span>Card</span>
+              <div id="card-element" class="field"></div>
+            </label>
+          </div>
+          <div class="group">
+            <label>
+              <span>First name</span>
+              <input id="first-name" name="first-name" class="field" placeholder="Elyse" />
+            </label>
+            <label>
+              <span>Last name</span>
+              <input id="last-name" name="last-name" class="field" placeholder="Niyonkuru" />
+            </label>
+          </div>
+          <div class="group">
+            <label>
+              <span>Address</span>
+              <input id="address-line1" name="address_line1" class="field" placeholder="KG 576 St ave 25" />
+            </label>
+            <label>
+              <span>Address (cont.)</span>
+              <input id="address-line2" name="address_line2" class="field" placeholder="" />
+            </label>
+            <label>
+              <span>City</span>
+              <input id="address-city" name="address_city" class="field" placeholder="Kigali" />
+            </label>
+            <label>
+              <span>State</span>
+              <input id="address-state" name="address_state" class="field" placeholder="Rwanda" />
+            </label>
+            <label>
+              <span>ZIP</span>
+              <input id="address-zip" name="address_zip" class="field" placeholder="00000" />
+            </label>
+            <label>
+              <span>Country</span>
+              <select name="address_country" id="address-country" class="field">
+                <option value="RW" selected>Rwanda</option>
+                <!-- <option value="SG" selected>Singapore</option> -->
+              </select>
+            </label>
+          </div>
+          <button type="submit">Pay {{ number_format($amount) }} Frw</button>
+          <div class="outcome">
+            <div class="error"></div>
+            <div class="success">
+              Success! Your Stripe token is <span class="token"></span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
     <script type="text/javascript">
       var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
       var elements = stripe.elements();
