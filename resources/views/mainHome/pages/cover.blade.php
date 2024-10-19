@@ -42,7 +42,35 @@
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/normalize.css">
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/style.css">
         <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/responsive.css">
-		
+		<style type="text/css">
+			@media (max-width: 654px) {
+	            body #login_form {
+	                margin-top: -30% !important; /* Increasing specificity */
+	            }
+	        }
+
+	        /* Very small phones */
+	        @media (max-width: 480px) {
+	            #login_form {
+	                margin-top: -30% !important; 
+	            }
+	        }
+
+	        /* Larger phones and small tablets */
+	        @media (max-width: 768px) {
+	            #login_form {
+	                margin-top: -30% !important; 
+	            }
+	        }
+
+	        /* Tablets */
+	        @media (max-width: 1024px) {
+	            #login_form {
+	                margin-top: -30% !important; 
+	            }
+	        }
+
+		</style>
     </head>
     <body>
 	

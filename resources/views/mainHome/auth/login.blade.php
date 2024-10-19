@@ -2,9 +2,7 @@
 @section('content')
 
     <style type="text/css">
-        body{
-            overflow:hidden;
-        }
+        
         .error-message {
             color: #e74c3c;
             font-size: 14px;
@@ -60,9 +58,39 @@
         #footer{
             display: {{ $hideFooter ? 'none' : 'block'}};
         }
+
+        @media (max-width: 654px) {
+            body #login_form {
+                margin-top: -30% !important; /* Increasing specificity */
+            }
+        }
+
+        /* Very small phones */
+        @media (max-width: 480px) {
+            #login_form {
+                margin-top: -30% !important; 
+            }
+        }
+
+        /* Larger phones and small tablets */
+        @media (max-width: 768px) {
+            #login_form {
+                margin-top: -30% !important; 
+            }
+        }
+
+        /* Tablets */
+        @media (max-width: 1024px) {
+            #login_form {
+                margin-top: -30% !important; 
+            }
+        }
+
+
     </style>
 
-    <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top:-50px;">
+        <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top: -50px;" id="login_form">
+
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Login here</h2>
@@ -140,5 +168,21 @@
                 }
             }, true);
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login_form');
+            if (window.innerWidth <= 654) {
+                loginForm.style.marginTop = '-50px';
+            }
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 654) {
+                    loginForm.style.marginTop = '-50px';
+                } else {
+                    loginForm.style.marginTop = '0px'; // Reset for larger screens if needed
+                }
+            });
+        });
+
+
     </script>
 @endsection
