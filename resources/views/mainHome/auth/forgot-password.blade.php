@@ -75,7 +75,7 @@
 
     </style>
 
-    <div class="flex items-center justify-center min-h-screen bg-gray-100"  style="margin-top:-100px;">
+    <div class="flex items-center justify-center min-h-screen bg-gray-100"  style="margin-top:-200px;" id="login_form">
         <div class="w-full max-w-md">
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Forgot Password</h2>
