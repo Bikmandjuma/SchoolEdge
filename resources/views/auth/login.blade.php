@@ -79,7 +79,6 @@
                             <label for="username">Enter username</label>
                             <div class="error-message" id="username-error"></div>
                         </div>
-                        
 
                         <div style="margin-top:10px;"  class="form-group">
                             <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password" >

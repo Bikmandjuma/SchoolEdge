@@ -303,9 +303,9 @@
             data-bs-target="#terms_cond_model" data-bs-toggle="modal"
         @endif
       >
-        <a class="nav-link collapsed" data-bs-target="#support" data-bs-toggle="collapse" href="#">
+        <!-- <a class="nav-link collapsed" data-bs-target="#support" data-bs-toggle="collapse" href="#">
           <i class="fa fa-question"></i><span>Ask question</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
+        </a> -->
         <ul id="support" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('main.customer.ask_question') }}" >

@@ -101,7 +101,7 @@
                 <ul class="top-link" style="list-style: none; padding: 0; margin: 0;"> 
                     <li style="display: inline; margin-right: 10px;"><a href="#about" style="color: #fff;"><i class="icofont icofont-facebook"></i>&nbsp;</a></li>
                     <li style="display: inline; margin-right: 10px;"><a href="#services" style="color: #fff;"><i class="icofont icofont-whatsapp"></i>&nbsp;</a></li>
-                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-phone"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="icofont icofont-linkedin"></i>&nbsp;</a></li>
                     <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="icofont icofont-instagram"></i>&nbsp;</a></li>
                     <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="icofont icofont-twitter"></i>&nbsp;</a></li>
                     <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-envelope"></i>&nbsp;</a></li>
@@ -197,10 +197,11 @@
 								<!-- Social -->
 								<ul class="social">
 									<li><a href="#"><i class="icofont-facebook"></i></a></li>
-									<li><a href="#"><i class="icofont-google-plus"></i></a></li>
+									<li><a href="#"><i class="icofont-instagram"></i></a></li>
 									<li><a href="#"><i class="icofont-twitter"></i></a></li>
-									<li><a href="#"><i class="icofont-vimeo"></i></a></li>
-									<li><a href="#"><i class="icofont-pinterest"></i></a></li>
+									<li><a href="#"><i class="icofont-linkedin"></i></a></li>
+									<li><a href="#"><i class="icofont-whatsapp"></i></a></li>
+									<!-- <li><a href="#"><i class="icofont-envelope"></i></a></li> -->
 								</ul>
 								<!-- End Social -->
 							</div>

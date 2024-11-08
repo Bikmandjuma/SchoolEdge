@@ -107,7 +107,7 @@
 										<i class="icofont-ui-clock"></i>
 									</div>
 									<div class="single-content">
-										<span>Time is proportional to work</span>
+										<!-- <span>Time is proportional to work</span> -->
 										<h4>Opening Hours</h4>
 										<ul class="time-sidual">
 											<li class="day">Monday <span>00.00 am - 23.59 pm</span></li>
