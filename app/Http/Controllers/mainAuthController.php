@@ -699,13 +699,32 @@ class mainAuthController extends Controller
 
     //edit customers info
     public function Customer_employee_student($id){
-        // Decrypt the ID
         $school_id = Crypt::decrypt($id);
 
-        // Retrieve the single school data based on the decrypted ID
-        $school_data = Customer::findOrFail($school_id); // Fetch a single school
+        $school_employees = SchoolEmployee::where('school_fk_id',$school_id)->get();
+        
+        $school_students = SchoolStudent::where('school_fk_id',$school_id)->get();
 
-        return view('mainHome.shareHolder.Customer_Employee_Student', compact('school_data'));
+        $school_employees_count=$school_employees->count();
+        $school_students_count=$school_students->count();
+
+        foreach ($school_employees as $data_count) {
+            if ($data_count->firstname == '' && $data_count->lastname == '') {
+                $school_employees_count = 0;
+            }else{
+                $school_employees_count;
+            }
+        }
+
+        $school_data = Customer::findOrFail($school_id);
+
+        return view('mainHome.shareHolder.Customer_Employee_Student', ['school_data' => $school_data,
+            'employees' => $school_employees,
+            'students' => $school_students,
+            'employees_count' => $school_employees_count,
+            'students_count' => $school_students_count,
+            'count' => 1
+        ]);
     }
 
     //edit customers info
