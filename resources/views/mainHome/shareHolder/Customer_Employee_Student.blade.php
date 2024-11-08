@@ -1,5 +1,6 @@
 @extends('mainHome.shareHolder.cover')
 @section('content')
+    
     <div class="pagetitle">
       <h1>School</h1>
       <nav>
@@ -25,9 +26,9 @@
                         <!-- Bordered Tabs -->
                         @include('mainHome.shareHolder.main_tabs_links_info')
                         
-                        <h5 class="mt-4 mb-4">School - Employees - Students</h5>
+                        <!-- <h5 class="mt-4 mb-4">School - Employees - Students</h5> -->
 
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs mt-2">
                             <li class="nav-item">
                                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#employee_tab">Employees</button>
                             </li>
@@ -51,4 +52,5 @@
             </div>
         </div>
     </section>
+
 @endsection
