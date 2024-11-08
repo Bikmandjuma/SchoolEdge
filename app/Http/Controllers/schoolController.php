@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Customer;
 use App\Models\UserRole;
 use App\Models\SchoolEmployee;
+use App\Models\SchoolStudent;
 
 class schoolController extends Controller
 {
@@ -289,7 +290,7 @@ class schoolController extends Controller
 
     }
 
-    public function  school_employee_add_new_role(Request $request,$school_id){
+    public function school_employee_add_new_role(Request $request,$school_id){
         // Retrieve the terms and conditions for the specific user
         $school_ids = $school_id;
         $school_data = Customer::findOrFail($school_ids);
@@ -447,6 +448,36 @@ class schoolController extends Controller
         // Redirect to login form
         return redirect()->route('school.login_home_page',Crypt::encrypt($school_id));
 
+    }
+
+    //students info
+    public function school_view_student($school_id){
+        $school_id = decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+        $school_students = SchoolStudent::where('school_fk_id',$school_id)->get();
+        $students_count = $school_students->count();
+
+        return view('Single_School.Users_acccount.Employee.view_student_info', [
+            'school_students' => $school_students,
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'students_count' => $students_count
+        ]);
+         
+    }
+
+    //add student form
+    public function school_add_student_form($school_id){
+        $school_id = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+
+        return view('Single_School.Users_acccount.Employee.add_student', [
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+        ]);
+   
     }
 
 }

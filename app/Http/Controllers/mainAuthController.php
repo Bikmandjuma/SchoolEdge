@@ -723,7 +723,8 @@ class mainAuthController extends Controller
             'students' => $school_students,
             'employees_count' => $school_employees_count,
             'students_count' => $school_students_count,
-            'count' => 1
+            'count_employees' => 1,
+            'count_students' => 1,
         ]);
     }
 

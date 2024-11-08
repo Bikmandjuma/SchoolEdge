@@ -65,7 +65,7 @@
                                         @else
                                               
                                               <tr>
-                                                <td>{{ $count++ }}</td>
+                                                <td>{{ $count_employees++ }}</td>
                                                 <td><img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ $data->image }}" width="40" height="40" style="border-radius: 50px;border: 1px solid gray;"> </td>
                                                 <td>{{ $data->firstname }}</td>
                                                 <td>{{ $data->lastname }}</td>
@@ -105,8 +105,8 @@
                                         @else
 
                                               <tr>
-                                                <td>{{ $count++ }}</td>
-                                                <td><img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $data->image }}" width="80" height="50px" style="border-radius: 50px;"> </td>
+                                                <td>{{ $count_students++ }}</td>
+                                                <td><img src="{{ URL::to('/') }}/mainHomePage/img/school/students/{{ $data->image }}" width="40" height="40" style="border-radius: 50px;"> </td>
                                                 <td>{{ $data->firstname }}</td>
                                                 <td>{{ $data->lastname }}</td>
                                                 <td>{{ $data->gender }}</td>
