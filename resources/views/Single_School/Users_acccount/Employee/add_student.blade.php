@@ -44,7 +44,7 @@
                                     <div class="my-3">
                                         <label class="form-label">Gender</label>
                                         <div class="input-group">
-                                            <input type="radio" name="gender" value="Male" required> Male
+                                            <input type="radio" name="gender" value="Male" required> Male&nbsp;&nbsp;
                                             <input type="radio" name="gender" value="Female"> Female
                                         </div>
                                     </div>
@@ -52,8 +52,9 @@
                                 <!-- Date of Birth -->
                                 <div class="col-md-4">
                                     <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Date of Birth</label>
-                                        <input type="date" name="dob" class="form-control" value="{{ old('dob') }}" required>
+                                        <label class="form-label">DoB yyyy-mm-dd</label>
+                                        <input type="text" id="dob" name="dob" class="form-control"  value="{{ old('dob') }}" required>
+                                        <span id="error_dob"></span>
                                     </div>
                                 </div>
                                 <!-- Province, District, Sector, Cell, Village -->
@@ -182,4 +183,38 @@
         document.getElementById('parent-info').style.display = "none";
         document.getElementById('student-info').style.display = "block";
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const dobInput = document.getElementById("dob");
+
+        // Listen for input changes and format the date
+        dobInput.addEventListener("input", function() {
+            // Remove any non-digit and non-hyphen characters
+            let value = dobInput.value.replace(/[^0-9-]/g, '');
+
+            // Automatically format as yyyy-mm-dd while typing
+            if (value.length >= 4 && value[4] !== '-') {
+                value = value.slice(0, 4) + '-' + value.slice(4);
+            }
+            if (value.length >= 7 && value[7] !== '-') {
+                value = value.slice(0, 7) + '-' + value.slice(7);
+            }
+
+            dobInput.value = value;
+        });
+
+        // Validate date format on form submission
+        dobInput.addEventListener("blur", function() {
+            const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+            if (!datePattern.test(dobInput.value)) {
+
+                var error = "Valid format is yyyy-mm-dd";
+                document.getElementById('error_dob').style.color = "red";
+                document.getElementById('error_dob').innerHTML = error;
+
+                dobInput.value = ""; // Clear the input if format is incorrect
+                dobInput.focus();
+            }
+        });
+    });
 </script>

@@ -455,7 +455,7 @@ class schoolController extends Controller
         $school_id = decrypt($school_id);
         $school_data = Customer::findOrFail($school_id);
         $school_students = SchoolStudent::where('school_fk_id',$school_id)->get();
-        $students_count = $school_students->count();
+        $students_count = collect($school_students)->count();
 
         return view('Single_School.Users_acccount.Employee.view_student_info', [
             'school_students' => $school_students,

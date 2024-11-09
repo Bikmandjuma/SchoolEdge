@@ -52,9 +52,9 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="{{ URL::to('/') }}/adminPanel/assets/img/profile_picture/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile"  style="width:150px;height:150px;">
+                        <img src="{{ URL::to('/') }}/adminPanel/assets/img/profile_picture/{{ auth()->guard('shareHolder')->user()->image }}" alt="Profile" style="border-radius:50%; width:150px;height:150px;box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);">
                         <div class="pt-2">
-                          <a href="#" id="profile_picture"  data-bs-toggle="modal" data-bs-target="#profile" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                          <a href="#" id="profile_picture"  data-bs-toggle="modal" data-bs-target="#profile" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-image"></i></a>
                         </div>
                       </div>
                     </div>
