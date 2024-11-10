@@ -1,6 +1,12 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 @section('content')
+<style type="text/css">
+	#permission_id:hover{
+		cursor: pointer;
+		color: black;
+	}
 
+</style>
 	<div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
@@ -50,9 +56,9 @@
 	                      </td>
 	                      <td class="align-middle text-center text-sm">
 
-	                        <span class="badge badge-sm bg-gradient-danger">Offline</span>
-	                      &nbsp;
-	                        <span class="badge badge-sm bg-gradient-success p-2" onclick="window.location.href='{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}'">Permission</span>
+	                        <!-- <span class="badge badge-sm bg-gradient-danger">Offline</span>
+	                      &nbsp; -->
+	                        <span id="permission_id" class="badge badge-sm bg-gradient-success p-2" onclick="window.location.href='{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}'">Permission</span>
 
 	                      </td>
 	                      

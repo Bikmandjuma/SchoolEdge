@@ -226,7 +226,7 @@
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="account" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              <li>
+              <!-- <li>
                 <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
                   <i class="fa fa-list-alt"></i><span class="ms-2">My info</span>
                 </a>
@@ -235,7 +235,7 @@
                 <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
                   <i class="fa fa-image"></i><span class="ms-2">Profile</span>
                 </a>
-              </li>
+              </li> -->
               <li>
                 <a class="dropdown-item nav-link-custom" data-bs-target="#logoutModal" data-bs-toggle="modal" href="#">
                   <i class="fa fa-lock"></i><span class="ms-2">Logout</span>
