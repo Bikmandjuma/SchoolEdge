@@ -126,7 +126,7 @@
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-list-alt"></i>
             </div>
-            <span class="nav-link-text ms-1">Role & Permission</span>
+            <span class="nav-link-text ms-1">Role</span>
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="role" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
@@ -135,11 +135,11 @@
                   <i class="fa fa-list-alt"></i><span class="ms-2">Manage role</span>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_manage_role',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-list-alt"></i><span class="ms-2">Manage permision</span>
+                  <i class="fa fa-list-alt"></i><span class="ms-2">Manage permission</span>
                 </a>
-              </li>
+              </li> -->
           </ul>
         </li>
 

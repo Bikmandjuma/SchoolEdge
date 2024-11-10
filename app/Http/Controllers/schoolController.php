@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\UserRole;
 use App\Models\SchoolEmployee;
 use App\Models\SchoolStudent;
+use App\Models\PermissionData;
 
 class schoolController extends Controller
 {
@@ -478,6 +479,38 @@ class schoolController extends Controller
             'school_logo' => $school_data->image,
         ]);
    
+    }
+
+    // Show the form to assign permissions to a user
+    public function showAssignPermissionsForm_User($school_id, $user_id)
+    {
+        // Decrypt the IDs (if you're using encryption)
+        $school_id = Crypt::decrypt($school_id);
+        $user_id = Crypt::decrypt($user_id);
+
+        // Fetch the user and permissions for this school
+        $user = SchoolEmployee::findOrFail($user_id);
+        $permissions = PermissionData::all();  // or any other permissions logic
+        $school_data = Customer::findOrFail($school_id);
+
+        // Return the view with data
+        return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form',[
+            'user' => $user,
+            'permissions' => $permissions,
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image
+        ]);
+    }
+
+    public function postAssignPermissions_User(Request $request, $userId)
+    {
+        $user = SchoolEmployee::findOrFail($userId);
+
+        // Sync permissions based on the checkbox input
+        $user->permissions()->sync($request->permissions);  // Sync permissions for this user
+
+        return redirect()->route('user_assign_permissions', $userId)->with('info', 'Permissions updated!');
     }
 
 }

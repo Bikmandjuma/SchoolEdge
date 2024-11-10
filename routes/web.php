@@ -173,7 +173,13 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::get('add_student_form/{school_id}', [schoolController::class, 'school_add_student_form'])->name('school_add_student_form');  
 
+    Route::get('user_permission_form/{school_id}/{user_id}', [schoolController::class, 'showAssignPermissionsForm_User'])->name('user_permission_form');
+
+    Route::post('postAssignPermissions_User/{user_id}', [schoolController::class, 'postAssignPermissions_User'])->name('user_assign_permissions');
+
+
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
+
 });
 //end of single school routes
 

@@ -38,4 +38,10 @@ class SchoolEmployee extends Authenticatable
     {
         return $this->belongsTo(Customer::class, 'school_fk_id');
     }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(PermissionData::class, 'user_permissions', 'user_fk_id', 'permission_fk_id');
+    }
+
 }

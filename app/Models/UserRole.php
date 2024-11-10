@@ -22,4 +22,16 @@ class UserRole extends Model
     {
         return $this->belongsTo(Customer::class, 'school_fk_id');
     }
+
+    // Relationship: A role can have many permissions
+    public function permissions()
+    {
+        return $this->belongsToMany(PermissionData::class, 'role_permissions', 'role_fk_id', 'permission_fk_id');
+    }
+
+    // Relationship: A role can be assigned to many users
+    public function users()
+    {
+        return $this->belongsToMany(SchoolEmployee::class, 'user_roles', 'role_fk_id', 'user_fk_id');
+    }
 }
