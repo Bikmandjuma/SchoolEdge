@@ -490,7 +490,7 @@ class schoolController extends Controller
 
         // Fetch the user and permissions for this school
         $user = SchoolEmployee::findOrFail($user_id);
-        $permissions = PermissionData::all();  // or any other permissions logic
+        $permissions = PermissionData::paginate(30);  // or any other permissions logic
         $school_data = Customer::findOrFail($school_id);
 
         // Return the view with data

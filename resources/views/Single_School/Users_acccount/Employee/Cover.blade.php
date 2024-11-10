@@ -187,7 +187,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('student'))
+        @if(auth()->guard('school_employee')->user()->hasPermission('student') || $user->role->role_name === 'Admin')
 
         <li class="nav-item">
           <a class="nav-link collapsed text-white" data-bs-target="#students" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
@@ -198,7 +198,7 @@
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="students" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              @if(auth()->guard('school_employee')->user()->hasPermission('add_student'))
+              @if(auth()->guard('school_employee')->user()->hasPermission('add_student') || $user->role->role_name === 'Admin')
 
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_add_student_form',Crypt::encrypt($school_id))}}">
@@ -206,7 +206,7 @@
                 </a>
               </li>
               @endif
-              @if(auth()->guard('school_employee')->user()->hasPermission('view_student'))
+              @if(auth()->guard('school_employee')->user()->hasPermission('view_student') || $user->role->role_name === 'Admin')
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_view_student',Crypt::encrypt($school_id))}}">
                   <i class="fa fa-users"></i><span class="ms-2">View students</span>
