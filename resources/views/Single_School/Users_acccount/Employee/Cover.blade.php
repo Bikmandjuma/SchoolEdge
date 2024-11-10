@@ -130,7 +130,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('Role') || $user->role->role_name === 'Admin')
+        @if(auth()->guard('school_employee')->user()->hasPermission('Role') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_role') || auth()->guard('school_employee')->user()->hasPermission('Edit_role') || auth()->guard('school_employee')->user()->hasPermission('view_role'))
 
         <li class="nav-item">
           <a class="nav-link {{ Request::segment(2) == 'manage_role' ? 'active bg-gradient-secondary' : '' }} text-white" data-bs-target="#role" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
@@ -146,6 +146,7 @@
                   <i class="fa fa-list-alt"></i><span class="ms-2">Manage role</span>
                 </a>
               </li>
+              
               <!-- <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_manage_role',Crypt::encrypt($school_id)) }}">
                   <i class="fa fa-list-alt"></i><span class="ms-2">Manage permission</span>
@@ -155,7 +156,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('employee') || $user->role->role_name === 'Admin')
+        @if(auth()->guard('school_employee')->user()->hasPermission('employee') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('add_employee') || auth()->guard('school_employee')->user()->hasPermission('view_employee'))
 
         <li class="nav-item">
           <a class="nav-link {{ Request::segment('2') == 'school_employee_add_user' ? 'active bg-gradient-secondary' : 'collapsed' }} text-white" data-bs-target="#users" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
@@ -187,7 +188,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('student') || $user->role->role_name === 'Admin')
+        @if(auth()->guard('school_employee')->user()->hasPermission('student') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('add_student') || auth()->guard('school_employee')->user()->hasPermission('view_student'))
 
         <li class="nav-item">
           <a class="nav-link collapsed text-white" data-bs-target="#students" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">

@@ -106,6 +106,10 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::post('shareHolder_update_payment_plan',[mainAuthController::class,'shareHolder_edit_payment_plan'])->name('main.update_payment_plan');
     Route::get('school_user_permission',[mainAuthController::class,'shareHolder_school_user_permission'])->name('main.school_user_permission');
+    Route::post('post_new_permission',[mainAuthController::class,'shareHolder_post_new_permission'])->name('main.post_new_permission');
+
+    Route::get('school_user_permission_groupBy',[mainAuthController::class,'shareHolder_school_user_permission_groupBy'])->name('main.school_user_permission_groupBy');
+    Route::post('shareHolder_post_new_permission_groupBy',[mainAuthController::class,'shareHolder_post_new_permission_groupBy'])->name('main.post_new_permission_groupBy');
 
 });
 //end mainController panel

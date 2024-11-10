@@ -7,6 +7,7 @@ use App\Models\mainContact;
 use App\Models\mainSubscriber;
 use App\Models\ShareHolder;
 use App\Models\PermissionData;
+use App\Models\PermissionGroupBy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
@@ -845,11 +846,44 @@ class mainAuthController extends Controller
 
     public function shareHolder_school_user_permission(){
         $permission_data = PermissionData::all();
+        $permission_groupBy = PermissionGroupBy::all();
         return view('mainHome.shareHolder.school_user_permission',[
+            'permission_data' => $permission_data,
+            'count' => 1,
+            'permission_groupBy' => $permission_groupBy
+        ]);
+    }
+
+    public function shareHolder_school_user_permission_groupBy(){
+        $permission_data = PermissionGroupBy::all();
+        return view('mainHome.shareHolder.school_user_permissionGroupBy',[
             'permission_data' => $permission_data,
             'count' => 1
         ]);
     }
 
+    public function shareHolder_post_new_permission(Request $request){
+
+        PermissionData::create([
+            'name' => $request->name,
+            'slang' => $request->name,
+            'permissiongroupBy_fk_id' => $request->groupBy,
+        ]);
+
+        return redirect()->back()->with('info','New permission added !');
+    }
+
+    public function shareHolder_post_new_permission_groupBy(Request $request){
+
+        $request->validate([
+            'name' => 'required|string|unique:permission_group_bies,name',
+        ]);
+
+        PermissionGroupBy::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->back()->with('info','New permission added !');
+    }
 
 }

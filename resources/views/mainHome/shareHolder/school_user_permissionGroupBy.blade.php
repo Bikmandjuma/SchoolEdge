@@ -35,7 +35,7 @@
                   &nbsp;
                   &nbsp;
                   <li>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddPermissionModal"><i class="fa fa-plus"></i> new permission</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddPermissionGroupByModal"><i class="fa fa-plus"></i> new permission_GoupBy</button>
                   </li>
 
 
@@ -43,7 +43,7 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">All permission</h5>
+                  <h5 class="card-title">All permission_group_By</h5>
 
                   <div class="row">
                     <div class="col-lg-12 col-md-12 label ">
@@ -68,7 +68,6 @@
                     </div>
                     
                   </div>
-
                   
               </div><!-- End Bordered Tabs -->
 
@@ -81,24 +80,19 @@
       </div>
     </section>
 
-  <div class="modal fade" id="AddPermissionModal" tabindex="-1">
+
+  <div class="modal fade" id="AddPermissionGroupByModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
               <div class="modal-header"style="display: flex; flex-direction: column; align-items:center;">
                 <h5 class="modal-title">Add new permission&nbsp;&nbsp;<i class="fa fa-pencil"></i> </h5>
               </div>
               <div class="modal-body align-items-center justify-content-center" style="display: flex; flex-direction: column; align-items:center;">
-                <form action="{{ route('main.post_new_permission') }}" method="POST">
+                <form action="{{ route('main.post_new_permission_groupBy') }}" method="POST">
                   @csrf
-                  <label>Permission_name</label>
+                  <label>Permission_GroupBy_name</label>
                   <input name="name" placeholder="Enter name ex:dashboard" class="form-control">
                   <br>
-                  <label>GroupBy</label>
-                  <select class="form-control" name="groupBy">
-                    @foreach($permission_groupBy as $data)
-                      <option value="{{ $data->id }}">{{ $data->name }}</option>
-                    @endforeach
-                  </select>
                   <button type="submit" class="btn btn-primary text-center mt-2">Submit&nbsp;<i class="fa fa-save"></i></button>
                 </form>
               </div>

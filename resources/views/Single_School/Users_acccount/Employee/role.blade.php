@@ -4,7 +4,9 @@
 	<div class="container-fluid py-4">
       <div class="row">
         <div class="col-xl-2 mb-xl-0 mb-4"></div>
-	    <div class="col-xl-3 col-sm-4 mb-xl-0 mb-4">
+        
+        @if(auth()->guard('school_employee')->user()->hasPermission('Add_role'))
+	    		<div class="col-xl-3 col-sm-4 mb-xl-0 mb-4">
 	          <div class="card">
 	            <div class="card-header p-3 pt-2 text-center">
 	            	<div class="bg-gradient-secondary shadow-secondary border-radius-lg  pb-1 pt-1">
@@ -29,7 +31,10 @@
 	                </form>
 	          	</div>
 	          </div>
-	    </div>
+	    	</div>
+	    	@endif
+
+        @if(auth()->guard('school_employee')->user()->hasPermission('View_role'))
         <div class="col-xl-4 col-sm-4 mb-xl-0 mb-4">
         	<div class="card">
 	            <div class="card-header p-3 pt-2 text-center">
@@ -44,6 +49,7 @@
 						  @foreach($role_data as $data)
 						    <tr>
 						      <td>{{ $data->role_name }}</td>
+						      @if(auth()->guard('school_employee')->user()->hasPermission('Edit_role'))
 						      <td>
 						        <div class="bg-gradient-info shadow-secondary border-radius-lg text-center pb-1 pt-1 text-white edit-btn" 
 						                data-bs-toggle="modal" 
@@ -53,6 +59,7 @@
 						          <i class="fa fa-edit"></i> Edit
 						        </div>
 						      </td>
+						      @endif
 						    </tr>
 						  @endforeach
 						</table>
@@ -60,6 +67,7 @@
 		          	</div>
 	          	</div>
         </div>
+        @endif
         <div class="col-xl-2 mb-xl-0 mb-4"></div>
       </div>
     </div>
