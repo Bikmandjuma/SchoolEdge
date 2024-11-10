@@ -1,5 +1,11 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 @section('content')
+    
+    @php
+        $user = auth()->guard('school_employee')->user();
+    @endphp
+
+    @if(auth()->guard('school_employee')->user()->hasPermission('dashboard') || $user->role->role_name === 'Admin')
 
     <!-- End Navbar -->
     <div class="container-fluid py-4">
@@ -115,4 +121,23 @@
             </div>
           </div>
         </div>
+        @else
+
+      <div class="container-fluid py-4">
+
+        <div class="row mt-4">
+          <!-- <div class="col-xl-2 col-sm-6 mb-xl-0 mb-4"></div> -->
+          <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="card-body text-center">
+                  <h2>Not authorized yet to view school's dashboard !</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-xl-2 col-sm-6 mb-xl-0 mb-4"></div> -->
+        </div>
+      </div>
+        @endif
 @endsection
