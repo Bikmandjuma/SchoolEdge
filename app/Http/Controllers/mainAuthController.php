@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\mainContact;
 use App\Models\mainSubscriber;
 use App\Models\ShareHolder;
+use App\Models\PermissionData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
@@ -840,6 +841,14 @@ class mainAuthController extends Controller
         $periodPrice->save();
 
         return redirect()->back()->with('info','Payment plan edited well !');
+    }
+
+    public function shareHolder_school_user_permission(){
+        $permission_data = PermissionData::all();
+        return view('mainHome.shareHolder.school_user_permission',[
+            'permission_data' => $permission_data,
+            'count' => 1
+        ]);
     }
 
 
