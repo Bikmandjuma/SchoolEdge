@@ -1,5 +1,10 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 @section('content')
+    
+    @php
+        $user = auth()->guard('school_employee')->user();
+    @endphp
+
 <style type="text/css">
 	#permission_id:hover{
 		cursor: pointer;
@@ -24,8 +29,10 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee,role</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">contact</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DoB,Sex</th>
+                      @if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
                       <th colspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-secondary opacity-7"></th>
+                      @endif
                     </tr>
                   </thead>
                   <tbody>
@@ -54,6 +61,8 @@
 
 	                          </div>
 	                      </td>
+
+	                      @if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
 	                      <td class="align-middle text-center text-sm">
 
 	                        <!-- <span class="badge badge-sm bg-gradient-danger">Offline</span>
@@ -61,7 +70,7 @@
 	                        <span id="permission_id" class="badge badge-sm bg-gradient-success p-2" onclick="window.location.href='{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}'">Permission</span>
 
 	                      </td>
-	                      
+	                      @endif
 	                    </tr>
 	                @endforeach
                    

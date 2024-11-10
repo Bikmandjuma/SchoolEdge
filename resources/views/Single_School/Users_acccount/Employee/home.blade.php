@@ -5,7 +5,7 @@
         $user = auth()->guard('school_employee')->user();
     @endphp
 
-    @if(auth()->guard('school_employee')->user()->hasPermission('dashboard') || $user->role->role_name === 'Admin')
+    @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admin')
 
     <!-- End Navbar -->
     <div class="container-fluid py-4">

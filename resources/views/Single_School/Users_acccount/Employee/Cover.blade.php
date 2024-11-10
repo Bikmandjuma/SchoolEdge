@@ -75,7 +75,7 @@
     <div class="w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         
-        @if(auth()->guard('school_employee')->user()->hasPermission('dashboard') || $user->role->role_name === 'Admin')
+        @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admin')
         <li class="nav-item">
           <a class="nav-link text-white {{ Request::segment(2) == 'home' ? 'active bg-gradient-secondary' : '' }}" href="{{ route('school_employee.dashboard',Crypt::encrypt($school_id)) }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -86,7 +86,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('homepage') || $user->role->role_name === 'Admin')
+        @if(auth()->guard('school_employee')->user()->hasPermission('Homepage') || $user->role->role_name === 'Admin')
         <li class="nav-item">
           <a class="nav-link collapsed text-white" data-bs-target="#homepage" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -130,7 +130,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('Role') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_role') || auth()->guard('school_employee')->user()->hasPermission('Edit_role') || auth()->guard('school_employee')->user()->hasPermission('view_role'))
+        @if(auth()->guard('school_employee')->user()->hasPermission('Role') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_role') || auth()->guard('school_employee')->user()->hasPermission('Edit_role') || auth()->guard('school_employee')->user()->hasPermission('View_role'))
 
         <li class="nav-item">
           <a class="nav-link {{ Request::segment(2) == 'manage_role' ? 'active bg-gradient-secondary' : '' }} text-white" data-bs-target="#role" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
@@ -156,7 +156,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('employee') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('add_employee') || auth()->guard('school_employee')->user()->hasPermission('view_employee'))
+        @if(auth()->guard('school_employee')->user()->hasPermission('employee') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_employee') || auth()->guard('school_employee')->user()->hasPermission('view_employee') || auth()->guard('school_employee')->user()->hasPermission('Employee'))
 
         <li class="nav-item">
           <a class="nav-link {{ Request::segment('2') == 'school_employee_add_user' ? 'active bg-gradient-secondary' : 'collapsed' }} text-white" data-bs-target="#users" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
@@ -167,7 +167,7 @@
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="users" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              @if(auth()->guard('school_employee')->user()->hasPermission('add_employee') || $user->role->role_name === 'Admin')
+              @if(auth()->guard('school_employee')->user()->hasPermission('Add_employee') || $user->role->role_name === 'Admin')
 
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}">
@@ -176,7 +176,7 @@
               </li>
               @endif
               
-              @if(auth()->guard('school_employee')->user()->hasPermission('view_employee')  || $user->role->role_name === 'Admin')
+              @if(auth()->guard('school_employee')->user()->hasPermission('View_employee') || $user->role->role_name === 'Admin')
 
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_view_user',Crypt::encrypt($school_id))}}">
@@ -188,7 +188,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('student') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('add_student') || auth()->guard('school_employee')->user()->hasPermission('view_student'))
+        @if(auth()->guard('school_employee')->user()->hasPermission('student') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_student') || auth()->guard('school_employee')->user()->hasPermission('View_student'))
 
         <li class="nav-item">
           <a class="nav-link collapsed text-white" data-bs-target="#students" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
@@ -199,7 +199,7 @@
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="students" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              @if(auth()->guard('school_employee')->user()->hasPermission('add_student') || $user->role->role_name === 'Admin')
+              @if(auth()->guard('school_employee')->user()->hasPermission('Add_student') || $user->role->role_name === 'Admin')
 
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_add_student_form',Crypt::encrypt($school_id))}}">
@@ -207,7 +207,7 @@
                 </a>
               </li>
               @endif
-              @if(auth()->guard('school_employee')->user()->hasPermission('view_student') || $user->role->role_name === 'Admin')
+              @if(auth()->guard('school_employee')->user()->hasPermission('View_student') || $user->role->role_name === 'Admin')
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_view_student',Crypt::encrypt($school_id))}}">
                   <i class="fa fa-users"></i><span class="ms-2">View students</span>

@@ -1,6 +1,10 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 @section('content')
 
+    @php
+        $user = auth()->guard('school_employee')->user();
+    @endphp
+
 <style type="text/css">
   #search_student_data {
     position: relative;
@@ -48,7 +52,9 @@
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image, Names, Gender</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Address</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dob</th>
+                  @if(auth()->guard('school_employee')->user()->hasPermission('View_student_info') || auth()->guard('school_employee')->user()->hasPermission('Edit_student') || $user->role->role_name === 'Admin')
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                  @endif
                 </tr>
               </thead>
               <tbody>
@@ -81,12 +87,16 @@
                         <span class="text-xs text-center">{{ $data->dob }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <a href="#" class="badge badge-sm bg-gradient-success">
-                          <i class="fa fa-edit"></i>&nbsp;Edit
-                        </a>
+                        @if(auth()->guard('school_employee')->user()->hasPermission('Edit_student') || $user->role->role_name === 'Admin')
+                          <a href="#" class="badge badge-sm bg-gradient-success">
+                            <i class="fa fa-edit"></i>&nbsp;Edit
+                          </a>
+                        @endif
+                        @if(auth()->guard('school_employee')->user()->hasPermission('View_student_info') || $user->role->role_name === 'Admin')
                         <a href="#" class="badge badge-sm bg-gradient-info">
                           <i class="fa fa-eye"></i>&nbsp;View
                         </a>
+                        @endif
                       </td>
                     </tr>
                   @endforeach
