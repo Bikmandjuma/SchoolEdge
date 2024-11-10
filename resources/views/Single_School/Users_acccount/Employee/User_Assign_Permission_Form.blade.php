@@ -1,7 +1,7 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 @section('content')
 
-    <form action="{{ route('user_assign_permissions', $user->id) }}" method="POST">
+    <form action="{{ route('user_assign_permissions', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($user->id)]) }}" method="POST">
 
     @csrf
     <div class="form-group">

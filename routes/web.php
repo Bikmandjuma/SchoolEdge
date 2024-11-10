@@ -175,7 +175,7 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::get('user_permission_form/{school_id}/{user_id}', [schoolController::class, 'showAssignPermissionsForm_User'])->name('user_permission_form');
 
-    Route::post('postAssignPermissions_User/{user_id}', [schoolController::class, 'postAssignPermissions_User'])->name('user_assign_permissions');
+    Route::post('postAssignPermissions_User/{school_id}/{user_id}', [schoolController::class, 'postAssignPermissions_User'])->name('user_assign_permissions');
 
 
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');

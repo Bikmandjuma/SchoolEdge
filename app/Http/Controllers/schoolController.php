@@ -503,14 +503,19 @@ class schoolController extends Controller
         ]);
     }
 
-    public function postAssignPermissions_User(Request $request, $userId)
-    {
+    public function postAssignPermissions_User(Request $request, $school_id, $userId){
+        // Decrypt the school_id and user_id
+        $school_id = Crypt::decrypt($school_id);
+        $userId = Crypt::decrypt($userId);
+
+        // Find the user
         $user = SchoolEmployee::findOrFail($userId);
 
         // Sync permissions based on the checkbox input
-        $user->permissions()->sync($request->permissions);  // Sync permissions for this user
+        $user->permissions()->sync($request->permissions);  // Sync the selected permissions
 
-        return redirect()->route('user_assign_permissions', $userId)->with('info', 'Permissions updated!');
+        return redirect()->back()->with('info', 'Permissions updated!');
     }
+
 
 }

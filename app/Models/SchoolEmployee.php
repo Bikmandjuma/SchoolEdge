@@ -33,7 +33,6 @@ class SchoolEmployee extends Authenticatable
         return $this->belongsTo(UserRole::class, 'role_fk_id');
     }
 
-    // Relationship with School (assuming the 'customers' table represents schools)
     public function school()
     {
         return $this->belongsTo(Customer::class, 'school_fk_id');
@@ -43,5 +42,11 @@ class SchoolEmployee extends Authenticatable
     {
         return $this->belongsToMany(PermissionData::class, 'user_permissions', 'user_fk_id', 'permission_fk_id');
     }
+
+    public function hasPermission($permission)
+    {
+        return $this->permissions->contains('name', $permission);
+    }
+
 
 }
