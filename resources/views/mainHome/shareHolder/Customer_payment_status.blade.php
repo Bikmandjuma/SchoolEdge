@@ -27,7 +27,7 @@
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show {{ Request::segment(2) == 'customer_payment_status' ? 'active' : '' }} profile-overview" id="profile-overview">
                                 <h5 class="card-title">School - Payment - Contract</h5>
-                                <p>Customer payment and contract data</p>
+                                <p class="mt-3">No payment or contract has been found yet</p>
                             </div>
                         </div><!-- End Bordered Tabs -->
                     </div>
