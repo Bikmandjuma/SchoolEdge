@@ -269,7 +269,7 @@
         </a>
         <ul id="contract" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('view_users') }}" >
+            <a href="{{ route('main.contract_format') }}" >
               <i class="bi bi-circle"></i><span>my contract</span>
             </a>
           </li>

@@ -27,11 +27,11 @@
                       <h5 class="card-header text-center">Choose payment method</h5>
 
                       <div style="display: flex; margin-top: 15px; text-align: center; justify-content: center; align-items: center;font-family: sans-serif;font-style: italic;">
-                          Student Range: <strong>{{ $student_range }}</strong>&nbsp;,&nbsp;
+                          .Student Range: <strong>{{ $student_range }}</strong>&nbsp;,&nbsp;
                           
-                          Subtotal: <strong>{{ number_format($amount) }} Frw</strong>&nbsp;,&nbsp;
+                          .Subtotal: <strong>{{ number_format($amount) }} Frw</strong>&nbsp;,&nbsp;
                           
-                          Total (USD): <strong>{{ number_format($amount / 1400, 2) }} USD</strong>
+                          .Total (USD): <strong>{{ number_format($amount / 1400, 2) }} USD</strong>
                       </div>
 
                       <hr>

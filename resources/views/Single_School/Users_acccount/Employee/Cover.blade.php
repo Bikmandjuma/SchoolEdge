@@ -218,7 +218,7 @@
         </li>
         @endif
 
-        <li class="nav-item">
+        <!--li class="nav-item">
           <a class="nav-link collapsed text-white" data-bs-target="#file" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-file"></i>
@@ -235,7 +235,7 @@
               </li>
 
           </ul>
-        </li>
+        </li-->
 
         <li class="nav-item">
           <a class="nav-link collapsed text-white" data-bs-target="#account" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">

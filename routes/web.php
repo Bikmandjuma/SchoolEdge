@@ -163,6 +163,8 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
 
     Route::post('process_mtn_payment/{student_range}/{amount}', [CustomerController::class, 'processMtnPayment'])->name('main.process_mtn_payment');
 
+    Route::get('contract-format', [CustomerController::class, 'contract_format'])->name('main.contract_format');
+
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
 //end of customer block's route

@@ -323,7 +323,16 @@ class CustomerController extends Controller
         // Integrate the MTN MoMo API here to process the payment
         // ...
 
-        return redirect()->back()->with('success', 'Payment request sent. Please approve the payment on your phone.');
+        // return redirect()->back()->with('success', 'Payment request sent. Please approve the payment on your phone.');
+        return redirect()->back()->with('error', 'Error during payment process !');
+    }
+
+    public function contract_format(){
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.contract_format', [
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
     }
 
     public function logout(){
