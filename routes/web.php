@@ -157,6 +157,12 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
 
     Route::get('visa_payment_form/{student_range}/{amount}', [CustomerController::class, 'visa_payment_form'])->name('main.visa_payment_form');
 
+    Route::get('paypal_payment_form/{student_range}/{amount}', [CustomerController::class, 'paypal_payment_form'])->name('main.paypal_payment_form');
+
+    Route::get('mtn_payment_form/{student_range}/{amount}', [CustomerController::class, 'mtn_payment_form'])->name('main.mtn_payment_form');
+
+    Route::post('process_mtn_payment/{student_range}/{amount}', [CustomerController::class, 'processMtnPayment'])->name('main.process_mtn_payment');
+
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
 //end of customer block's route
@@ -182,9 +188,15 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::post('postAssignPermissions_User/{school_id}/{user_id}', [schoolController::class, 'postAssignPermissions_User'])->name('user_assign_permissions');
 
+    Route::get('view_specific_user_info/{school_id}/{user_id}', [schoolController::class, 'view_specific_user_info'])->name('view_specific_user_info');
+
+    Route::get('all_files/{school_id}', [schoolController::class, 'my_files'])->name('files');
+
+    Route::get('documents/{school_id}', [schoolController::class, 'my_document'])->name('my_document');
+
+    Route::get('my_personal_file/{school_id}', [schoolController::class, 'my_personal_file'])->name('my_personal_file');
 
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
-
 });
 //end of single school routes
 

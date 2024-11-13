@@ -192,7 +192,7 @@
               </select>
             </label>
           </div>
-          <button type="submit">Pay {{ number_format($amount) }} Frw</button>
+          <button type="submit">Pay ${{ number_format($amount/1400,2) }} USD</button>
           <div class="outcome">
             <div class="error"></div>
             <div class="success">

@@ -1,11 +1,15 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 @section('content')
+
+		@php
+        $user = auth()->guard('school_employee')->user();
+    @endphp
 	
 	<div class="container-fluid py-4">
       <div class="row">
         <div class="col-xl-2 mb-xl-0 mb-4"></div>
         
-        @if(auth()->guard('school_employee')->user()->hasPermission('Add_role'))
+        @if(auth()->guard('school_employee')->user()->hasPermission('Add_role') || $user->role->role_name === 'Admin')
 	    		<div class="col-xl-3 col-sm-4 mb-xl-0 mb-4">
 	          <div class="card">
 	            <div class="card-header p-3 pt-2 text-center">
@@ -34,7 +38,7 @@
 	    	</div>
 	    	@endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('View_role'))
+        @if(auth()->guard('school_employee')->user()->hasPermission('View_role') || $user->role->role_name === 'Admin')
         <div class="col-xl-4 col-sm-4 mb-xl-0 mb-4">
         	<div class="card">
 	            <div class="card-header p-3 pt-2 text-center">
@@ -49,7 +53,7 @@
 						  @foreach($role_data as $data)
 						    <tr>
 						      <td>{{ $data->role_name }}</td>
-						      @if(auth()->guard('school_employee')->user()->hasPermission('Edit_role'))
+						      @if(auth()->guard('school_employee')->user()->hasPermission('Edit_role') || $user->role->role_name === 'Admin')
 						      <td>
 						        <div class="bg-gradient-info shadow-secondary border-radius-lg text-center pb-1 pt-1 text-white edit-btn" 
 						                data-bs-toggle="modal" 

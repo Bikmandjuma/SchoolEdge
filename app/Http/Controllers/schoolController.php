@@ -13,6 +13,8 @@ use App\Models\UserRole;
 use App\Models\SchoolEmployee;
 use App\Models\SchoolStudent;
 use App\Models\PermissionData;
+use Carbon\Carbon;
+use App\Models\UserPermission;
 
 class schoolController extends Controller
 {
@@ -517,5 +519,63 @@ class schoolController extends Controller
         return redirect()->back()->with('info', 'Permissions updated!');
     }
 
+    public function view_specific_user_info($school_id,$user_id){
+        $school_id = Crypt::decrypt($school_id);
+        $user_id = Crypt::decrypt($user_id);
+
+        $school_employees = SchoolEmployee::findOrFail($user_id);
+        $school_data = Customer::findOrFail($school_id);
+
+        $school_employees->time_ago = Carbon::parse($school_employees->created_at)->diffForHumans();
+
+        $permissions = SchoolEmployee::find($school_employees->id)
+                        ->permissions
+                        ->pluck('name');
+        $count_permission = collect($permissions)->count();
+
+        return view('Single_School.Users_acccount.Employee.view_specific_user_info', [
+            'school_employees' => $school_employees,
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'joined' => $school_employees->time_ago,
+            'user_permission' => $permissions,
+            'count_permission' => $count_permission
+        ]);     
+
+    }
+
+    public function my_files($school_id){
+        $school_id = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+
+        return view('Single_School.Users_acccount.Employee.my_files', [
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,       
+        ]);  
+    }
+
+    public function my_document($school_id){
+        $school_id = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+
+        return view('Single_School.Users_acccount.Employee.document', [
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,       
+        ]); 
+    }
+
+    public function my_personal_file($school_id){
+        $school_id = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+
+        return view('Single_School.Users_acccount.Employee.personal_file', [
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,       
+        ]); 
+    }
 
 }

@@ -1,17 +1,16 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;  
 
 class SchoolEmployee extends Authenticatable
 {
-    use HasFactory;
-    protected $fillable=[
+    use HasFactory, Notifiable, HasApiTokens;
+
+    protected $fillable = [
         'school_fk_id',
         'firstname',
         'middle_name',
@@ -27,7 +26,7 @@ class SchoolEmployee extends Authenticatable
         'last_active_at',
     ];
 
-    // Relationship with UserRole
+    // Relationship with roles
     public function role()
     {
         return $this->belongsTo(UserRole::class, 'role_fk_id');
@@ -38,15 +37,15 @@ class SchoolEmployee extends Authenticatable
         return $this->belongsTo(Customer::class, 'school_fk_id');
     }
 
+    // Many-to-many relationship with permissions
     public function permissions()
     {
         return $this->belongsToMany(PermissionData::class, 'user_permissions', 'user_fk_id', 'permission_fk_id');
     }
 
+    // Check if the user has a specific permission
     public function hasPermission($permission)
     {
         return $this->permissions->contains('name', $permission);
     }
-
-
 }

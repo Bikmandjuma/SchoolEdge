@@ -219,6 +219,25 @@
         @endif
 
         <li class="nav-item">
+          <a class="nav-link collapsed text-white" data-bs-target="#file" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-file"></i>
+            </div>
+            <span class="nav-link-text ms-1">My files</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="file" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+
+              <li>
+                <a class="dropdown-item nav-link-custom" href="{{ route('files', ['school_id' => Crypt::encrypt($school_id)]) }}">
+                  <i class="fa fa-file"></i><span class="ms-2">Manage files</span>
+                </a>
+              </li>
+
+          </ul>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link collapsed text-white" data-bs-target="#account" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-user"></i>

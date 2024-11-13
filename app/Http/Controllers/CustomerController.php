@@ -290,6 +290,42 @@ class CustomerController extends Controller
         ]);
     }
 
+    public function paypal_payment_form($student_range,$amount){
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.paypal_payment_form', [
+            'student_range' => $student_range,
+            'amount' => $amount,
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
+    }
+
+    public function mtn_payment_form($student_range,$amount){
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.Mtn_payment_form', [
+            'student_range' => $student_range,
+            'amount' => $amount,
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
+    }
+
+    public function processMtnPayment(Request $request,$student_range,$amount)
+    {
+        $request->validate([
+            'phone' => 'required|regex:/^07[2-9][0-9]{7}$/',
+            'amount' => 'required|numeric|min:100',
+        ]);
+
+        $phone = $request->input('phone');
+        $amount = $request->input('amount');
+
+        // Integrate the MTN MoMo API here to process the payment
+        // ...
+
+        return redirect()->back()->with('success', 'Payment request sent. Please approve the payment on your phone.');
+    }
+
     public function logout(){
         // Check which guard is currently authenticated
         if (Auth::guard('customer')->check()) {
