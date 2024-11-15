@@ -79,8 +79,9 @@
           <div class="card-body">
               <div class="horizontal-form-box">
                 <div class="horizontal-info-container text-center">
-                  <img src="https://static.stayjapan.com/assets/top/icon/values-7dd5c8966d7a6bf57dc4bcd11b2156e82a4fd0da94a26aecb560b6949efad2be.svg" />
-                  <p class="horizontal-heading">Reset your password</p>
+                  <!-- <img src="https://static.stayjapan.com/assets/top/icon/values-7dd5c8966d7a6bf57dc4bcd11b2156e82a4fd0da94a26aecb560b6949efad2be.svg" /> -->
+                  <img src="{{ URL::to('/') }}/mainHomePage/img/new_logo.png" alt="cool" style="width:200px;height: 50px;margin-bottom: 20px;">
+                  <p class="horizontal-heading" style="font-size: 20px;margin:10px;">Reset your password</p>
 
                 </div>
                 <form class="horizontal-form" action="{{ route('submit_reset_password', $email) }}" method="POST">
