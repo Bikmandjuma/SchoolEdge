@@ -1,156 +1,199 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Code Verification</title>
     <style type="text/css">
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
         .otc {
-            position: relative;
-            width: 320px;
-            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .otc fieldset {
-            border: 0;
+            border: none;
             padding: 0;
             margin: 0;
         }
 
-        .otc fieldset div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .otc legend {
-            margin: 0 auto 1em;
-            color: #fff;
-            font-weight: bold;
+            color: #333;
+            font-size: 25px;
+            margin-bottom: 20px;
         }
 
+        /* Style for input fields */
         input[type="number"] {
-            width: .86em;
-            line-height: 1;
-            margin: .1em;
-            padding: 8px 0 4px;
-            font-size: 2.65em;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            font-size: 24px;
             text-align: center;
-            border: 0;
-            color: #073A39;
-            border-radius: 6px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            outline: none;
+            transition: border 0.3s ease;
         }
 
-        body, html {
-            height: 100%;
+        input[type="number"]:focus {
+            border-color: #007BFF;
         }
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: teal;
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #007BFF;
             color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Animation for inputs */
+        input[type="number"] {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Media query for small devices */
+        @media (max-width: 600px) {
+            .otc div {
+                display: flex;
+                justify-content: space-between; /* Align inputs horizontally */
+                flex-wrap: wrap; /* Allow inputs to wrap to next line on very small screens */
+                gap: 10px; /* Add some space between inputs */
+            }
+
+            input[type="number"] {
+                width: 45px; /* Slightly smaller width for small devices */
+                height: 45px;
+            }
+
+            button {
+                width: 100%; /* Make the button full-width on small devices */
+            }
         }
     </style>
 </head>
 <body>
-
-    <form class="otc" method="POST" action="{{ url('/verify_code') }}/{{ $email }}/{{ $code }}">
-    @csrf
-    <fieldset>
-        <legend>Validation Code</legend>
-        <div>
-            <input type="number" name="code[]" required maxlength="1" autofocus>
-            <input type="number" name="code[]" required maxlength="1">
-            <input type="number" name="code[]" required maxlength="1">
-            <input type="number" name="code[]" required maxlength="1">
-            <input type="number" name="code[]" required maxlength="1">
-            <input type="number" name="code[]" required maxlength="1">
-        </div>
-        @if(session('error'))
-            <div style="color: red;">{{ session('error') }}</div>
-        @endif
-    </fieldset>
-    <div style="text-align: center; margin-top: 20px;">
-        <button type="submit" style="padding: 10px; border-radius: 5px;">Verify</button>
+    <div class="container">
+        <img src="{{ URL::to('/') }}/mainHomePage/img/new_logo.png" alt="cool" style="width:200px;height: 50px;margin-bottom: 20px;">
+        <form class="otc" method="POST" action="{{ url('/verify_code') }}/{{ $email }}/{{ $code }}">
+            @csrf
+            <fieldset>
+                <legend>Validation Code</legend>
+                <div>
+                    <input type="number" name="code[]" required maxlength="1" autofocus>
+                    <input type="number" name="code[]" required maxlength="1">
+                    <input type="number" name="code[]" required maxlength="1">
+                    <input type="number" name="code[]" required maxlength="1">
+                    <input type="number" name="code[]" required maxlength="1">
+                    <input type="number" name="code[]" required maxlength="1">
+                </div>
+                @if(session('error'))
+                    <div class="error-message">{{ session('error') }}</div>
+                @endif
+            </fieldset>
+            <button type="submit">Verify</button>
+        </form>
     </div>
-</form>
-
 
     <script type="text/javascript">
         let in1 = document.getElementById('otc-1'),
             ins = document.querySelectorAll('input[type="number"]'),
-             splitNumber = function(e) {
-                let data = e.data || e.target.value; // Chrome doesn't get the e.data, it's always empty, fallback to value then.
-                if ( ! data ) return; // Shouldn't happen, just in case.
-                if ( data.length === 1 ) return; // Here is a normal behavior, not a paste action.
+            splitNumber = function(e) {
+                let data = e.data || e.target.value;
+                if (!data) return;
+                if (data.length === 1) return;
                 
                 popuNext(e.target, data);
-                //for (i = 0; i < data.length; i++ ) { ins[i].value = data[i]; }
             },
             popuNext = function(el, data) {
-                el.value = data[0]; // Apply first item to first input
-                data = data.substring(1); // remove the first char.
-                if ( el.nextElementSibling && data.length ) {
-                    // Do the same with the next element and next data
+                el.value = data[0];
+                data = data.substring(1);
+                if (el.nextElementSibling && data.length) {
                     popuNext(el.nextElementSibling, data);
                 }
             };
 
         ins.forEach(function(input) {
-            /**
-             * Control on keyup to catch what the user intent to do.
-             * I could have check for numeric key only here, but I didn't.
-             */
             input.addEventListener('keyup', function(e){
-                // Break if Shift, Tab, CMD, Option, Control.
                 if (e.keyCode === 16 || e.keyCode == 9 || e.keyCode == 224 || e.keyCode == 18 || e.keyCode == 17) {
                      return;
                 }
-                
-                // On Backspace or left arrow, go to the previous field.
-                if ( (e.keyCode === 8 || e.keyCode === 37) && this.previousElementSibling && this.previousElementSibling.tagName === "INPUT" ) {
+
+                if ((e.keyCode === 8 || e.keyCode === 37) && this.previousElementSibling && this.previousElementSibling.tagName === "INPUT") {
                     this.previousElementSibling.select();
                 } else if (e.keyCode !== 8 && this.nextElementSibling) {
                     this.nextElementSibling.select();
                 }
-                
-                // If the target is populated to quickly, value length can be > 1
-                if ( e.target.value.length > 1 ) {
+
+                if (e.target.value.length > 1) {
                     splitNumber(e);
                 }
             });
-            
-            /**
-             * Better control on Focus
-             * - don't allow focus on other field if the first one is empty
-             * - don't allow focus on field if the previous one if empty (debatable)
-             * - get the focus on the first empty field
-             */
+
             input.addEventListener('focus', function(e) {
-                // If the focus element is the first one, do nothing
-                if ( this === in1 ) return;
-                
-                // If value of input 1 is empty, focus it.
-                if ( in1.value == '' ) {
+                if (this === in1) return;
+
+                if (in1.value == '') {
                     in1.focus();
                 }
-                
-                // If value of a previous input is empty, focus it.
-                // To remove if you don't wanna force user respecting the fields order.
-                if ( this.previousElementSibling.value == '' ) {
+
+                if (this.previousElementSibling.value == '') {
                     this.previousElementSibling.focus();
                 }
             });
         });
 
-        /**
-         * Handle copy/paste of a big number.
-         * It catches the value pasted on the first field and spread it into the inputs.
-         */
         in1.addEventListener('input', splitNumber);
     </script>
-
-
 </body>
 </html>
