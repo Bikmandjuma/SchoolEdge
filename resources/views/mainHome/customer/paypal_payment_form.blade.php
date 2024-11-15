@@ -30,6 +30,7 @@
                             <li>Total (USD): <strong>{{ number_format($amount / 1400, 2) }} USD</strong></li>
                         </div>
                         <div class="col-xxl-6 col-md-6 col-sm-6">
+                            <p>Click bellow button to pay</p>
                             <div id="paypal-button-container"></div>
                         </div>
                     </div>

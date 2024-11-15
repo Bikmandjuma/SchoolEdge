@@ -92,7 +92,7 @@
                             <i class="fa fa-edit"></i>&nbsp;Edit
                           </a>
                         @endif
-                        @if(auth()->guard('school_employee')->user()->hasPermission('View_student_info') || $user->role->role_name === 'Admin')
+                        @if(auth()->guard('school_employee')->user()->hasPermission('View_student') || $user->role->role_name === 'Admin')
                         <a href="#" class="badge badge-sm bg-gradient-info">
                           <i class="fa fa-eye"></i>&nbsp;View
                         </a>
