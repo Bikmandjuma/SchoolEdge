@@ -111,13 +111,13 @@ strong {
 
 	<div class="container">
         <h1 class="title">Contract Agreement for SchoolEdge System Usage</h1>
-        <p class="date">This Agreement is made on the ____ day of ______, 20__, between SchoolEdge, a technology company ("Provider"), and <strong>___</strong> ("School").</p>
+        <p class="date">This Agreement is made on the _ _ _ _ day of _ _ _ _ _ _, 20_ _, between SchoolEdge<!--, a technology company ("Provider"),--> and <strong> _ _ _ </strong> ("School").</p>
 
         <section class="section">
             <h2 class="subtitle">1. Scope of Services</h2>
             <!-- <p>The Provider agrees to provide the SchoolEdge system for use by __________ (School/Customer) to facilitate school management, including student information management, performance tracking, payment collection, and communication.</p> -->
 
-           	<p>The Provider agrees to grant __________ (School) access to the SchoolEdge system, a comprehensive platform designed to streamline school management tasks. This includes managing student information, tracking academic performance, facilitating communication between school staff and parents, and supporting staff management. The system offers centralized tools for handling student records, monitoring progress, generating reports, and improving overall communication within the school.</p>
+           	<p>The Provider agrees to grant _ _ _ _ _ _ _(School) access to the SchoolEdge system, a comprehensive platform designed to streamline school management tasks. This includes managing student information, tracking academic performance, facilitating communication between school staff and parents, and supporting staff management. The system offers centralized tools for handling student records, monitoring progress, generating reports, and improving overall communication within the school.</p>
 
 			<p>SchoolEdge also utilizes machine learning to identify at-risk students, providing early intervention to prevent dropout or academic decline. By analyzing patterns in student data, the system can predict potential issues and suggest proactive solutions. This feature aims to enhance operational efficiency, reduce manual tasks, and improve the experience for both school management and staff. The Provider will ensure regular updates and provide ongoing support to guarantee the system functions effectively for the School.</p>
 
@@ -140,9 +140,9 @@ strong {
 
         <section class="section">
             <h2 class="subtitle">3. Payment Terms</h2>
-            <p>The School agrees to a __________ payment plan (termly/yearly).</p>
-            <p><strong>Pricing:</strong> The cost is set at __________ per student.</p>
-            <p><strong>Student Range:</strong> This contract covers a range of __________ students.</p>
+            <p>The School agrees to a _ _ _ _ _ _  payment plan (termly/yearly).</p>
+            <p><strong>Pricing:</strong> The cost is set at _ _ _ _ _ _ _ _ per student.</p>
+            <p><strong>Student Range:</strong> This contract covers a range of _ _ _ _ _ _ students.</p>
             <p>Payment must be made via the approved method specified by the Provider on or before the due date.</p>
         </section>
 
@@ -167,22 +167,22 @@ strong {
 
         <section class="section">
             <h2 class="subtitle">7. Termination</h2>
-            <p>This contract may be terminated by either party with a __________ (e.g., 30-day) written notice. Upon termination, the School's access to SchoolEdge will be disabled, and all School data will be securely returned or deleted as per School’s preference.</p>
+            <p>This contract may be terminated by either party with a _ _ _ _ _ _ (e.g., 30-day) written notice. Upon termination, the School's access to SchoolEdge will be disabled, and all School data will be securely returned or deleted as per School’s preference.</p>
         </section>
 
         <div class="signatures">
-            <h3>Signed on this ____ day of ________, 20__.</h3>
+            <h3>Signed on this _ _ _ _ day of _ _ _ _ _ _, 20 _ _.</h3>
             <div class="signature-block">
                 <p><strong>For SchoolEdge</strong></p>
-                <p>Signature&date: _____________________</p>
-                <p>Name: ___________________________</p>
-                <p>Title: ___________________________</p>
+                <p>Signature & date: _ _ _ _ _ _ _ _ _ </p>
+                <p>Name: _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
+                <p>Title: _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
             </div>
             <div class="signature-block">
-                <p><strong>For __________ (School)</strong></p>
-                <p>Signature&date: _____________________</p>
-                <p>Name: ___________________________</p>
-                <p>Title: ___________________________</p>
+                <p><strong>For _ _ _ _ _  _ _ _ _ _ (School)</strong></p>
+                <p>Signature & date: _ _ _ _ _ _ _ _ _ _ _</p>
+                <p>Name: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
+                <p>Title: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
             </div>
         </div>
     </div>
