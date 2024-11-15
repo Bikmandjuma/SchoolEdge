@@ -113,7 +113,7 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::get('shareHolder_employees',[mainAuthController::class,'shareHolder_employees'])->name('main.employees');
 
-    Route::get('shareHolder_wallets',[mainAuthController::class,'shareHolder_wallets'])->name('main.wallets');
+    Route::get('shareHolder_wallets',[mainAuthController::class,'shareHolder_wallets'])->name('main.wallet');
 
 });
 //end mainController panel
