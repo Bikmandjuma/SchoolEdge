@@ -188,7 +188,7 @@
         </li>
         @endif
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('Academic_stuff') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
+        @if(auth()->guard('school_employee')->user()->hasPermission('Academic_stuff') || auth()->guard('school_employee')->user()->hasPermission('Academic') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
 
         <li class="nav-item">
           <a class="nav-link {{ Request::segment('2') == 'manage_academic' ? 'active bg-gradient-secondary' : 'collapsed' }} text-white" data-bs-target="#academic" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
@@ -200,7 +200,7 @@
           </a>
           <ul id="academic" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
 
-              @if($user->role->role_name === 'Admin' || auth()->guard('View_academic_stuff')->user()->hasPermission('Manage_academic_stuff'))
+              @if($user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
 
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_manage_academic',Crypt::encrypt($school_id)) }}">
