@@ -66,12 +66,8 @@
 	                      <td class="align-middle text-center text-sm">
 													@if(auth()->guard('school_employee')->user()->hasPermission('Edit_user_info') || $user->role->role_name === 'Admin')
 
-														@if($data->role->role_name != 'Admin')
-	                        		<span class="badge badge-sm bg-gradient-info">Edit</span>
-	                        	@else
-	                        		<span id="permission_id" class="p-2"> - - - - </span>
-	                        	@endif
-
+															<span id="permission_id" class="badge badge-sm bg-gradient-info p-2">Edit</span>          	
+	                        		
 	                        @endif
 	              
 	              					@if(auth()->guard('school_employee')->user()->hasPermission('View_user_info') || $user->role->role_name === 'Admin')
@@ -80,13 +76,8 @@
 
 	                     		@if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
 
-														@if($data->role->role_name != 'Admin')
-
 	                        		<span id="permission_id" class="badge badge-sm bg-gradient-success p-2" onclick="window.location.href='{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}'">Permission</span>
-	                        	@else
-	                        		<span id="permission_id" class="p-2"> - - - - - - - - -</span>
-	                        	@endif
-
+	                        
 	                        @endif
 
 	                      </td>
