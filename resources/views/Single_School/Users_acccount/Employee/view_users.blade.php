@@ -28,7 +28,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee,role</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">contact</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DoB,Sex</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DoB,Sex</th>
                       @if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
                       <th colspan="3" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-secondary opacity-7"></th>
@@ -62,17 +62,35 @@
 	                          </div>
 	                      </td>
 
-	                      @if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
+	                      
 	                      <td class="align-middle text-center text-sm">
+													@if(auth()->guard('school_employee')->user()->hasPermission('Edit_user_info') || $user->role->role_name === 'Admin')
 
-	                        <span class="badge badge-sm bg-gradient-info">Edit</span>
+														@if($data->role->role_name != 'Admin')
+	                        		<span class="badge badge-sm bg-gradient-info">Edit</span>
+	                        	@else
+	                        		<span id="permission_id" class="p-2"> - - - - </span>
+	                        	@endif
+
+	                        @endif
 	              
-	                      	<span class="badge badge-sm bg-gradient-secondary" onclick="window.location.href='{{ route('view_specific_user_info',['school_id' => Crypt::encrypt($school_id) , 'user_id' => Crypt::encrypt($data->id)]) }}'">View</span>
-	                     
-	                        <span id="permission_id" class="badge badge-sm bg-gradient-success p-2" onclick="window.location.href='{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}'">Permission</span>
+	              					@if(auth()->guard('school_employee')->user()->hasPermission('View_user_info') || $user->role->role_name === 'Admin')
+	                      		<span class="badge badge-sm bg-gradient-secondary" onclick="window.location.href='{{ route('view_specific_user_info',['school_id' => Crypt::encrypt($school_id) , 'user_id' => Crypt::encrypt($data->id)]) }}'">View</span>
+	                      	@endif
+
+	                     		@if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
+
+														@if($data->role->role_name != 'Admin')
+
+	                        		<span id="permission_id" class="badge badge-sm bg-gradient-success p-2" onclick="window.location.href='{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}'">Permission</span>
+	                        	@else
+	                        		<span id="permission_id" class="p-2"> - - - - - - - - -</span>
+	                        	@endif
+
+	                        @endif
 
 	                      </td>
-	                      @endif
+	                      
 	                    </tr>
 	                @endforeach
                    

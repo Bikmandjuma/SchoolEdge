@@ -56,7 +56,7 @@
                 </div>
                 <div class="card-body p-3">
                   <ul class="list-group">
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Names:</strong> &nbsp; {{ $school_employees->firstname }} {{ $school_employees->lastname }}</li>
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Names:</strong> &nbsp; {{ $school_employees->firstname }} {{ $school_employees->middle_name }} {{ $school_employees->lastname }}</li>
                     <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Gender:</strong> &nbsp; {{ $school_employees->gender }}</li>
 
                     <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Phone:</strong> &nbsp; {{ $school_employees->phone }}</li>
@@ -90,7 +90,7 @@
                     </li>
                   </ul>
                   @if($school_employees->role->role_name != 'Admin')
-                    <button class="btn btn-info mt-3"><i class="fa fa-lock"></i>&nbsp;Block account</button>
+                    <!-- <button class="btn btn-info mt-3"><i class="fa fa-lock"></i>&nbsp;Block account</button> -->
                   @endif
                 </div>
               </div>

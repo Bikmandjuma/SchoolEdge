@@ -188,6 +188,31 @@
         </li>
         @endif
 
+        <li class="nav-item">
+          <a class="nav-link {{ Request::segment('2') == 'manage_academic' ? 'active bg-gradient-secondary' : 'collapsed' }} text-white" data-bs-target="#academic" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-list-alt"></i>
+            </div>
+            <span class="nav-link-text ms-1">Academic stuff</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="academic" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+
+              <li>
+                <a class="dropdown-item nav-link-custom" href="{{ route('school_manage_academic',Crypt::encrypt($school_id)) }}">
+                  <i class="fa fa-list-alt"></i><span class="ms-2">Manage academic</span>
+                </a>
+              </li>
+        
+              <li>
+                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_view_user',Crypt::encrypt($school_id))}}">
+                  <i class="fa fa-pencil"></i>
+                  <span class="ms-2">Teaching stuff</span>
+                </a>
+              </li>
+          </ul>
+        </li>
+
         @if(auth()->guard('school_employee')->user()->hasPermission('student') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_student') || auth()->guard('school_employee')->user()->hasPermission('View_student'))
 
         <li class="nav-item">

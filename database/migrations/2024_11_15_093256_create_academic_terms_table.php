@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('my_personal_files', function (Blueprint $table) {
+        Schema::create('academic_terms', function (Blueprint $table) {
             $table->id();
+            $table->string('term_name');
+            $table->unsignedBigInteger('academic_year_fk_id');
+            $table->foreign('academic_year_fk_id')->references('id')->on('academic_years')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('my_personal_files');
+        Schema::dropIfExists('academic_terms');
     }
 };

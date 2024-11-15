@@ -198,6 +198,10 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::get('my_personal_file/{school_id}', [schoolController::class, 'my_personal_file'])->name('my_personal_file');
 
+    Route::get('manage_academic/{school_id}', [schoolController::class, 'school_manage_academic'])->name('school_manage_academic');
+
+    Route::post('school_add_academic_year/{school_id}', [schoolController::class, 'school_add_academic_year'])->name('school_add_academic_year');
+
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 });
 //end of single school routes
