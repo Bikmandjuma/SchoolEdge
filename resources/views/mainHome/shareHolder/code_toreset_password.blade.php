@@ -54,8 +54,8 @@
 
         /* Style for input fields */
         input[type="number"] {
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             margin: 5px;
             font-size: 24px;
             text-align: center;
@@ -112,8 +112,8 @@
             }
 
             input[type="number"] {
-                width: 45px; /* Slightly smaller width for small devices */
-                height: 45px;
+                width: 30px; /* Slightly smaller width for small devices */
+                height: 30px;
             }
 
             button {
