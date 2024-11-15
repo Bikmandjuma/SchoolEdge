@@ -108,7 +108,7 @@
                 display: flex;
                 justify-content: space-between; /* Align inputs horizontally */
                 flex-wrap: wrap; /* Allow inputs to wrap to next line on very small screens */
-                gap: 10px; /* Add some space between inputs */
+                gap:3px; /* Add some space between inputs */
             }
 
             input[type="number"] {
