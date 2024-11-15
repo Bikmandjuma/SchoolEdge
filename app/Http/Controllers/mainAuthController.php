@@ -886,4 +886,20 @@ class mainAuthController extends Controller
         return redirect()->back()->with('info','New permission added !');
     }
 
+    public function shareHolder_employees(){
+       $permission_data = PermissionGroupBy::all();
+        return view('mainHome.shareHolder.employees',[
+            'permission_data' => $permission_data,
+            'count' => 1
+        ]); 
+    }
+
+    public function shareHolder_wallets(){
+        $permission_data = PermissionGroupBy::all();
+        return view('mainHome.shareHolder.wallets',[
+            'permission_data' => $permission_data,
+            'count' => 1
+        ]);
+    }
+
 }

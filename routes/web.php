@@ -109,8 +109,10 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
     Route::post('post_new_permission',[mainAuthController::class,'shareHolder_post_new_permission'])->name('main.post_new_permission');
 
     Route::get('school_user_permission_groupBy',[mainAuthController::class,'shareHolder_school_user_permission_groupBy'])->name('main.school_user_permission_groupBy');
-    Route::post('shareHolder_post_new_permission_groupBy',[mainAuthController::class,'shareHolder_post_new_permission_groupBy'])->name('main.post_new_permission_groupBy');
 
+    Route::get('shareHolder_employees',[mainAuthController::class,'shareHolder_employees'])->name('main.employees');
+
+    Route::get('shareHolder_wallets',[mainAuthController::class,'shareHolder_wallets'])->name('main.wallet');
 });
 //end mainController panel
 
