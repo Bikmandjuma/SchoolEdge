@@ -18,7 +18,7 @@
           
           <div class="card">
               <div class="card-body" style="overflow: auto;">
-                  <h5 class="card-title text-center"><i class="fa fa-money"></i> <span class="badge  text-white bg-primary badge-number"></span> Wallet (All school/customers payments history)</h5>
+                  <h5 class="card-title text-center"><i class="fa fa-money"></i> <span class="badge  text-white bg-primary badge-number"></span> Wallet (All schools/customers payments history)</h5>
 
                   <table class="table datatable">
                     <thead>
