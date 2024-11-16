@@ -47,6 +47,5 @@
 </div>
 <br>
 @endcomponent
-<p>(You can copy the code above.)</p>
 <p>The code is valid for one hour from the time this message was sent.</p>
 @endcomponent
