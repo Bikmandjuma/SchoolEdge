@@ -2,6 +2,10 @@
 @section('content')
 
     <style type="text/css">
+
+        body{
+            overflow: hidden;
+        }
         
         .error-message {
             color: #e74c3c;
@@ -127,7 +131,7 @@
 
     </style>
 
-        <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top: -6%;" id="login_form">
+        <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top: -5%;" id="login_form">
 
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
@@ -149,7 +153,7 @@
                     <div class="rounded-md">
                         <div  class="form-group">
                             <input name="username" value="{{old('username')}}" type="text" autocomplete="email" placeholder=" " id="username">
-                            <label for="username">Enter username</label>
+                            <label for="username">Enter username or email</label>
                             <div class="error-message" id="username-error"></div>
                         </div>
 
