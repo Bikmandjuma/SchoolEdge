@@ -15,6 +15,7 @@ Route::get('/school', function () {
 
 //start .. Main homepage , this code block is about mainpage
 Route::get('login',[mainAuthController::class,'login'])->name('main.login.page');
+
 Route::post('submit_login',[mainAuthController::class,'submit_login'])->name('main.submit.login');
 
 Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');

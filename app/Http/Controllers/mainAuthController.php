@@ -131,31 +131,57 @@ class mainAuthController extends Controller
 
     }
 
-    public function submit_login(Request $request){
+    // public function submit_login(Request $request){
         
+    //     $request->validate([
+    //         'username'=>'required|string',
+    //         'password'=>'required|string',
+    //     ],[
+    //         'username.required' =>'',
+    //         'password.required' =>''
+    //     ]);
+
+    //     if (Auth::guard('shareHolder')->attempt(['username' => $request->username, 'password' => $request->password])) {
+
+    //         return redirect()->route('main.shareHolder.dashboard');
+
+    //     }elseif(Auth::guard('customer')->attempt(['username' => $request->username, 'password' => $request->password])) {
+
+    //         return redirect()->route('main.customer.dashboard');
+
+    //     }else{
+
+    //         return redirect()->back()->with('error','Invalid Username or Password ,try again !');
+
+    //     }
+
+    // }
+
+    public function submit_login(Request $request){
         $request->validate([
-            'username'=>'required|string',
-            'password'=>'required|string',
-        ],[
-            'username.required' =>'',
-            'password.required' =>''
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ], [
+            'username.required' => '',
+            'password.required' => '',
         ]);
 
-        if (Auth::guard('shareHolder')->attempt(['username' => $request->username, 'password' => $request->password])) {
+        // Check if the input is an email or username
+        $loginField = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
+        // Try to authenticate with Shareholder guard
+        if (Auth::guard('shareHolder')->attempt([$loginField => $request->username, 'password' => $request->password])) {
             return redirect()->route('main.shareHolder.dashboard');
-
-        }elseif(Auth::guard('customer')->attempt(['username' => $request->username, 'password' => $request->password])) {
-
+        } 
+        // Try to authenticate with Customer guard
+        elseif (Auth::guard('customer')->attempt([$loginField => $request->username, 'password' => $request->password])) {
             return redirect()->route('main.customer.dashboard');
-
-        }else{
-
-            return redirect()->back()->with('error','Invalid Username or Password ,try again !');
-
+            
+        } else {
+            return redirect()->back()->with('error', 'Invalid Username or Password, try again!');
         }
-
     }
+
 
     public function logout(){
 

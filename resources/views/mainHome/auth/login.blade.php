@@ -111,7 +111,7 @@
                     <div class="rounded-md">
                         <div  class="form-group">
                             <input name="username" value="{{old('username')}}" type="text" autocomplete="email" placeholder=" " id="username">
-                            <label for="username">Enter username</label>
+                            <label for="username">Enter username or email</label>
                             <div class="error-message" id="username-error"></div>
                         </div>
 
