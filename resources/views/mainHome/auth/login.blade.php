@@ -2,10 +2,6 @@
 @section('content')
 
     <style type="text/css">
-
-        body{
-            overflow: hidden;
-        }
         
         .error-message {
             color: #e74c3c;
@@ -90,48 +86,10 @@
             }
         }
 
-        .btn-show-pass {
-          font-size: 15px;
-          color: #999999;
-
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: -moz-box;
-          display: -ms-flexbox;
-          display: flex;
-          align-items: center;
-          position: absolute;
-          height: 100%;
-          top: 0;
-          right: 0;
-          padding-right: 5px;
-          cursor: pointer;
-          -webkit-transition: all 0.4s;
-          -o-transition: all 0.4s;
-          -moz-transition: all 0.4s;
-          transition: all 0.4s;
-        }
-
-        .btn-show-pass:hover {
-          color: #6a7dfe;
-          color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-          color: -o-linear-gradient(left, #21d4fd, #b721ff);
-          color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-          color: linear-gradient(left, #21d4fd, #b721ff);
-        }
-
-        .btn-show-pass.active {
-          color: #6a7dfe;
-          color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-          color: -o-linear-gradient(left, #21d4fd, #b721ff);
-          color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-          color: linear-gradient(left, #21d4fd, #b721ff);
-        }
-
 
     </style>
 
-        <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top: -5%;" id="login_form">
+        <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top: -50px;" id="login_form">
 
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
@@ -159,14 +117,7 @@
 
                         <div style="margin-top:10px;"  class="form-group">
                             <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password" >
-                            <label for="password">Enter password</label>
-                            <span class="btn-show-pass" onclick="ShowPass()" id="ShowPswdId">
-                              <i class="fas fa-eye-slash"></i>
-                            </span>
-                            <span class="btn-show-pass" id="HidePswdId" onclick="HidePswd()" style="display: none;">
-                              <i class="fas fa-eye"></i>
-                            </span>
-                            <div class="error-message" id="password-error"></div>
+                            <label for="password">Enter password</label><div class="error-message" id="password-error"></div>
                         </div>
                         
                     </div>
@@ -231,42 +182,6 @@
                 }
             });
         });
-
-            function ShowPass(){
-                var x=document.getElementById('passid');
-                if (x.type === "password") {
-                  x.type = "test";
-                  var show=document.getElementById('ShowPswdId');
-                  var hide=document.getElementById('HidePswdId');
-
-                  show.style.display="none";
-                  hide.style.display="block"
-
-                  hide.style.marginTop="30px";
-                }else{
-                  x.type="password";
-                }
-
-            }
-
-            function HidePswd(){
-                var x=document.getElementById('passid');
-
-                if (x.type === "text") {
-                  x.type = "password";
-                  var show=document.getElementById('ShowPswdId');
-                  show.style.display="block"
-                  var hide=document.getElementById('HidePswdId');
-                  hide.style.display="none"
-
-                  show.style.marginTop="30px";
-                  hide.style.marginTop="30px";
-
-                }else{
-                  x.type="text";
-                }
-
-            }
 
 
     </script>

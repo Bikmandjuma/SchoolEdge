@@ -125,7 +125,7 @@
 
     <div class="flex items-center justify-center min-h-screen" style="padding-top:60px;">
         <div class="login-container">
-            <h2 class="login-title">Login Here</h2>
+            <h2 class="login-title">Login</h2>
             <br>
             @if (session('error-message'))
                 <p class="error-message text-center">{{ session('error-message') }}</p>
