@@ -5,7 +5,7 @@
         <div class="header-carousel owl-carousel">
             <div class="header-carousel-item mx-auto">
                 <div class="header-carousel-item-img-2">
-                    <img src="{{ URL::to('/') }}/Single_school_pages/img/carousel-1.jpg" class="img-fluid w-100" alt="Image">
+                    <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_2.jpg" class="img-fluid w-100" alt="Image">
                 </div>
                 <div class="carousel-caption">
                     <div class="carousel-caption-inner text-center p-3">
@@ -18,7 +18,7 @@
             </div>
             <div class="header-carousel-item mx-auto">
                 <div class="header-carousel-item-img-2">
-                    <img src="{{ URL::to('/') }}/Single_school_pages/img/carousel-2.jpg" class="img-fluid w-100" alt="Image">
+                    <img src="{{ URL::to('/') }}/Single_school_pages/img//hints/bg_7.jpg" class="img-fluid w-100" alt="Image">
                 </div>
                 <div class="carousel-caption">
                     <div class="carousel-caption-inner text-center p-3">
@@ -31,7 +31,7 @@
             </div>
             <div class="header-carousel-item mx-auto">
                 <div class="header-carousel-item-img-2">
-                    <img src="{{ URL::to('/') }}/Single_school_pages/img/carousel-3.jpg" class="img-fluid w-100" alt="Image">
+                    <img src="{{ URL::to('/') }}/Single_school_pages/img//hints/bg_0.jpeg" class="img-fluid w-100" alt="Image">
                 </div>
                 <div class="carousel-caption">
                     <div class="carousel-caption-inner text-center p-3">
@@ -52,26 +52,27 @@
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 col-xl-5 wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="about-img">
-                            <img src="{{ URL::to('/') }}/Single_school_pages/img/about-3.png" class="img-fluid w-100 rounded-top bg-white" alt="Image">
-                            <img src="{{ URL::to('/') }}/Single_school_pages/img/about-2.jpg" class="img-fluid w-100 rounded-bottom" alt="Image">
+                            <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_6.jpeg" class="img-fluid w-100 rounded-top bg-white" alt="Image">
+                            <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_5.jpeg" class="img-fluid w-100 rounded-bottom" alt="Image">
                         </div>
                     </div>
                     <div class="col-lg-6 col-xl-7 wow fadeInRight" data-wow-delay="0.3s">
                         <h4 class="text-primary">About Us</h4>
-                        <h1 class="display-5 mb-4">The most Profitable Investments company in worldwide.</h1>
-                        <p class="text ps-4 mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores atque nihil unde quisquam, deleniti illo a. Quam harum laboriosam, laudantium, deleniti perferendis voluptates ex non laborum libero magni, minus illo!
+                        <h1 class="display-5 mb-4">{{ $school_name }}</h1>
+                        <p class="text ps-4 mb-4">
+                            Welcome to {{ $school_name }}, a place where excellence meets opportunity! Established in 2024, we are committed to nurturing the academic, social, and personal growth of every student. With a dedicated team of educators, a vibrant learning environment, and a focus on holistic development, we aim to inspire a lifelong love for learning. At {{ $school_name }}, we believe every child has the potential to achieve greatness, and we are here to guide them every step of the way.
                         </p>
                         <div class="row g-4 justify-content-between mb-5">
                             <div class="col-lg-6 col-xl-5">
-                                <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i> Strategy & Consulting</p>
-                                <p class="text-dark mb-0"><i class="fas fa-check-circle text-primary me-1"></i> Business Process</p>
+                                <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i>Innovative Learning Environment</p>
+                                <p class="text-dark mb-0"><i class="fas fa-check-circle text-primary me-1"></i>Extracurricular Opportunities</p>
                             </div>
                             <div class="col-lg-6 col-xl-7">
-                                <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i> Marketing Rules</p>
-                                <p class="text-dark mb-0"><i class="fas fa-check-circle text-primary me-1"></i> Partnerships</p>
+                                <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i> Supportive Community</p>
+                                <p class="text-dark mb-0"><i class="fas fa-check-circle text-primary me-1"></i> Unique Programs and Resources</p>
                             </div>
                         </div>
-                        <div class="row g-4 justify-content-between mb-5">
+                        <!--div class="row g-4 justify-content-between mb-5">
                             <div class="col-xl-5"><a href="#" class="btn btn-primary rounded-pill py-3 px-5">Discover More</a></div>
                             <div class="col-xl-7 mb-5">
                                 <div class="about-customer d-flex position-relative">
@@ -85,24 +86,24 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
                         <div class="row g-4 text-center align-items-center justify-content-center">
                             <div class="col-sm-4">
                                 <div class="bg-primary rounded p-4">
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <span class="counter-value fs-1 fw-bold text-dark" data-toggle="counter-up">32</span>
-                                        <h4 class="text-dark fs-1 mb-0" style="font-weight: 600; font-size: 25px;">k+</h4>
+                                        <span class="counter-value fs-1 fw-bold text-dark" data-toggle="counter-up">0</span>
+                                        <h4 class="text-dark fs-1 mb-0" style="font-weight: 600; font-size: 25px;"><!--k+--></h4>
                                     </div>
                                     <div class="w-100 d-flex align-items-center justify-content-center">
-                                        <p class="text-white mb-0">Project Complete</p>
+                                        <p class="text-white mb-0">School_employees</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="bg-dark rounded p-4">
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <span class="counter-value fs-1 fw-bold text-white" data-toggle="counter-up">21</span>
-                                        <h4 class="text-white fs-1 mb-0" style="font-weight: 600; font-size: 25px;">+</h4>
+                                        <span class="counter-value fs-1 fw-bold text-white" data-toggle="counter-up">0</span>
+                                        <h4 class="text-white fs-1 mb-0" style="font-weight: 600; font-size: 20px;"></h4>
                                     </div>
                                     <div class="w-100 d-flex align-items-center justify-content-center">
                                         <p class="mb-0">Years Of Experience</p>
@@ -112,11 +113,11 @@
                             <div class="col-sm-4">
                                 <div class="bg-primary rounded p-4">
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <span class="counter-value fs-1 fw-bold text-dark" data-toggle="counter-up">97</span>
-                                        <h4 class="text-dark fs-1 mb-0" style="font-weight: 600; font-size: 25px;">+</h4>
+                                        <span class="counter-value fs-1 fw-bold text-dark" data-toggle="counter-up">0</span>
+                                        <h4 class="text-dark fs-1 mb-0" style="font-weight: 600; font-size: 25px;"></h4>
                                     </div>
                                     <div class="w-100 d-flex align-items-center justify-content-center">
-                                        <p class="text-white mb-0">Team Members</p>
+                                        <p class="text-white mb-0">Students</p>
                                     </div>
                                 </div>
                             </div>
@@ -133,20 +134,20 @@
             <div class="container py-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h4 class="text-primary">Our Services</h4>
-                    <h1 class="display-4"> Offering the Best Consulting & Investa Services</h1>
+                    <h1 class="display-4"> Delivering Outstanding Guidance and Development Opportunities for Future Leaders</h1>
                 </div>
                 <div class="row g-4 justify-content-center text-center">
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="service-item bg-light rounded">
                             <div class="service-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/service-1.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_3.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="service-content text-center p-4">
                                 <div class="service-content-inner">
-                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Business Strategy Invesments</a>
-                                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nobis est sapiente natus officiis maxime
+                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Strong academic programs with skilled teachers</a>
+                                    <p class="mb-4">content
                                     </p>
-                                    <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a>
+                                    <!-- <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a> -->
                                 </div>
                             </div>
                         </div>
@@ -154,14 +155,14 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item bg-light rounded">
                             <div class="service-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/service-2.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_3.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="service-content text-center p-4">
                                 <div class="service-content-inner">
-                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Consultancy & Advice</a>
-                                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nobis est sapiente natus officiis maxime
+                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Modern facilities and technology for learning.</a>
+                                    <p class="mb-4">content
                                     </p>
-                                    <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a>
+                                    <!-- <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a> -->
                                 </div>
                             </div>
                         </div>
@@ -169,14 +170,14 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item bg-light rounded">
                             <div class="service-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/service-4.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_3.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="service-content text-center p-4">
                                 <div class="service-content-inner">
-                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Invesments Planning</a>
-                                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nobis est sapiente natus officiis maxime
+                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Engaging extracurricular activities.</a>
+                                    <p class="mb-4">content
                                     </p>
-                                    <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a>
+                                    <!-- <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a> -->
                                 </div>
                             </div>
                         </div>
@@ -184,21 +185,21 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item bg-light rounded">
                             <div class="service-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/service-3.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_3.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="service-content text-center p-4">
                                 <div class="service-content-inner">
-                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Private Client Investment</a>
-                                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nobis est sapiente natus officiis maxime
+                                    <a href="#" class="h4 mb-4 d-inline-flex text-start"><i class="fas fa-donate fa-2x me-2"></i> Safe and inclusive environment</a>
+                                    <p class="mb-4">content
                                     </p>
-                                    <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a>
+                                    <!-- <a class="btn btn-light rounded-pill py-2 px-4" href="#">Read More</a> -->
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <a class="btn btn-primary rounded-pill py-3 px-5 wow fadeInUp" data-wow-delay="0.1s" href="#">Services More</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -209,13 +210,13 @@
         <div class="container-fluid project">
             <div class="container">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Projects</h4>
+                    <h4 class="text-primary">Students studies</h4>
                     <h1 class="display-4">Explore Our Latest Projects</h1>
                 </div>
                 <div class="project-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
                     <div class="project-item h-100 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="project-img">
-                            <img src="{{ URL::to('/') }}/Single_school_pages/img/projects-1.jpg" class="img-fluid w-100 rounded" alt="Image">
+                            <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_5.jpeg" class="img-fluid w-100 rounded" alt="Image">
                         </div>
                         <div class="project-content bg-light rounded p-4">
                             <div class="project-content-inner">
@@ -230,7 +231,7 @@
                     </div>
                     <div class="project-item h-100 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="project-img">
-                            <img src="{{ URL::to('/') }}/Single_school_pages/img/projects-1.jpg" class="img-fluid w-100 rounded" alt="Image">
+                            <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_6.jpeg" class="img-fluid w-100 rounded" alt="Image">
                         </div>
                         <div class="project-content bg-light rounded p-4">
                             <div class="project-content-inner">
@@ -245,7 +246,7 @@
                     </div>
                     <div class="project-item h-100">
                         <div class="project-img">
-                            <img src="{{ URL::to('/') }}/Single_school_pages/img/projects-1.jpg" class="img-fluid w-100 rounded" alt="Image">
+                            <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_4.jpeg" class="img-fluid w-100 rounded" alt="Image">
                         </div>
                         <div class="project-content bg-light rounded p-4">
                             <div class="project-content-inner">

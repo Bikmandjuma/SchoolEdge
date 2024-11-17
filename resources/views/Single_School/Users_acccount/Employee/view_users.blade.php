@@ -41,7 +41,7 @@
 	                      <td>
 	                        <div class="d-flex px-2 py-1">
 	                          <div>
-	                            <img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ $data->image }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+	                            <img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ $data->image }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1" style="width:50px;height: 50px;border-radius: 50%;border: 1px solid gray;">
 	                          </div>
 	                          <div class="d-flex flex-column justify-content-center">
 	                            <h6 class="mb-0 text-sm">{{ $data->firstname." ".$data->middle_name." ".$data->lastname }}</h6>

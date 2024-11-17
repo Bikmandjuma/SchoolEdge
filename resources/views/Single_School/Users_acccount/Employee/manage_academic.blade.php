@@ -18,7 +18,7 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">New academic name year</label>
+                                    <label class="form-label">New academic year</label>
                                     <input type="text" name="academic_year_name" class="form-control" value="{{ old('academic_name') }}">                                 
                                     
                                 </div>
@@ -85,7 +85,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="editRoleForm" method="POST" action="{{ route('school_employee_update_role') }}">
+            <form id="editRoleForm" method="POST" action="{{ route('school_add_term') }}">
               @csrf
               <!-- Hidden input to hold the role ID -->
               <input type="hidden" id="roleId" name="role_id">

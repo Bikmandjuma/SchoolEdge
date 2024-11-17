@@ -66,6 +66,15 @@
 						      @endif
 						    </tr>
 						  @endforeach
+						  <tr>
+						  	
+						  		@if($count_role_data == 0)
+						  		<td colspan="2" class="text-center">
+						  			No Role data found !
+						  		</td>
+						  		@endif
+						  	
+						  </tr>
 						</table>
 
 		          	</div>

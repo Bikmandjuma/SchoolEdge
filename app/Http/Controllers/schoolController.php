@@ -334,13 +334,16 @@ class schoolController extends Controller
         $school_ids = Crypt::decrypt($school_id);
         $school_data = Customer::findOrFail($school_ids);
 
-        $role_data = UserRole::where('school_fk_id',$school_ids)->get();
+        $role_data = UserRole::where('school_fk_id',$school_ids)->where('role_name','!=','Admin')->get();
+
+        $count_role_data = collect($role_data)->count();
 
         return view("Single_School.Users_acccount.Employee.role",[
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
             'school_logo' => $school_data->image,
-            'role_data' => $role_data
+            'role_data' => $role_data,
+            'count_role_data' => $count_role_data
         ]);
 
     }
@@ -665,6 +668,10 @@ class schoolController extends Controller
         ]);
 
         return redirect()->back()->with('info','New academic year added !');
+    }
+
+    public function school_add_term(Request $request,$school_id){
+
     }
 
 }
