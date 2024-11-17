@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('academic_year_name');
             $table->unsignedBigInteger('school_fk_id');
             $table->foreign('school_fk_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
