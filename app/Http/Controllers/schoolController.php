@@ -120,10 +120,11 @@ class schoolController extends Controller
     //Administration living in homepage
     public function login_home_page($school_id){
         // Retrieve the terms and conditions for the specific user
+        
         $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
         
         return view("Single_School.Auth.Login",[
-            'school_id' => $school_data->id,
+            'school_id' => Customer::findOrFail($school_id),
             'school_name' => $school_data->school_name,
             'school_email' => $school_data->email,
             'school_phone' => $school_data->phone,
@@ -151,16 +152,15 @@ class schoolController extends Controller
 
     public function forgot_password_home_page($school_id){
         
-        $school_id = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
         return view("Single_School.Auth.Forgot_password",[
-            'school_id' => $school_id,
+            'school_id' => Customer::findOrFail($school_id),
             'school_name' => $school_data->school_name,
             'school_email' => $school_data->email,
             'school_phone' => $school_data->phone,
             'school_logo' => $school_data->image,
             'hideFooter' =>true
         ]);
-        
     }
 
     public function school_employee_submit_login(Request $request,$school_id){
