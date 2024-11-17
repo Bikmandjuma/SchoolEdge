@@ -133,8 +133,8 @@
         <div class="container-fluid service py-5">
             <div class="container py-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Services</h4>
-                    <h1 class="display-4"> Delivering Outstanding Guidance and Development Opportunities for Future Leaders</h1>
+                    <h4 class="text-primary">Our News</h4>
+                    <h1 class="display-4"> News and events</h1>
                 </div>
                 <div class="row g-4 justify-content-center text-center">
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
@@ -155,7 +155,7 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item bg-light rounded">
                             <div class="service-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_3.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_4.jpeg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="service-content text-center p-4">
                                 <div class="service-content-inner">
@@ -170,7 +170,7 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item bg-light rounded">
                             <div class="service-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_3.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_5.jpeg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="service-content text-center p-4">
                                 <div class="service-content-inner">
@@ -185,7 +185,7 @@
                     <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item bg-light rounded">
                             <div class="service-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_3.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_6.jpeg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="service-content text-center p-4">
                                 <div class="service-content-inner">
@@ -211,7 +211,7 @@
             <div class="container">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h4 class="text-primary">Students studies</h4>
-                    <h1 class="display-4">Explore Our Latest Projects</h1>
+                    <h1 class="display-4">student studies in classes</h1>
                 </div>
                 <div class="project-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
                     <div class="project-item h-100 wow fadeInUp" data-wow-delay="0.1s">
@@ -220,7 +220,7 @@
                         </div>
                         <div class="project-content bg-light rounded p-4">
                             <div class="project-content-inner">
-                                <div class="project-icon mb-3"><i class="fas fa-chart-line fa-4x text-primary"></i></div>
+                                <!-- <div class="project-icon mb-3"><i class="fas fa-chart-line fa-4x text-primary"></i></div> -->
                                 <p class="text-dark fs-5 mb-3">Business Growth</p>
                                 <a href="#" class="h4">Business Strategy And Investment Planning Growth Consulting</a>
                                 <div class="pt-4">
@@ -235,7 +235,7 @@
                         </div>
                         <div class="project-content bg-light rounded p-4">
                             <div class="project-content-inner">
-                                <div class="project-icon mb-3"><i class="fas fa-signal fa-4x text-primary"></i></div>
+                                <!-- <div class="project-icon mb-3"><i class="fas fa-signal fa-4x text-primary"></i></div> -->
                                 <p class="text-dark fs-5 mb-3">Marketing Strategy</p>
                                 <a href="#" class="h4">Product Sailing Marketing Strategy For Improve Business</a>
                                 <div class="pt-4">
@@ -250,7 +250,7 @@
                         </div>
                         <div class="project-content bg-light rounded p-4">
                             <div class="project-content-inner">
-                                <div class="project-icon mb-3"><i class="fas fa-signal fa-4x text-primary"></i></div>
+                                <!-- <div class="project-icon mb-3"><i class="fas fa-signal fa-4x text-primary"></i></div> -->
                                 <p class="text-dark fs-5 mb-3">Marketing Strategy</p>
                                 <a href="#" class="h4">Product Sailing Marketing Strategy For Improve Business</a>
                                 <div class="pt-4">
@@ -269,8 +269,8 @@
         <div class="container-fluid blog pb-5">
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Blogs</h4>
-                    <h1 class="display-4">Latest Articles & News from the Blogs</h1>
+                    <h4 class="text-primary">Student living</h4>
+                    <h1 class="display-4">Students livings (domitories)</h1>
                 </div>
                 <div class="row g-4 justify-content-center">
                     <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
@@ -283,9 +283,9 @@
                                 </div>
                             </div>
                             <div class="project-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/blog-1.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_8.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="blog-plus-icon">
-                                    <a href="{{ URL::to('/') }}/Single_school_pages/img/blog-1.jpg" data-lightbox="blog-1" class="btn btn-primary btn-md-square rounded-pill"><i class="fas fa-plus fa-1x"></i></a>
+                                    <a href="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_8.jpg" data-lightbox="blog-1" class="btn btn-primary btn-md-square rounded-pill"><i class="fas fa-plus fa-1x"></i></a>
                                 </div>
                             </div>
                             <div class="my-4">
@@ -304,9 +304,9 @@
                                 </div>
                             </div>
                             <div class="project-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/blog-2.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_2.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="blog-plus-icon">
-                                    <a href="img/blog-2.jpg" data-lightbox="blog-2" class="btn btn-primary btn-md-square rounded-pill"><i class="fas fa-plus fa-1x"></i></a>
+                                    <a href="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_2.jpg" data-lightbox="blog-2" class="btn btn-primary btn-md-square rounded-pill"><i class="fas fa-plus fa-1x"></i></a>
                                 </div>
                             </div>
                             <div class="my-4">
@@ -325,9 +325,9 @@
                                 </div>
                             </div>
                             <div class="project-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/blog-3.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_0.jpeg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="blog-plus-icon">
-                                    <a href="img/blog-3.jpg" data-lightbox="blog-3" class="btn btn-primary btn-md-square rounded-pill"><i class="fas fa-plus fa-1x"></i></a>
+                                    <a href="{{ URL::to('/') }}/Single_school_pages/img/hints/bg_0.jpeg" data-lightbox="blog-3" class="btn btn-primary btn-md-square rounded-pill"><i class="fas fa-plus fa-1x"></i></a>
                                 </div>
                             </div>
                             <div class="my-4">
@@ -346,16 +346,17 @@
         <div class="container-fluid team pb-5">
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Team</h4>
-                    <h1 class="display-4">Our Investa Company Dedicated Team Member</h1>
+                    <h4 class="text-primary">Our Employees</h4>
+                    <h1 class="display-4">All schools' employees</h1>
                 </div>
                 <div class="row g-4 justify-content-center">
+                    @foreach($school_employee_data as $data)
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item rounded">
                             <div class="team-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/team-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                                <img src="{{ URL::to('/') }}/Single_school_pages/img/users_profiles_pictures/{{ $data->image }}" class="img-fluid w-100 rounded-top" alt="Image">
                                 <div class="team-icon">
-                                    <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fas fa-share-alt"></i></a>
+                                    <!-- <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fas fa-share-alt"></i></a> -->
                                     <div class="team-icon-share">
                                         <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-facebook-f"></i></a>
                                         <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-twitter"></i></a>
@@ -365,75 +366,17 @@
                             </div>
                             <div class="team-content bg-dark text-center rounded-bottom p-4">
                                 <div class="team-content-inner rounded-bottom">
-                                    <h4 class="text-white">Mark D. Brock</h4>
-                                    <p class="text-muted mb-0">CEO & Founder</p>
+                                    <h4 class="text-white">
+                                        {{ $data->firstname }} {{ $data->lastname }}
+                                    </h4>
+                                    <p class="text-muted mb-0">
+                                        {{ $data->role ? $data->role->role_name : 'No Role Assigned' }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="team-item rounded">
-                            <div class="team-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/team-2.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-                                <div class="team-icon">
-                                    <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fas fa-share-alt"></i></a>
-                                    <div class="team-icon-share">
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-0" href=""><i class="fab fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="team-content bg-dark text-center rounded-bottom p-4">
-                                <div class="team-content-inner rounded-bottom">
-                                    <h4 class="text-white">Mark D. Brock</h4>
-                                    <p class="text-muted mb-0">CEO & Founder</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item rounded">
-                            <div class="team-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/team-3.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-                                <div class="team-icon">
-                                    <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fas fa-share-alt"></i></a>
-                                    <div class="team-icon-share">
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-0" href=""><i class="fab fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="team-content bg-dark text-center rounded-bottom p-4">
-                                <div class="team-content-inner rounded-bottom">
-                                    <h4 class="text-white">Mark D. Brock</h4>
-                                    <p class="text-muted mb-0">CEO & Founder</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="team-item rounded">
-                            <div class="team-img">
-                                <img src="{{ URL::to('/') }}/Single_school_pages/img/team-4.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-                                <div class="team-icon">
-                                    <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fas fa-share-alt"></i></a>
-                                    <div class="team-icon-share">
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-3" href=""><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-primary btn-sm-square text-white rounded-circle mb-0" href=""><i class="fab fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="team-content bg-dark text-center rounded-bottom p-4">
-                                <div class="team-content-inner rounded-bottom">
-                                    <h4 class="text-white">Mark D. Brock</h4>
-                                    <p class="text-muted mb-0">CEO & Founder</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -447,9 +390,9 @@
                     <div class="col-xl-4 wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="h-100 rounded">
                             <h4 class="text-primary">Our Feedbacks </h4>
-                            <h1 class="display-4 mb-4">Clients are Talking</h1>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum atque soluta unde itaque. Consequatur quam odit blanditiis harum veritatis porro.</p>
-                            <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Read All Reviews <i class="fas fa-arrow-right ms-2"></i></a>
+                            <h1 class="display-4 mb-4">Parents are Talking</h1>
+                            <p class="mb-4">What parent talikings about our education's system.</p>
+                            <!-- <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Read All Reviews <i class="fas fa-arrow-right ms-2"></i></a> -->
                         </div>
                     </div>
                     <div class="col-xl-8">

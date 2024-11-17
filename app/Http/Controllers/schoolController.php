@@ -25,6 +25,8 @@ class schoolController extends Controller
     public function open($school_id){
         // Retrieve the terms and conditions for the specific user
         $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
+
+        $school_employee_data = SchoolEmployee::where('school_fk_id',Crypt::decrypt($school_id))->get();
         
         return view("Single_School.Landing_pages.Home",[
             'school_id' => $school_data->id,
@@ -32,6 +34,7 @@ class schoolController extends Controller
             'school_email' => $school_data->email,
             'school_phone' => $school_data->phone,
             'school_logo' => $school_data->image,
+            'school_employee_data' => $school_employee_data
         ]);
 
     }
