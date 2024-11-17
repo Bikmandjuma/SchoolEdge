@@ -193,7 +193,7 @@ class CustomerController extends Controller
         $terms_not_equal_to_null=customer_read_terms_condition::where('school_fk_id',$auth_user)->where('status','!=','')->count();
 
         if( $terms_not_equal_to_null == 0){
-            toastr()->info('Terms & conditions read , do any other action you want !',['timeOut' => 5000]);
+            toastr()->info('Read all terms & conditions, do any other action you want !',['timeOut' => 5000]);
         } 
 
         return view('mainHome.customer.terms_condition',compact('terms','count_terms'));
