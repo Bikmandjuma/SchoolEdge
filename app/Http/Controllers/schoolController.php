@@ -206,7 +206,9 @@ class schoolController extends Controller
             $encrypted_code = Crypt::encrypt($reset_data->code);
 
             // Redirect to the reset password page
-            return redirect()->route('school.reset_password', ['email' => $encrypted_email, 'code' => $encrypted_code])->with('success', 'We sent you a code on your email!');
+            // return redirect()->route('school.reset_password', ['email' => $encrypted_email, 'code' => $encrypted_code])->with('success', 'We sent you a code on your email !');
+
+            return redirect()->route('school.forgot_password_home_page', ['school_id' => $encrypted_school_id])->with('success', 'We sent you a code on your email !');
         }
 
     }
