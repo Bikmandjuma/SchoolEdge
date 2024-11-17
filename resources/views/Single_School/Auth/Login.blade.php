@@ -162,6 +162,7 @@
             <p class="mt-4 text-center text-sm text-gray-600">
                 <a href="{{ route('school.forgot_password_home_page',Crypt::encrypt($school_id)) }}">Forgot password&nbsp;<i class="fa fa-arrow-right"></i></a>
             </p>
+            
         </div>
     </div>
 

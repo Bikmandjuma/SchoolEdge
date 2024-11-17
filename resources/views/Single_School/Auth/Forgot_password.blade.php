@@ -134,10 +134,10 @@
             @endif
 
             @if ($errors->any())
-                <p class="error-message text-center">Please enter username and password to login!</p>
+                <p class="error-message text-center">Please enter email !</p>
             @endif
 
-            <form action="{{ route('school.submit_forgot_password',Crypt::encrypt('$school_id')) }}" method="POST" id="login-form" class="mt-8 space-y-6">
+            <form action="{{ route('school.submit_forgot_password', Crypt::encrypt($school_id)) }}" method="POST" id="login-form" class="mt-8 space-y-6">
                 @csrf
                 <div class="rounded-md">
                     <div class="form-group">

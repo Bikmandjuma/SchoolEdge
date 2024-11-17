@@ -165,48 +165,49 @@ class schoolController extends Controller
         ]);
     }
 
-    public function submit_forgot_password(Request $request,$school_id){
-
-        $school_id = Crypt::encrypt($school_id);
+    public function submit_forgot_password(Request $request, $encrypted_school_id){
+        // Decrypt the school_id
+        $school_id = Crypt::decrypt($encrypted_school_id);
 
         $request->validate([
-            'email' => 'required|email'
+            'email' => 'required|email',
         ],[
-            'email.required' => 'Please enter an email !'
+            'email.required' => 'Please enter an email!',
         ]);
 
         $email = $request->email;
 
-        $existsInUsers = SchoolEmployee::where('email', $email)->exists();
+        // Check if the email exists for this school
+        $existsInUsers = SchoolEmployee::where('email', $email)
+                        ->where('school_fk_id', $school_id)
+                        ->exists();
 
         if (!$existsInUsers) {
-        
-            return redirect(route('school.forgot_password_home_page',$school_id))->withErrors(['email' => 'The email doesn\'t found in our database !']);
-        
-        }else{
-
-            // Delete all old code that user send before.
+            // Redirect back with error message if email is not found
+            return redirect()->route('school.forgot_password_home_page', ['school_id' => $encrypted_school_id])->with('error', 'The email doesn\'t found in our database!');
+        } else {
+            // Delete old reset codes if they exist
             ResetCodePassword::where('email', $email)->delete();
 
-            // Generate random code
-            $data=[
+            // Generate a new reset code
+            $data = [
                 'email' => $email,
                 'code' => mt_rand(100000, 999999),
             ];
 
-            // Create a new code
+            // Store the reset code
             $reset_data = ResetCodePassword::create($data);
 
-            // Send email to user
-            Mail::to($email)->send(new SendCodeResetPassword($reset_data->email,$reset_data->code));
+            // Send the reset code email
+            Mail::to($email)->send(new SendCodeResetPassword($reset_data->email, $reset_data->code));
 
-            $code=Crypt::encrypt($request->code);
-            $email=Crypt::encrypt($request->email);
-            
-            return redirect(url('/school/reset/password/code/'.$email.'/'.$code))
-                ->with('success','We sent you a code on your email !');
+            // Encrypt the email and code for the URL
+            $encrypted_email = Crypt::encrypt($email);
+            $encrypted_code = Crypt::encrypt($reset_data->code);
+
+            // Redirect to the reset password page
+            return redirect()->route('school.reset_password', ['email' => $encrypted_email, 'code' => $encrypted_code])->with('success', 'We sent you a code on your email!');
         }
-
 
     }
 
