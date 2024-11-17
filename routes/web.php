@@ -224,6 +224,8 @@ Route::group(['prefix' => ''], function() {
     Route::post('submit_login/{school_id}', [schoolController::class, 'school_employee_submit_login'])->name('school.submit.login_home_page');
 
     Route::get('forgot-password-form/{school_id}', [schoolController::class, 'forgot_password_home_page'])->name('school.forgot_password_home_page');
+
+    Route::post('submit_forgot-password/{school_id}', [schoolController::class, 'submit_forgot_password'])->name('school.submit_forgot_password');
 });
 //end single_school_page
 

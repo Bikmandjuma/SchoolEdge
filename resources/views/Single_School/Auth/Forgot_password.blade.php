@@ -137,13 +137,13 @@
                 <p class="error-message text-center">Please enter username and password to login!</p>
             @endif
 
-            <form action="" method="POST" id="login-form" class="mt-8 space-y-6">
+            <form action="{{ route('school.submit_forgot_password',Crypt::encrypt('$school_id')) }}" method="POST" id="login-form" class="mt-8 space-y-6">
                 @csrf
                 <div class="rounded-md">
                     <div class="form-group">
-                        <input name="username" value="{{ old('username') }}" type="text" autocomplete="email" placeholder=" " id="username">
-                        <label for="username">Enter email</label>
-                        <div class="error-message" id="username-error"></div>
+                        <input name="email" value="{{ old('email') }}" type="text" autocomplete="email" placeholder=" " id="email">
+                        <label for="email">Enter email</label>
+                        <div class="error-message" id="email-error"></div>
                     </div>
                 </div>
 
@@ -158,6 +158,7 @@
             <p class="mt-4 text-center text-sm text-gray-600">
                 <a href="{{ route('school.login_home_page',Crypt::encrypt($school_id)) }}"><i class="fa fa-arrow-left"></i>&nbsp;Back to login</a>
             </p>
+
         </div>
     </div>
 

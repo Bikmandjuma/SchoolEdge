@@ -16,6 +16,9 @@ use App\Models\PermissionData;
 use Carbon\Carbon;
 use App\Models\UserPermission;
 use App\Models\AcademicYear;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendCodeResetPassword;
+use App\Models\ResetCodePassword;
 
 class schoolController extends Controller
 {
@@ -150,7 +153,7 @@ class schoolController extends Controller
     }
 
     public function forgot_password_home_page($school_id){
-         $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
+        $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
         
         return view("Single_School.Auth.Forgot_password",[
             'school_id' => $school_data->id,
@@ -160,6 +163,51 @@ class schoolController extends Controller
             'school_logo' => $school_data->image,
             'hideFooter' =>true
         ]);
+    }
+
+    public function submit_forgot_password(Request $request,$school_id){
+
+        $school_id = Crypt::encrypt($school_id);
+
+        $request->validate([
+            'email' => 'required|email'
+        ],[
+            'email.required' => 'Please enter an email !'
+        ]);
+
+        $email = $request->email;
+
+        $existsInUsers = SchoolEmployee::where('email', $email)->exists();
+
+        if (!$existsInUsers) {
+        
+            return redirect(route('school.forgot_password_home_page',$school_id))->withErrors(['email' => 'The email doesn\'t found in our database !']);
+        
+        }else{
+
+            // Delete all old code that user send before.
+            ResetCodePassword::where('email', $email)->delete();
+
+            // Generate random code
+            $data=[
+                'email' => $email,
+                'code' => mt_rand(100000, 999999),
+            ];
+
+            // Create a new code
+            $reset_data = ResetCodePassword::create($data);
+
+            // Send email to user
+            Mail::to($email)->send(new SendCodeResetPassword($reset_data->email,$reset_data->code));
+
+            $code=Crypt::encrypt($request->code);
+            $email=Crypt::encrypt($request->email);
+            
+            return redirect(url('/school/reset/password/code/'.$email.'/'.$code))
+                ->with('success','We sent you a code on your email !');
+        }
+
+
     }
 
     public function school_employee_submit_login(Request $request,$school_id){
