@@ -95,7 +95,7 @@
             <span class="nav-link-text ms-1">Homepage</span>
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
-          <ul id="homepage" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+          <!--ul id="homepage" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
             <li>
               <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
                 <i class="fa fa-home"></i><span class="ms-2">Home</span>
@@ -126,7 +126,7 @@
                 <i class="fa fa-envelope"></i><span class="ms-2">Contact Us</span>
               </a>
             </li>
-          </ul>
+          </ul-->
         </li>
         @endif
 
