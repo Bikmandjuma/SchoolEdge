@@ -48,4 +48,16 @@ class SchoolEmployee extends Authenticatable
     {
         return $this->permissions->contains('name', $permission);
     }
+
+    // A teacher can teach many subjects
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'teacher_subject');
+    }
+
+    // A teacher can be assigned to many senior classes
+    public function seniorClasses()
+    {
+        return $this->belongsToMany(LevelClass::class, 'class_teacher');
+    }
 }
