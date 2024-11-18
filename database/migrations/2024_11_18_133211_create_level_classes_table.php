@@ -11,19 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('academic_years', function (Blueprint $table) {
+        Schema::create('level_classes', function (Blueprint $table) {
             $table->id();
-            $table->string('academic_year_name');
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->string('name');
+            $table->unsignedBigInteger('level_fk_id');
+            $table->unsignedBigInteger('term_fk_id');
             $table->unsignedBigInteger('school_fk_id');
+            $table->foreign('level_fk_id')->references('id')->on('levels')->onDelete('cascade');
+            $table->foreign('term_fk_id')->references('id')->on('academic_terms')->onDelete('cascade');
             $table->foreign('school_fk_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('academic_years');
+        Schema::dropIfExists('level_classes');
     }
 };

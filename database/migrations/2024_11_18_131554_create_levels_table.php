@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('academic_terms', function (Blueprint $table) {
-             $table->unsignedBigInteger('school_fk_id')->after('academic_year_fk_id');
+        Schema::create('levels', function (Blueprint $table) {
+            $table->id();
+            $table->string('level_name');
+            $table->unsignedBigInteger('term_fk_id');
+            $table->unsignedBigInteger('school_fk_id');
+            $table->foreign('term_fk_id')->references('id')->on('academic_terms')->onDelete('cascade');
             $table->foreign('school_fk_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -22,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('academic_terms', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('levels');
     }
 };
