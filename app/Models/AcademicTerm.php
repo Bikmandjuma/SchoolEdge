@@ -14,4 +14,14 @@ class AcademicTerm extends Model
         'start_date',
         'end_date'
     ];
+
+     public function academicYear()
+    {
+        return $this->belongsTo(AcademicYear::class);
+    }
+
+    public function levels()
+    {
+        return $this->hasMany(Level::class);
+    }
 }

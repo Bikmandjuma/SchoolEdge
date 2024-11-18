@@ -14,4 +14,9 @@ class AcademicYear extends Model
         'start_date',
         'end_date'
     ];
+
+    public function terms()
+    {
+        return $this->hasMany(AcademicTerm::class);
+    }
 }
