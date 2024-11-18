@@ -85,7 +85,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="editRoleForm" method="POST" action="{{ route('school_add_term') }}">
+            <form id="editRoleForm" method="POST" action="{{ route('school_add_term',$school_id) }}">
               @csrf
               <!-- Hidden input to hold the role ID -->
               <input type="hidden" id="roleId" name="role_id">
