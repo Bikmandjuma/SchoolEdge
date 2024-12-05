@@ -106,7 +106,7 @@
                     </p>
                 @endif
 
-                <form class="mt-8 space-y-6" action="{{ route('main.submit.login') }}" method="POST" id="login-form">
+                <!-- <form class="mt-8 space-y-6" action="{{ route('main.submit.login') }}" method="POST" id="login-form">
                     @csrf
                     <div class="rounded-md">
                         <div  class="form-group">
@@ -115,7 +115,7 @@
                             <div class="error-message" id="username-error"></div>
                         </div>
 
-                        <div style="margin-top:10px;"  class="form-group">
+                        <div style="margin-top:10px;" class="form-group">
                             <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password" >
                             <label for="password">Enter password</label><div class="error-message" id="password-error"></div>
                         </div>
@@ -130,7 +130,41 @@
                         </button>
                     </div>
 
+                </form> -->
+                <form class="mt-8 space-y-6" action="{{ route('main.submit.login') }}" method="POST" id="login-form">
+                    @csrf
+                    <div class="rounded-md">
+                        <div class="form-group">
+                            <input name="username" value="{{old('username')}}" type="text" autocomplete="email" placeholder=" " id="username">
+                            <label for="username">Enter username or email</label>
+                            <div class="error-message" id="username-error"></div>
+                        </div>
+
+                        <div style="margin-top:10px;" class="form-group">
+                            <div class="relative">
+                                <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password">
+                                <label for="password">Enter password</label>
+                                <div class="error-message" id="password-error"></div>
+                                
+                                <!-- Eye icon for toggling password visibility -->
+                                <span id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                                    <i class="fas fa-eye"></i>  <!-- This is the eye icon -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button type="submit"
+                            style="width: 150px;" 
+                            class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Login&nbsp;&nbsp;<i class="fas fa-lock-open mt-1"></i>
+                        </button>
+                    </div>
                 </form>
+
+
+
                 <p class="mt-4 text-center text-sm text-gray-600">
                     <a href="{{ route('main.forgot_password.page')}}" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password&nbsp;<i class="fa fa-arrow-right"></i></a>
                 </p>
@@ -183,6 +217,22 @@
             });
         });
 
+        // JavaScript to toggle password visibility
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordField = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', function() {
+            // Toggle the type of the password field
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
 
+            // Toggle the eye icon (change between "eye" and "eye-slash")
+            if (type === 'password') {
+                togglePassword.innerHTML = '<i class="fas fa-eye"></i>';  // Show eye
+            } else {
+                togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';  // Show eye-slash
+            }
+        });
     </script>
+    
 @endsection
