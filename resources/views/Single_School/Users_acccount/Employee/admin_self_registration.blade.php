@@ -194,111 +194,189 @@
     <div class="content">
       <!-- Registration form -->
         <form action="{{ route('school_employee_admin_submit_registration_form', $school_id) }}" method="POST">
-        @csrf
-        <div class="user-details">
-          <!-- Input for First Name -->
-          <div class="input-box">
+    @csrf
+    <div class="user-details">
+        <!-- Input for First Name -->
+        <div class="input-box">
             <span class="details">First Name</span>
             <input type="text" name="firstname" placeholder="Enter your first name" value="{{ old('firstname') }}">
             @error('firstname')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-
-          </div>
-          <!-- Input for Middle Name -->
-          <div class="input-box">
+        </div>
+        
+        <!-- Input for Middle Name -->
+        <div class="input-box">
             <span class="details">Middle Name</span>
             <input type="text" name="middle_name" placeholder="Enter your middle name" value="{{ old('middle_name') }}">
-          </div>
-          <!-- Input for Last Name -->
-          <div class="input-box">
+        </div>
+
+        <!-- Input for Last Name -->
+        <div class="input-box">
             <span class="details">Last Name</span>
             <input type="text" name="lastname" placeholder="Enter your last name" value="{{ old('lastname') }}">
             @error('lastname')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
-          <!-- Input for Username -->
-          <div class="input-box">
+        </div>
+
+        <!-- Input for Username -->
+        <div class="input-box">
             <span class="details">Username</span>
             <input type="text" name="username" placeholder="Enter your username" value="{{ old('username') }}">
             @error('username')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
-          <!-- Input for Email -->
-          <div class="input-box">
+        </div>
+
+        <!-- Input for Email -->
+        <div class="input-box">
             <span class="details">Email</span>
             <input type="email" name="email" placeholder="Enter your email" value="{{ old('email') }}">
             @error('email')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
-          <!-- Input for Phone Number -->
-          <div class="input-box">
+        </div>
+
+        <!-- Input for Phone Number -->
+        <div class="input-box">
             <span class="details">Phone Number</span>
             <input type="text" name="phone" placeholder="Enter your phone number" value="{{ old('phone') }}">
             @error('phone')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
-          <!-- Input for Date of Birth -->
-          <div class="input-box">
+        </div>
+
+        <!-- Input for Date of Birth -->
+        <div class="input-box">
             <span class="details">Date of Birth</span>
-            <input type="date" name="dob" placeholder="Enter your date of birth"  value="{{ old('dob') }}">
+            <input type="date" name="dob" placeholder="Enter your date of birth" value="{{ old('dob') }}">
             @error('dob')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
-          <!-- Input for Password -->
-          <div class="input-box">
+        </div>
+
+        <!-- Input for Password -->
+        <div class="input-box">
             <span class="details">Password</span>
-            <input type="password" name="password" placeholder="Enter your password">
+            <div class="input-wrapper">
+                <input type="password" name="password" placeholder="Enter your password" id="password">
+                <span id="toggle-password" class="eye-icon">
+                    <i class="fas fa-eye"></i> <!-- Eye icon for password -->
+                </span>
+            </div>
             @error('password')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
-          <!-- Input for Confirm Password -->
-          <div class="input-box">
+        </div>
+
+        <!-- Input for Confirm Password -->
+        <div class="input-box">
             <span class="details">Confirm Password</span>
-            <input type="password" name="password_confirmation" placeholder="Confirm your ">
+            <div class="input-wrapper">
+                <input type="password" name="password_confirmation" placeholder="Confirm your password" id="re-enter-password">
+                <span id="toggle-confirm-password" class="eye-icon">
+                    <i class="fas fa-eye"></i> <!-- Eye icon for confirm password -->
+                </span>
+            </div>
             @error('password_confirmation')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
-      
         </div>
-        
-        <div class="gender-details">
-          <!-- Radio buttons for gender selection -->
-          <input type="radio" name="gender" id="dot-1" value="Male">
-          <input type="radio" name="gender" id="dot-2" value="Female">
-          <input type="radio" name="gender" id="dot-2" value="Female" disabled>
-          <span class="gender-title">Gender</span>
-          <div class="category">
-            <!-- Label for Male -->
+    </div>
+
+    <div class="gender-details">
+        <!-- Radio buttons for gender selection -->
+        <input type="radio" name="gender" id="dot-1" value="Male">
+        <input type="radio" name="gender" id="dot-2" value="Female">
+        <span class="gender-title">Gender</span>
+        <div class="category">
             <label for="dot-1">
-              <span class="dot one"></span>
-              <span class="gender">Male</span>
-            </label>
-            <!-- Label for Female -->
-            <label for="dot-2">
-              <span class="dot two"></span>
-              <span class="gender">Female</span>
+                <span class="dot one"></span>
+                <span class="gender">Male</span>
             </label>
             <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="gender">Female</span>
             </label>
             @error('gender')
                 <span class="error-message">{{ $message }}</span>
             @enderror
-          </div>
         </div>
-        
-        <!-- Submit button -->
-        <div class="button">
-          <input type="submit" value="Register">
-        </div>
-      </form>
+    </div>
+
+    <!-- Submit button -->
+    <div class="button">
+        <input type="submit" value="Register">
+    </div>
+</form>
+
+<script>
+    // JavaScript to toggle password visibility for both password fields
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordField = document.getElementById('password');
+    const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+    const confirmPasswordField = document.getElementById('re-enter-password');
+    
+    // Toggle visibility for password field
+    togglePassword.addEventListener('click', function() {
+        const type = passwordField.type === 'password' ? 'text' : 'password';
+        passwordField.type = type;
+
+        // Toggle the eye icon for password
+        if (type === 'password') {
+            togglePassword.innerHTML = '<i class="fas fa-eye"></i>';  // Show eye
+        } else {
+            togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';  // Show eye-slash
+        }
+    });
+
+    // Toggle visibility for confirm password field
+    toggleConfirmPassword.addEventListener('click', function() {
+        const type = confirmPasswordField.type === 'password' ? 'text' : 'password';
+        confirmPasswordField.type = type;
+
+        // Toggle the eye icon for confirm password
+        if (type === 'password') {
+            toggleConfirmPassword.innerHTML = '<i class="fas fa-eye"></i>';  // Show eye
+        } else {
+            toggleConfirmPassword.innerHTML = '<i class="fas fa-eye-slash"></i>';  // Show eye-slash
+        }
+    });
+</script>
+
+<style>
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .eye-icon {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        color: #888;
+    }
+
+    input[type="password"] {
+        padding-right: 30px; /* Add space for the eye icon */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        padding-right: 30px; /* Make room for the eye icon inside */
+        box-sizing: border-box;
+    }
+</style>
+
+<!-- Include Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
     </div>
   </div>

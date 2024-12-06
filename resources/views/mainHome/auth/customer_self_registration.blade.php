@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{URL::to('/')}}/CustomerSelfRegister/fonts/material-icon/css/material-design-iconic-font.min.css">
     <!-- Main css -->
     <link rel="stylesheet" href="{{URL::to('/')}}/CustomerSelfRegister/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style type="text/css">
         /* Ensure the section takes up the full viewport height */
         .signup {
@@ -37,6 +38,43 @@
             margin: 0;               /* Remove default margin */
             font-size: 1.5rem;       /* Adjust font size as needed */
         }
+
+       /* #eye_icon_id{
+            z-index: 100;
+            margin: 0;
+            padding: 0;
+            margin-right: -200px;
+            margin-top: -50px;
+        }*/
+
+            .relative {
+                position: relative;
+            }
+
+            .absolute {
+                position: absolute;
+            }
+
+            .right-3 {
+                right: 12px; /* Positioning the eye icon to the right inside the input */
+            }
+
+            .top-1/2 {
+                top: 50%; /* Vertically center the icon */
+                margin-top: -10px;
+            }
+
+            .transform {
+                transform: translateY(-50%); /* Adjust the icon to be centered vertically */
+            }
+
+            .cursor-pointer {
+                cursor: pointer; /* Make the eye icon clickable */
+            }
+
+            input[type="password"] {
+                padding-right: 30px; /* Add space for the eye icon inside the input */
+            }
 
     </style>
 </head>
@@ -70,6 +108,7 @@
                                 @endforeach
                                 </ul>
                             @endif
+                            
                             <form method="POST" action="{{ route('main.submit_customer_registration',$id) }}" class="register-form" id="register-form">
                                 @csrf
                                 <div class="form-group">
@@ -82,26 +121,75 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="phone"><i class="zmdi zmdi-phone"></i></label>
-                                    <input type="phone" name="phone" id="phone" placeholder="Enter phone" value="{{ $phone }}" r eadonly />
+                                    <input type="phone" name="phone" id="phone" placeholder="Enter phone" value="{{ $phone }}" readonly />
                                 </div>
                                 <div class="form-group">
                                     <label for="username"><i class="zmdi zmdi-account"></i></label>
                                     <input type="text" name="username" id="username" placeholder="Username" value="{{ old('username') }}" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                    <input type="password" name="password" id="password" placeholder="Password"/>
+                                    
+                                    <div class="relative">
+                                        <label for="password"><i class="fas fa-lock"></i></label>
+                                        <input type="password" name="password" id="password" placeholder="Password"/>
+                                        <span id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                                            <i class="fas fa-eye"></i>  <!-- Eye icon for password -->
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="re-enter-password"><i class="zmdi zmdi-lock-outline"></i></label>
-                                    <input type="password" name="password_confirmation" id="re-enter-password" placeholder="Repeat your password"/>
+                                    <div class="relative">
+
+                                        <label for="re-enter-password"><i class="zmdi zmdi-lock-outline"></i></label>
+                                    
+                                        <input type="password" name="password_confirmation" id="re-enter-password" placeholder="Repeat your password"/>
+                                        <span id="toggle-confirm-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                                            <i class="fas fa-eye"></i>  <!-- Eye icon for confirm password -->
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div class="form-group form-button">
                                     <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                                 </div>
-                            
                             </form>
+
+                            <script>
+                                // JavaScript to toggle password visibility for both password fields
+                                const togglePassword = document.getElementById('toggle-password');
+                                const passwordField = document.getElementById('password');
+                                const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+                                const confirmPasswordField = document.getElementById('re-enter-password');
+                                
+                                // Toggle visibility for password field
+                                togglePassword.addEventListener('click', function() {
+                                    const type = passwordField.type === 'password' ? 'text' : 'password';
+                                    passwordField.type = type;
+
+                                    // Toggle the eye icon for password
+                                    if (type === 'password') {
+                                        togglePassword.innerHTML = '<i class="fas fa-eye"></i>';  // Show eye
+                                    } else {
+                                        togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';  // Show eye-slash
+                                    }
+                                });
+
+                                // Toggle visibility for confirm password field
+                                toggleConfirmPassword.addEventListener('click', function() {
+                                    const type = confirmPasswordField.type === 'password' ? 'text' : 'password';
+                                    confirmPasswordField.type = type;
+
+                                    // Toggle the eye icon for confirm password
+                                    if (type === 'password') {
+                                        toggleConfirmPassword.innerHTML = '<i class="fas fa-eye"></i>';  // Show eye
+                                    } else {
+                                        toggleConfirmPassword.innerHTML = '<i class="fas fa-eye-slash"></i>';  // Show eye-slash
+                                    }
+                                });
+                            </script>
+
+
+
                         </div>
                         <div class="signup-image">
                             <figure><img src="{{URL::to('/')}}/CustomerSelfRegister/images/signup-image.jpg" alt="sing up image"></figure>
