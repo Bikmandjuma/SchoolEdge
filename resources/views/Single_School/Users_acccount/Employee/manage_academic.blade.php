@@ -19,8 +19,7 @@
                             <div class="col-md-8">
                                 <div class="input-group input-group-outline my-3">
                                     <label class="form-label">New academic year</label>
-                                    <input type="text" name="academic_year_name" class="form-control" value="{{ old('academic_name') }}">                                 
-                                    
+                                    <input type="text" name="academic_year_name" class="form-control" value="{{ old('academic_name') }}">
                                 </div>
 
                                 @error('academic_year_name')
@@ -72,7 +71,9 @@
                 </div>
                </div>
         </div>
-        <div class="col-xl-1 mb-xl-0 mb-4"></div>
+        <div class="col-xl-1 mb-xl-0 mb-4">
+            
+        </div>
     </div>
 </div>
 
@@ -81,25 +82,43 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header text-center">
-            <h5 class="modal-title" id="editRoleModalLabel">Add term</h5>
+            <h5 class="modal-title" id="editRoleModalLabel" style="text-align: center;align-items: center;">Add term</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form id="editRoleForm" method="POST" action="{{ route('school_add_term',$school_id) }}">
-              @csrf
-              <!-- Hidden input to hold the role ID -->
-              <input type="hidden" id="roleId" name="role_id">
               
-              <div class="mb-3">
-                <label for="roleName" class="form-label">Term Name</label>
-                <input type="text" class="form-control" id="roleName" name="role_name" placeholder="Enter term_name ex : Term 1 or First term" autofocus required>
-              </div>
+                @csrf
+
+                @if($academic_year) 
+                    <input type="hidden" id="roleId" name="ac_year_fk_id" value="{{ $academic_year->id }}">
+                @endif
+
+                <div class="mb-3">
+                    <label for="roleName" class="form-label">Term Name</label>
+                    <input type="text" class="form-control" id="roleName" name="term_name" placeholder="Enter term_name ex : Term 1 or First term" autofocus required>
+                </div>
+
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="roleName" class="form-label">Start date</label>
+                            <input type="date" class="form-control" id="roleName" name="start_date" autofocus required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="roleName" class="form-label">End date</label>
+                            <input type="date" class="form-control" id="roleName" name="end_name" autofocus required>
+                        </div>
+                    </div>
+                </div>
               
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>&nbsp;&nbsp;Close</button>
-                <button type="submit" class="btn btn-info"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>
-              </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>&nbsp;&nbsp;Close</button>
+                    <button type="submit" class="btn btn-info"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>
+                </div>
+
             </form>
+
           </div>
         </div>
       </div>

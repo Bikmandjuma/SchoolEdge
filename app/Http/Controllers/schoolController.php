@@ -645,9 +645,8 @@ class schoolController extends Controller
         //                 ->first();
 
         $academic_year = AcademicYear::where("school_fk_id", $school_id)
-                        ->latest('academic_year_name') // Replace with the appropriate column
+                        ->latest('academic_year_name')
                         ->first();
-
 
         return view('Single_School.Users_acccount.Employee.manage_academic', [
             'school_id' => $school_data->id,
