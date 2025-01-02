@@ -235,7 +235,6 @@ class mainAuthController extends Controller
             return redirect(url('/reset/password/code/'.$email.'/'.$code))
                 ->with('success','We sent you a code on your email !');
         }
-
     }
 
     public function code_toreset_passsword($email,$code){
