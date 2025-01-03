@@ -1,28 +1,29 @@
 {
-    "private": true,
-    "type": "commonjs",
-    "scripts": {
-        "dev": "npm run development",
-        "watch": "npm run watch",
-        "build": "npm run production",
-        "development": "mix",
-        "production": "mix --production",
-        "start": "php artisan serve --host=0.0.0.0 --port=${PORT}"
-    },
-    "devDependencies": {
-        "autoprefixer": "^10.4.19",
-        "axios": "^1.6.4",
-        "laravel-mix": "^6.0.49",
-        "mini-css-extract-plugin": "^2.5.0",
-        "postcss": "^8.4.39",
-        "postcss-loader": "^6.2.1",
-        "tailwindcss": "^3.4.4",
-        "webpack": "^5.0.0",
-        "webpack-cli": "^4.0.0"
-    },
-    "dependencies": {
-        "laravel-echo": "^1.16.1",
-        "pusher-js": "^8.4.0-rc2",
-        "toastr": "^2.1.4"
-    }
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "npm run development",
+    "watch": "npm run watch",
+    "build": "npm run production",
+    "development": "mix",
+    "production": "mix --production",
+    "start": "php artisan serve --host=0.0.0.0 --port=$PORT",
+    "build:railway": "composer install --optimize-autoloader --no-dev && npm install && npm run production && php artisan migrate --force && php artisan optimize"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "axios": "^1.6.4",
+    "laravel-mix": "^6.0.49",
+    "mini-css-extract-plugin": "^2.5.0",
+    "postcss": "^8.4.39",
+    "postcss-loader": "^6.2.1",
+    "tailwindcss": "^3.4.4",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.0.0"
+  },
+  "dependencies": {
+    "laravel-echo": "^1.16.1",
+    "pusher-js": "^8.4.0-rc2",
+    "toastr": "^2.1.4"
+  }
 }
