@@ -674,6 +674,17 @@ class schoolController extends Controller
 
     public function school_add_term(Request $request,$school_id){
 
+        $request->validate([
+            'academic_year_name'=>'required|string|unique:academic_years,academic_year_name',
+            'term_name'=>'required|string',
+
+        ]);
+
+        $school_fk_id = $school_id;
+        $term_name = $request->term_name;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
     }
 
 }

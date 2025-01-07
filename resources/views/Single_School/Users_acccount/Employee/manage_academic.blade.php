@@ -86,39 +86,37 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="editRoleForm" method="POST" action="{{ route('school_add_term',$school_id) }}">
-              
-                @csrf
+            @if($academic_year)
 
-                @if($academic_year) 
-                    <input type="hidden" id="roleId" name="ac_year_fk_id" value="{{ $academic_year->id }}">
-                @endif
+                <form id="editRoleForm" method="POST" action="{{ url('school/school_add_term') }}/{{ Crypt::encrypt($academic_year->id) }}/{{ Crypt::encrypt($school_id) }}">
+                  
+                    @csrf
 
-                <div class="mb-3">
-                    <label for="roleName" class="form-label">Term Name</label>
-                    <input type="text" class="form-control" id="roleName" name="term_name" placeholder="Enter term_name ex : Term 1 or First term" autofocus required>
-                </div>
+                    <div class="mb-3">
+                        <label for="roleName" class="form-label">Term Name</label>
+                        <input type="text" class="form-control" id="roleName" name="term_name" placeholder="Enter term_name ex : Term 1 or First term" autofocus required>
+                    </div>
 
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="roleName" class="form-label">Start date</label>
-                            <input type="date" class="form-control" id="roleName" name="start_date" autofocus required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="roleName" class="form-label">End date</label>
-                            <input type="date" class="form-control" id="roleName" name="end_name" autofocus required>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="roleName" class="form-label">Start date</label>
+                                <input type="date" class="form-control" id="roleName" name="start_date" autofocus required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="roleName" class="form-label">End date</label>
+                                <input type="date" class="form-control" id="roleName" name="end_date" autofocus required>
+                            </div>
                         </div>
                     </div>
-                </div>
-              
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>&nbsp;&nbsp;Close</button>
-                    <button type="submit" class="btn btn-info"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>
-                </div>
+                  
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>&nbsp;&nbsp;Close</button>
+                        <button type="submit" class="btn btn-info"><i class="fa fa-save"></i>&nbsp;&nbsp;Save</button>
+                    </div>
 
-            </form>
-
+                </form>
+            @endif
           </div>
         </div>
       </div>

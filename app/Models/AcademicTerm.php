@@ -11,6 +11,7 @@ class AcademicTerm extends Model
     protected $fillable = [
         'term_name',
         'academic_year_fk_id',
+        'school_fk_id',
         'start_date',
         'end_date'
     ];
