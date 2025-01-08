@@ -1,0 +1,14 @@
+school's link
+=============
+
+http://127.0.0.1:8000/home/eyJpdiI6ImxuNzdJbjdhcXFDcFo3Yk5iTW5mRmc9PSIsInZhbHVlIjoiOS92cjlWM3VRdHNJdERTcTNqa3NDQT09IiwibWFjIjoiMGJmNDY0ZDE5ZTY5YzI2Njg4ZDhhZDBkNTRlMDJlMGFiZjBjNjBlZmI0Y2E3YjQyMWJlYzk1YzAwZDFmNWE2MiIsInRhZyI6IiJ9
+
+Admin
+------
+username : elyse123
+password : bugarama
+
+Master
+------
+username : kishki123
+password : bugarama

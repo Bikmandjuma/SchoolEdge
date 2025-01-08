@@ -18,7 +18,7 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">New academic year</label>
+                                    <label class="form-label">New academic year ex:2020-2021</label>
                                     <input type="text" name="academic_year_name" class="form-control" value="{{ old('academic_name') }}">
                                 </div>
 
@@ -77,6 +77,21 @@
     </div>
 </div>
 
+
+<script>
+    // Display success message
+    @if(session('info'))
+        toastr.success("{{ session('info') }}");
+    @endif
+
+    // Display validation error messages
+    @if($errors->any())
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
+</script>
+
 <!-- Edit term Modal -->
     <div class="modal fade" id="addTermModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -94,7 +109,7 @@
 
                     <div class="mb-3">
                         <label for="roleName" class="form-label">Term Name</label>
-                        <input type="text" class="form-control" id="roleName" name="term_name" placeholder="Enter term_name ex : Term 1 or First term" autofocus required>
+                        <input type="text" class="form-control" id="roleName" name="term_names" placeholder="Enter term_name ex : Term 1 or First term" autofocus required>
                     </div>
 
                     <div class="mb-3">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Customer;
@@ -672,19 +673,60 @@ class schoolController extends Controller
         return redirect()->back()->with('info','New academic year added !');
     }
 
-    public function school_add_term(Request $request,$school_id){
-
-        $request->validate([
-            'academic_year_name'=>'required|string|unique:academic_years,academic_year_name',
-            'term_name'=>'required|string',
-
+    public function school_add_term(Request $request, $acad_fk_id, $school_id)
+    {
+        $validator = Validator::make($request->all(), [
+            'term_names' => [
+                'required',
+                'string',
+                'starts_with:Term ',
+                'regex:/^Term \d+/',
+                'unique:academic_terms,term_name,NULL,id,academic_year_fk_id,' . crypt::decrypt($acad_fk_id) . ',school_fk_id,' . crypt::decrypt($school_id),
+            ],
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ], [
+            'term_names.required' => 'Term name field is required',
+            'term_names.starts_with' => 'Invalid input, you have to start with "Term " (space after Term)',
+            'term_names.regex' => 'Term name must follow the format "Term <number>" (e.g., "Term 1")',
+            'term_names.unique' => 'Term name is already taken for this academic year !',
         ]);
 
-        $school_fk_id = $school_id;
-        $term_name = $request->term_name;
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
+        if ($validator->fails()) {
+            if ($validator->errors()->has('term_names')) {
+                return redirect()->back()->with('error', $validator->errors()->first('term_names'))->withErrors($validator)->withInput();
+            }
 
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $academic_fk_id = crypt::decrypt($acad_fk_id);
+            $school_fk_id = crypt::decrypt($school_id);
+            $term_name = $request->term_names;
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+
+            DB::table('academic_terms')->insert([
+                'term_name' => $term_name,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'academic_year_fk_id' => $academic_fk_id,
+                'school_fk_id' => $school_fk_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->back()->with('info', 'Term added successfully');
+            
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Term name is already taken for this academic year and school')->withInput();
+            }
+
+            return redirect()->back()->with('error', 'Something went wrong. Please try again later.')->withInput();
+        }
     }
+
 
 }
