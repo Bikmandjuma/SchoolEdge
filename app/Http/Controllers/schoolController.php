@@ -17,6 +17,7 @@ use App\Models\PermissionData;
 use Carbon\Carbon;
 use App\Models\UserPermission;
 use App\Models\AcademicYear;
+use App\Models\AcademicTerm;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendCodeResetPassword;
 use App\Models\ResetCodePassword;
@@ -637,25 +638,48 @@ class schoolController extends Controller
         ]); 
     }
 
+    // public function school_manage_academic($school_id){
+    //     $school_id = Crypt::decrypt($school_id);
+    //     $school_data = Customer::findOrFail($school_id);
+
+    //     $academic_year = AcademicYear::where("school_fk_id", $school_id)
+    //                     ->latest('academic_year_name')
+    //                     ->first();
+
+    //     $fetch_academic_term = AcademicTerm::where('academic_year_fk_id',$academic_year->id)->where('school_fk_id',$school_id);
+
+    //     return view('Single_School.Users_acccount.Employee.manage_academic', [
+    //         'school_id' => $school_data->id,
+    //         'school_name' => $school_data->school_name,
+    //         'school_logo' => $school_data->image,
+    //         'academic_year' => $academic_year,
+    //         'fetch_academic_term' =>$fetch_academic_term      
+    //     ]); 
+
+    // }
+
     public function school_manage_academic($school_id){
         $school_id = Crypt::decrypt($school_id);
         $school_data = Customer::findOrFail($school_id);
-
-        // $academic_year = AcademicYear::where("school_fk_id", $school_id)
-        //                 ->latest() 
-        //                 ->first();
 
         $academic_year = AcademicYear::where("school_fk_id", $school_id)
                         ->latest('academic_year_name')
                         ->first();
 
+        $fetch_academic_term = AcademicTerm::where('academic_year_fk_id', $academic_year->id)
+                                           ->where('school_fk_id', $school_id)
+                                           ->get();
+
+        $fetch_academic_term_count = collect($fetch_academic_term)->count();
+
         return view('Single_School.Users_acccount.Employee.manage_academic', [
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
             'school_logo' => $school_data->image,
-            'academic_year' => $academic_year       
+            'academic_year' => $academic_year,
+            'fetch_academic_term' => $fetch_academic_term,
+            'academic_term_count' => $fetch_academic_term_count    
         ]); 
-
     }
 
     public function school_add_academic_year(Request $request,$school_id){
@@ -672,6 +696,7 @@ class schoolController extends Controller
 
         return redirect()->back()->with('info','New academic year added !');
     }
+
 
     public function school_add_term(Request $request, $acad_fk_id, $school_id)
     {
@@ -727,6 +752,11 @@ class schoolController extends Controller
             return redirect()->back()->with('error', 'Something went wrong. Please try again later.')->withInput();
         }
     }
+
+    public function school_view_term($acad_fk_id, $school_id){
+
+    }
+
 
 
 }
