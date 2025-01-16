@@ -7,8 +7,6 @@
     "build": "npm run production",
     "development": "mix",
     "production": "mix --production",
-    "start": "php artisan serve --host=0.0.0.0 --port=$PORT",
-    "build:railway": "composer install --optimize-autoloader --no-dev && npm install && npm run production && php artisan migrate --force && php artisan optimize"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
