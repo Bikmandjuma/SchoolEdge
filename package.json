@@ -6,7 +6,7 @@
     "watch": "npm run watch",
     "build": "npm run production",
     "development": "mix",
-    "production": "mix --production",
+    "production": "mix --production"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
