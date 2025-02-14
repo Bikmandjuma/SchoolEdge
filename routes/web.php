@@ -116,6 +116,12 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::get('shareHolder_wallets',[mainAuthController::class,'shareHolder_wallets'])->name('main.wallet');
 
+    Route::get('shareHolder_documents',[mainAuthController::class,'shareHolder_documents'])->name('main.documents');
+
+    Route::post('shareHolder_addFile',[mainAuthController::class,'ShareHolderStore_File'])->name('main.storeFile');
+
+    Route::post('shareHolder_destroyFile/{id}',[mainAuthController::class,'ShareHolderDestroy_File'])->name('main.deleteFile');
+
 });
 //end mainController panel
 

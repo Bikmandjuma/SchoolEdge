@@ -22,6 +22,7 @@ use App\Models\SchoolStudent;
 use App\Models\price_range;
 use App\Models\Customer;
 use App\Models\UserRole;
+use App\Models\ShareHolderFile;
 use App\Models\SchoolSocialMedia;
 use App\Models\SchoolEmployee;
 use App\Models\AllowCustomerToRegiter;
@@ -30,6 +31,7 @@ use Illuminate\Validation\Rule;
 use App\Mail\CustomerToRegiterMail;
 use App\Mail\NewCustomerPartialRegister;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use App\Models\customer_read_terms_condition;
 
 class mainAuthController extends Controller
@@ -926,5 +928,72 @@ class mainAuthController extends Controller
             'count' => 1
         ]);
     }
+
+    // public function ShareHolder_documents(){
+    //     $permission_data = PermissionGroupBy::all();
+
+    //     $files = ShareHolderFile::where('shareHolder_fk_id', Auth::guard('shareHolder')->user()->id)->get();
+
+    //     return view('mainHome.shareHolder.documents',[
+    //         'permission_data' => $permission_data,
+    //         'count' => 1,
+    //         compact('files')
+    //     ]);
+    // }
+
+    public function ShareHolder_documents()
+    {
+        $permission_data = PermissionGroupBy::all();
+        $files = ShareHolderFile::where('shareHolder_fk_id', Auth::guard('shareHolder')->user()->id)->get();
+
+        return view('mainHome.shareHolder.documents', [
+            'permission_data' => $permission_data,
+            'count' => 1,
+            'files' => $files
+        ]);
+    }
+
+
+    public function ShareHolderStore_File(Request $request)
+    {
+        // Validate input
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'UploadFile' => 'required|file|mimes:jpg,png,pdf,docx|max:2048',
+        ]);
+
+        // Ensure authenticated user exists
+        $shareholder = Auth::guard('shareHolder')->user();
+        if (!$shareholder) {
+            return redirect()->back()->with('error', 'You must be logged in as a shareholder.');
+        }
+
+        // Check and store file
+        if ($request->hasFile('UploadFile')) {
+            $file = $request->file('UploadFile');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('shareholder_files', $fileName, 'public');
+
+            // Save to database
+            ShareHolderFile::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'file_path' => $filePath,
+                'shareHolder_fk_id' => $shareholder->id,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'File uploaded successfully.');
+    }
+
+    public function ShareHolderDestroy_File($id){
+        $file = ShareHolderFile::findOrFail($id);
+        Storage::delete("public/{$file->file_path}");
+        $file->delete();
+
+        return redirect()->route('files.index')->with('success', 'File deleted successfully.');
+    }
+
 
 }

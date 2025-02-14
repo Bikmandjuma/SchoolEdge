@@ -1,427 +1,731 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@php
-    $school_id_encrypted = Crypt::encrypt($school_id);
-    $user = auth()->guard('school_employee')->user();
-@endphp
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ URL::to('/') }}/Single_school_account/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_logo }}">
-  <!-- Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.24/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <title>
-    {{ $school_name }}
-  </title>
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <!-- Nucleo Icons -->
-  <link href="{{ URL::to('/') }}/Single_school_account/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="{{ URL::to('/') }}/Single_school_account/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Bundle JS (includes Popper.js) -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <!-- jQuery CDN -->
-  
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- CSS Files -->
-  <link id="pagestyle" href="{{ URL::to('/') }}/Single_school_account/assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
-  <style>
-  /* Custom styles for the nav links */
-  .nav-link-custom {
-    font-family: sans-serif; /* Set font family to sans-serif */
-    color: gray; /* Initial color */
-    text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease; /* Smooth transition for hover effect */
-  }
-
-  /* Change color on hover */
-  .nav-link-custom:hover {
-    color: black; /* Change text color to black when hovered */
-  }
-
-  #error-message{
-    color: red;
-  }
-</style>
-</head>
-
-<body class="g-sidenav-show  bg-gray-200">
   @php
-    use App\Models\UserRole;
+      $school_id_encrypted = Crypt::encrypt($school_id);
+      $user = auth()->guard('school_employee')->user();
+      use App\Models\UserRole;
   @endphp
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
-    <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand" href="#" target="_blank">
-        <img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ auth()->guard('school_employee')->user()->image }}" alt="user_image"  style=" border-radius: 50%;" class="navbar-brand-img h-100">
-        <span class="ms-1 font-weight-bold text-white">
-          
-          @if(strlen(auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname) <= 20)
-            {{ auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname }}
-          @else
-            {{ substr(auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname,0,20)." ..." }}
-          @endif
 
-        </span>
-      </a>
-    </div>
-    <hr class="horizontal light mt-0 mb-2">
-    <div class="w-auto  max-height-vh-100" id="sidenav-collapse-main">
-      <ul class="navbar-nav">
-        
-        @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admin')
-        <li class="nav-item">
-          <a class="nav-link text-white {{ Request::segment(2) == 'home' ? 'active bg-gradient-secondary' : '' }}" href="{{ route('school_employee.dashboard',Crypt::encrypt($school_id)) }}">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">dashboard</i>
-            </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
-          </a>
-        </li>
-        @endif
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{{ $school_name }}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ URL::to('/') }}/Single_school_account/build/css/tailwind.css" />
+    <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
+  </head>
+  <body>
+    <div x-data="setup()" x-init="$refs.loading.classList.add('hidden'); setColors(color);" :class="{ 'dark': isDark}">
+      <div class="flex h-screen antialiased text-gray-900 bg-gray-100 dark:bg-dark dark:text-light">
+        <!-- Loading screen -->
+        <div
+          x-ref="loading"
+          class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-primary-darker"
+        >
+          Loading...
+        </div>
 
-        @if(auth()->guard('school_employee')->user()->hasPermission('Homepage') || $user->role->role_name === 'Admin')
-        <li class="nav-item">
-          <a class="nav-link collapsed text-white" data-bs-target="#homepage" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-home"></i>
-            </div>
-            <span class="nav-link-text ms-1">Homepage</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <!--ul id="homepage" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-            <li>
-              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                <i class="fa fa-home"></i><span class="ms-2">Home</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                <i class="fa fa-info-circle"></i><span class="ms-2">About Us</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                <i class="fa fa-newspaper"></i><span class="ms-2">News</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                <i class="fa fa-user-graduate"></i><span class="ms-2">Student</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                <i class="fa fa-building"></i><span class="ms-2">Administration</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                <i class="fa fa-envelope"></i><span class="ms-2">Contact Us</span>
-              </a>
-            </li>
-          </ul-->
-        </li>
-        @endif
-
-        @if(auth()->guard('school_employee')->user()->hasPermission('Role') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_role') || auth()->guard('school_employee')->user()->hasPermission('Edit_role') || auth()->guard('school_employee')->user()->hasPermission('View_role'))
-
-        <li class="nav-item">
-          <a class="nav-link {{ Request::segment(2) == 'manage_role' ? 'active bg-gradient-secondary' : '' }} text-white" data-bs-target="#role" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-list-alt"></i>
-            </div>
-            <span class="nav-link-text ms-1">Role</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="role" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_manage_role',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-list-alt"></i><span class="ms-2">Manage role</span>
-                </a>
-              </li>
-              
-              <!-- <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_manage_role',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-list-alt"></i><span class="ms-2">Manage permission</span>
-                </a>
-              </li> -->
-          </ul>
-        </li>
-        @endif
-
-        @if(auth()->guard('school_employee')->user()->hasPermission('employee') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_employee') || auth()->guard('school_employee')->user()->hasPermission('view_employee') || auth()->guard('school_employee')->user()->hasPermission('Employee'))
-
-        <li class="nav-item">
-          <a class="nav-link {{ Request::segment('2') == 'school_employee_add_user' ? 'active bg-gradient-secondary' : 'collapsed' }} text-white" data-bs-target="#users" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-users"></i>
-            </div>
-            <span class="nav-link-text ms-1">Employees</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="users" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              @if(auth()->guard('school_employee')->user()->hasPermission('Add_employee') || $user->role->role_name === 'Admin')
-
-              <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-plus"></i><span class="ms-2">Add employee</span>
-                </a>
-              </li>
-              @endif
-              
-              @if(auth()->guard('school_employee')->user()->hasPermission('View_employee') || $user->role->role_name === 'Admin')
-
-              <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_view_user',Crypt::encrypt($school_id))}}">
-                  <i class="fa fa-users"></i><span class="ms-2">View employee</span>
-                </a>
-              </li>
-              @endif
-          </ul>
-        </li>
-        @endif
-
-        @if(auth()->guard('school_employee')->user()->hasPermission('Academic_stuff') || auth()->guard('school_employee')->user()->hasPermission('Academic') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
-
-        <li class="nav-item">
-          <a class="nav-link {{ Request::segment('2') == 'manage_academic' ? 'active bg-gradient-secondary' : 'collapsed' }} text-white" data-bs-target="#academic" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-list-alt"></i>
-            </div>
-            <span class="nav-link-text ms-1">Academic stuff</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="academic" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-
-              @if($user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
-
-              <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_manage_academic',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-list-alt"></i><span class="ms-2">Manage academic</span>
-                </a>
-              </li>
-              @endif
-        
-              <!-- <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_view_user',Crypt::encrypt($school_id))}}">
-                  <i class="fa fa-pencil"></i>
-                  <span class="ms-2">Teaching stuff</span>
-                </a>
-              </li> -->
-          </ul>
-        </li>
-
-        @endif
-
-        @if(auth()->guard('school_employee')->user()->hasPermission('Student') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_student') || auth()->guard('school_employee')->user()->hasPermission('View_student'))
-
-        <li class="nav-item">
-          <a class="nav-link collapsed text-white" data-bs-target="#students" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-user-graduate"></i>
-            </div>
-            <span class="nav-link-text ms-1">Students</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="students" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              @if(auth()->guard('school_employee')->user()->hasPermission('Add_student') || auth()->guard('school_employee')->user()->hasPermission('Student') || $user->role->role_name === 'Admin')
-
-              <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_add_student_form',Crypt::encrypt($school_id))}}">
-                  <i class="fa fa-plus"></i><span class="ms-2">Add students</span>
-                </a>
-              </li>
-              @endif
-              @if(auth()->guard('school_employee')->user()->hasPermission('View_student') || $user->role->role_name === 'Admin')
-              <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_view_student',Crypt::encrypt($school_id))}}">
-                  <i class="fa fa-users"></i><span class="ms-2">View students</span>
-                </a>
-              </li>
-              @endif
-          </ul>
-        </li>
-        @endif
-
-        <!--li class="nav-item">
-          <a class="nav-link collapsed text-white" data-bs-target="#file" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-file"></i>
-            </div>
-            <span class="nav-link-text ms-1">My files</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="file" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-
-              <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('files', ['school_id' => Crypt::encrypt($school_id)]) }}">
-                  <i class="fa fa-file"></i><span class="ms-2">Manage files</span>
-                </a>
-              </li>
-
-          </ul>
-        </li-->
-
-        <li class="nav-item">
-          <a class="nav-link collapsed text-white" data-bs-target="#account" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-user"></i>
-            </div>
-            <span class="nav-link-text ms-1">Account</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="account" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
-              <!-- <li>
-                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                  <i class="fa fa-list-alt"></i><span class="ms-2">My info</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
-                  <i class="fa fa-image"></i><span class="ms-2">Profile</span>
-                </a>
-              </li> -->
-              <li>
-                <a class="dropdown-item nav-link-custom" data-bs-target="#logoutModal" data-bs-toggle="modal" href="#">
-                  <i class="fa fa-lock"></i><span class="ms-2">Logout</span>
-                </a>
-              </li>
-          </ul>
-        </li>
-
-      </ul>
-    </div>
-    
-  </aside>
-
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-    <!-- Navbar -->
-    <nav class="navbar navbar-main  navbar-expand-lg shadow-none border-radius-xl w-100" id="navbarBlur" navbar-scroll="true">
-        
-        @php
-          $auth_user_role = auth()->guard('school_employee')->user()->role_fk_id;
-          $auth_user_role = UserRole::findOrFail($auth_user_role);
-        @endphp
-
-        <div class="container-md py-1 px-3 w-100"> <!-- Changed to "container-md" -->
-            <div class="card w-100 d-flex flex-row align-items-center justify-content-between">
-
-                <h6 class="mb-0 d-none d-md-block" style="padding-left:5px;">{{ $auth_user_role->role_name }}'s panel</h6> <!-- Only visible on medium and larger devices -->
+        <!-- Sidebar -->
+        <aside class="flex-shrink-0 hidden w-64 bg-white border-r dark:border-primary-darker dark:bg-darker md:block">
+          <div class="flex flex-col h-full">
+            <!-- Sidebar links -->
+            <nav aria-label="Main" class="flex-1 px-2 py-4 space-y-2 overflow-y-hidden hover:overflow-y-auto">
+              <!-- Dashboards links -->
+              <div x-data="{ isActive: true, open: true}">
+                <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
+                @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admin')
+                <a
+                  href="{{ route('school_employee.dashboard',Crypt::encrypt($school_id)) }}"
+                  class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary {{ Request::segment(2) == 'home' ? 'active bg-primary-100' : '' }}" href="{{ route('school_employee.dashboard',Crypt::encrypt($school_id)) }}"
+                  role="button"
+                  aria-haspopup="true"
+                  :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                >
+                  <span aria-hidden="true">
+                    <svg
+                      class="w-5 h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                  </span>
+                  <span class="ml-2 text-sm"> Dashboard </span>
                 
-                <div class="card-header text-center flex-grow-1 text-center">
-                    {{ $school_name }}
-                </div>
+                </a>
+                @endif
                 
-                <div class="d-flex align-items-center">
-                    <div class="d-xl-none me-3 d-flex align-items-center">
-                        <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                            <div class="sidenav-toggler-inner">
-                                <i class="sidenav-toggler-line"></i>
-                                <i class="sidenav-toggler-line"></i>
-                                <i class="sidenav-toggler-line"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_logo }}" alt="user_image" alt="User Image" style="width: 50px; height: 50px; border-radius: 50%;padding-right: 5px;">
+              </div>
+
+              @if(auth()->guard('school_employee')->user()->hasPermission('Role') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_role') || auth()->guard('school_employee')->user()->hasPermission('Edit_role') || auth()->guard('school_employee')->user()->hasPermission('View_role'))
+
+              <!-- Components links -->
+              <div x-data="{ isActive: false, open: false }">
+                <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+                <a
+                  href="#"
+                  @click="$event.preventDefault(); open = !open"
+                  class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary {{ Request::segment(2) == 'manage_role' ? 'active bg-primary-100' : '' }}"
+                  role="button"
+                  aria-haspopup="true"
+                  :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                >
+                  <span aria-hidden="true">
+                    <svg
+                      class="w-5 h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="ml-2 text-sm"> Role </span>
+                  <span aria-hidden="true" class="ml-auto">
+                    <!-- active class 'rotate-180' -->
+                    <svg
+                      class="w-4 h-4 transition-transform transform"
+                      :class="{ 'rotate-180': open }"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </a>
+                <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Roles">
+                  <!-- active & hover classes 'text-gray-700 dark:text-light' -->
+                  <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
+                  <a
+                    href="{{ route('school_employee_manage_role',Crypt::encrypt($school_id)) }}"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    Manage role
+                  </a>
+                 
                 </div>
+              </div>
+              @endif
+
+              @if(auth()->guard('school_employee')->user()->hasPermission('employee') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_employee') || auth()->guard('school_employee')->user()->hasPermission('view_employee') || auth()->guard('school_employee')->user()->hasPermission('Employee'))
+
+              <!-- Components links -->
+              <div x-data="{ isActive: false, open: false }">
+                <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+                <a
+                  href="#"
+                  @click="$event.preventDefault(); open = !open"
+                  class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary {{ Request::segment('2') == 'school_employee_add_user' ? 'active bg-primary-100' : 'collapsed' }}"
+                  role="button"
+                  aria-haspopup="true"
+                  :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                >
+                  <span aria-hidden="true">
+                    <svg
+                      class="w-5 h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="ml-2 text-sm"> Employees </span>
+                  <span aria-hidden="true" class="ml-auto">
+                    <!-- active class 'rotate-180' -->
+                    <svg
+                      class="w-4 h-4 transition-transform transform"
+                      :class="{ 'rotate-180': open }"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </a>
+                <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Employee">
+                  @if(auth()->guard('school_employee')->user()->hasPermission('Add_employee') || $user->role->role_name === 'Admin')
+                  <a
+                    href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    Add employees
+                  </a>
+                  @endif
+
+                  @if(auth()->guard('school_employee')->user()->hasPermission('View_employee') || $user->role->role_name === 'Admin')
+                   <a
+                   href="{{ route('school_employee_view_user',Crypt::encrypt($school_id))}}"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    View employees
+                  </a>
+                  @endif
+                 
+                </div>
+              </div>
+              @endif
+
+              @if(auth()->guard('school_employee')->user()->hasPermission('Academic_stuff') || auth()->guard('school_employee')->user()->hasPermission('Academic') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
+
+              <!-- Components links -->
+              <div x-data="{ isActive: false, open: false }">
+                <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+                <a
+                  href="#"
+                  @click="$event.preventDefault(); open = !open"
+                  class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary {{ Request::segment('2') == 'manage_academic' ? 'active bg-primary-100' : 'collapsed' }}"
+                  role="button"
+                  aria-haspopup="true"
+                  :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                >
+                  <span aria-hidden="true">
+                    <svg
+                      class="w-5 h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="ml-2 text-sm"> Academic stuff </span>
+                  <span aria-hidden="true" class="ml-auto">
+                    <!-- active class 'rotate-180' -->
+                    <svg
+                      class="w-4 h-4 transition-transform transform"
+                      :class="{ 'rotate-180': open }"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </a>
+                <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Employee">
+
+                  @if($user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
+                  <a
+                    href="{{ route('school_manage_academic',Crypt::encrypt($school_id)) }}"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    Manage academic
+                  </a>
+                  @endif
+                 
+                </div>
+              </div>
+              @endif
+
+              @if(auth()->guard('school_employee')->user()->hasPermission('Student') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_student') || auth()->guard('school_employee')->user()->hasPermission('View_student'))
+
+              <!-- Components links -->
+              <div x-data="{ isActive: false, open: false }">
+                <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+                <a
+                  href="#"
+                  @click="$event.preventDefault(); open = !open"
+                  class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary {{ (Request::segment('2') == 'add_student_form' || Request::segment('2') == 'school_view_student') ? 'active bg-primary-100' : 'collapsed' }}"
+
+                  role="button"
+                  aria-haspopup="true"
+                  :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                >
+                  <span aria-hidden="true">
+                    <svg
+                      class="w-5 h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="ml-2 text-sm"> Students </span>
+                  <span aria-hidden="true" class="ml-auto">
+                    <!-- active class 'rotate-180' -->
+                    <svg
+                      class="w-4 h-4 transition-transform transform"
+                      :class="{ 'rotate-180': open }"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </a>
+                <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Employee">
+                  @if(auth()->guard('school_employee')->user()->hasPermission('Add_student') || auth()->guard('school_employee')->user()->hasPermission('Student') || $user->role->role_name === 'Admin')
+                  <a
+
+                    href="{{ route('school_add_student_form',Crypt::encrypt($school_id))}}"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    Add students
+                  </a>
+                  @endif
+
+                  @if(auth()->guard('school_employee')->user()->hasPermission('View_student') || $user->role->role_name === 'Admin')
+                  <a
+                  href="{{ route('school_view_student',Crypt::encrypt($school_id))}}"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    View students
+                  </a>
+                  @endif
+                 
+                </div>
+              </div>
+              @endif
+
+              <!-- Components links -->
+              <!-- <div x-data="{ isActive: false, open: false }">
+                <a
+                  href="#"
+                  @click="$event.preventDefault(); open = !open"
+                  class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                  :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }"
+                  role="button"
+                  aria-haspopup="true"
+                  :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                >
+                  <span aria-hidden="true">
+                    <svg
+                      class="w-5 h-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="ml-2 text-sm"> Employees </span>
+                  <span aria-hidden="true" class="ml-auto">
+                    <svg
+                      class="w-4 h-4 transition-transform transform"
+                      :class="{ 'rotate-180': open }"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </a>
+                <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Employee">
+                  <a
+                    href="#"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    Add employees
+                  </a>
+
+                   <a
+                    href="#"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    View employees
+                  </a>
+                 
+                </div>
+              </div>
+ -->
+            </nav>
+
+            
+          </div>
+        </aside>
+
+        <div class="flex-1 h-full overflow-x-hidden overflow-y-auto" >
+          <!-- Navbar -->
+          <header class="relative bg-white dark:bg-darker">
+            <div class="flex items-center justify-between p-2 border-b dark:border-primary-darker">
+              <!-- Mobile menu button -->
+              <button
+                @click="isMobileMainMenuOpen = !isMobileMainMenuOpen"
+                class="p-1 transition-colors duration-200 rounded-md text-primary-lighter bg-primary-50 hover:text-primary hover:bg-primary-100 dark:hover:text-light dark:hover:bg-primary-dark dark:bg-dark md:hidden focus:outline-none focus:ring"
+              >
+                <span class="sr-only">Open main manu</span>
+                <span aria-hidden="true">
+                  <svg
+                    class="w-8 h-8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </span>
+              </button>
+
+              @php
+                $auth_user_role = auth()->guard('school_employee')->user()->role_fk_id;
+                $auth_user_role = UserRole::findOrFail($auth_user_role);
+              @endphp
+
+              <!-- Brand -->
+              <a
+                href="index.html"
+                class="inline-block text-2xl font-bold tracking-wider uppercase text-primary-dark dark:text-light"
+              >
+                {{ $auth_user_role->role_name }}'s panel
+              </a>
+
+              <!-- Mobile sub menu button -->
+              <button
+                @click="isMobileSubMenuOpen = !isMobileSubMenuOpen"
+                class="p-1 transition-colors duration-200 rounded-md text-primary-lighter bg-primary-50 hover:text-primary hover:bg-primary-100 dark:hover:text-light dark:hover:bg-primary-dark dark:bg-dark md:hidden focus:outline-none focus:ring"
+              >
+                <span class="sr-only">Open sub manu</span>
+                <span aria-hidden="true">
+                  <svg
+                    class="w-8 h-8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                    />
+                  </svg>
+                </span>
+              </button>
+
+              <!-- Desktop Right buttons -->
+              <nav aria-label="Secondary" class="hidden space-x-2 md:flex md:items-center">
+
+                <!-- Search button -->
+                <button>
+                  @if(strlen(auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname) <= 20)
+                    {{ auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname }}
+                  @else
+                    {{ substr(auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname,0,20)." ..." }}
+                  @endif
+                </button>
+
+                <!-- Settings button -->
+                
+                
+                <!-- User avatar button -->
+                <div class="relative" x-data="{ open: false }">
+                  <button
+                    @click="open = !open; $nextTick(() => { if(open){ $refs.userMenu.focus() } })"
+                    type="button"
+                    aria-haspopup="true"
+                    :aria-expanded="open ? 'true' : 'false'"
+                    class="transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100"
+                  >
+                    <span class="sr-only">User menu</span>
+                    <img class="w-10 h-10 rounded-full" src="{{ URL::to('/') }}/Single_school_account/build/images/user.jpg" alt="Ahmed Kamel" />
+                  </button>
+
+                  <!-- User dropdown menu -->
+                  <div
+                    x-show="open"
+                    x-ref="userMenu"
+                    x-transition:enter="transition-all transform ease-out"
+                    x-transition:enter-start="translate-y-1/2 opacity-0"
+                    x-transition:enter-end="translate-y-0 opacity-100"
+                    x-transition:leave="transition-all transform ease-in"
+                    x-transition:leave-start="translate-y-0 opacity-100"
+                    x-transition:leave-end="translate-y-1/2 opacity-0"
+                    @click.away="open = false"
+                    @keydown.escape="open = false"
+                    class="absolute right-0 w-48 py-1 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
+                    tabindex="-1"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-label="User menu"
+                  >
+                    <!-- <a
+                      href="#"
+                      role="menuitem"
+                      class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                    >
+                      Info
+                    </a>
+                    <a
+                      href="#"
+                      role="menuitem"
+                      class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                    >
+                      Profile
+                    </a> -->
+                    <a
+                      href="{{ route('school_employee.logout',$school_id) }}"
+                      role="menuitem"
+                      class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                      id="openModalButton"
+                      
+                    >
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </nav>
+
+              <!-- Mobile sub menu -->
+              <nav
+                x-transition:enter="transition duration-200 ease-in-out transform sm:duration-500"
+                x-transition:enter-start="-translate-y-full opacity-0"
+                x-transition:enter-end="translate-y-0 opacity-100"
+                x-transition:leave="transition duration-300 ease-in-out transform sm:duration-500"
+                x-transition:leave-start="translate-y-0 opacity-100"
+                x-transition:leave-end="-translate-y-full opacity-0"
+                x-show="isMobileSubMenuOpen"
+                @click.away="isMobileSubMenuOpen = false"
+                class="absolute flex items-center p-4 bg-white rounded-md shadow-lg dark:bg-darker top-16 inset-x-4 md:hidden"
+                aria-label="Secondary"
+              >
+                <div class="space-x-2">
+
+                  <!-- Search button -->
+                  <button>
+                    @if(strlen(auth()->guard('school_employee')->user()-> firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname) <= 20)
+                      {{ auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname }}
+                    @else
+                      {{ substr(auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname,0,20)." ..." }}
+                    @endif
+                  </button>
+
+                </div>
+
+                <!-- User avatar button -->
+                <div class="relative ml-auto" x-data="{ open: false }">
+                  <button
+                    @click="open = !open"
+                    type="button"
+                    aria-haspopup="true"
+                    :aria-expanded="open ? 'true' : 'false'"
+                    class="block transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100"
+                  >
+                    <span class="sr-only">User menu</span>
+                    <img class="w-10 h-10 rounded-full" src="{{ URL::to('/') }}/Single_school_account/build/images/user.jpg" alt="Ahmed Kamel" />
+                  </button>
+
+                  <!-- User dropdown menu -->
+                  <div
+                    x-show="open"
+                    x-transition:enter="transition-all transform ease-out"
+                    x-transition:enter-start="translate-y-1/2 opacity-0"
+                    x-transition:enter-end="translate-y-0 opacity-100"
+                    x-transition:leave="transition-all transform ease-in"
+                    x-transition:leave-start="translate-y-0 opacity-100"
+                    x-transition:leave-end="translate-y-1/2 opacity-0"
+                    @click.away="open = false"
+                    class="absolute right-0 w-48 py-1 origin-top-right bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-label="User menu"
+                  >
+                    <!-- <a
+                      href="#"
+                      role="menuitem"
+                      class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                    >
+                      Info
+                    </a>
+                    <a
+                      href="#"
+                      role="menuitem"
+                      class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                    >
+                      Profile
+                    </a> -->
+                    <a
+                      href="{{ route('school_employee.logout',$school_id) }}"
+                      role="menuitem"
+                      class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-primary"
+                    >
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </nav>
             </div>
-        </div>
+            <!-- Mobile main manu -->
+            <div
+              class="border-b md:hidden dark:border-primary-darker"
+              x-show="isMobileMainMenuOpen"
+              @click.away="isMobileMainMenuOpen = false"
+            >
+              <nav aria-label="Main" class="px-2 py-4 space-y-2">
+                <!-- Dashboards links -->
+                <div x-data="{ isActive: true, open: true}">
+                  <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
+                  @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admins')
+                  <a
+                    href="#"
+                    @click="$event.preventDefault(); open = !open"
+                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                    :class="{'bg-primary-100 dark:bg-primary': isActive || open}"
+                    role="button"
+                    aria-haspopup="true"
+                    :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                  >
+                    <span aria-hidden="true">
+                      <svg
+                        class="w-5 h-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        />
+                      </svg>
+                    </span>
+                    <span class="ml-2 text-sm"> Dashboards </span>
+                    
+                  </a>
+                  @endif
+                </div>
 
+                <!-- Components links -->
+                <div x-data="{ isActive: false, open: false }">
+                  <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+                  <a
+                    href="#"
+                    @click="$event.preventDefault(); open = !open"
+                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
+                    :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }"
+                    role="button"
+                    aria-haspopup="true"
+                    :aria-expanded="(open || isActive) ? 'true' : 'false'"
+                  >
+                    <span aria-hidden="true">
+                      <svg
+                        class="w-5 h-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                        />
+                      </svg>
+                    </span>
+                    <span class="ml-2 text-sm"> Components </span>
+                    <span aria-hidden="true" class="ml-auto">
+                      <!-- active class 'rotate-180' -->
+                      <svg
+                        class="w-4 h-4 transition-transform transform"
+                        :class="{ 'rotate-180': open }"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </a>
+                  <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Components">
+                    <!-- active & hover classes 'text-gray-700 dark:text-light' -->
+                    <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
+                    <a
+                      href="#"
+                      role="menuitem"
+                      class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                    >
+                      Alerts (soon)
+                    </a>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </header>
 
-    </nav>
-    
-    @yield('content')
+          <!-- Main content -->
+          <main>
+            <!-- Content header -->
+            <!-- <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
+              <h1 class="text-2xl font-semibold">Dashboard</h1>
+            </div> -->
 
-  </main>
-  <div class="fixed-plugin">
-   <!--  <a class="fixed-plugin-button text-dark position-fixed px-3 py-2" style="box-shadow:0px 4px 8px 2px rgba(0, 0, 0, 0.5);">
-      <i class="material-icons py-2">settings</i>
-    </a> -->
-    <div class="card shadow-lg">
-      <div class="card-header pb-0 pt-3">
-        <div class="float-start">
-          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
-          <p>See our dashboard options.</p>
-        </div>
-        <div class="float-end mt-4">
-          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-            <i class="material-icons">clear</i>
-          </button>
-        </div>
-        <!-- End Toggle Button -->
-      </div>
-      <hr class="horizontal dark my-1">
-      <div class="card-body pt-sm-3 pt-0">
-        <!-- Sidebar Backgrounds -->
-        <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
-        </div>
-        <a href="javascript:void(0)" class="switch-trigger background-color">
-          <div class="badge-colors my-2 text-start">
-            <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
-          </div>
-        </a>
-        <!-- Sidenav Type -->
-        <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between 2 different sidenav types.</p>
-        </div>
-        <div class="d-flex">
-          <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
-        </div>
-        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
-        <div class="mt-3 d-flex">
-          <h6 class="mb-0">Navbar Fixed</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-3">
-        <div class="mt-2 d-flex">
-          <h6 class="mb-0">Light / Dark</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-sm-4">
-        <a class="btn btn-outline-dark w-100" href="">View documentation</a>
-        <div class="w-100 text-center">
-          <a class="github-button" href="#" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="#" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="#" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
+            @yield('content')
+
+          </main>
+
         </div>
       </div>
     </div>
-  </div>
+
 
 <!-- Logout Modal -->
-<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header p-3 pt-2">
@@ -433,284 +737,150 @@
                 <p class="mb-0">Are you sure you want to logout?</p>
             </div>
             <div class="modal-footer p-3">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <a href="{{ route('school_employee.logout',$school_id) }}" class="btn btn-danger">Logout</a>
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
-  <!--   Core JS Files   -->
-  <script src="{{ URL::to('/') }}/Single_school_account/assets/js/core/popper.min.js"></script>
-  <script src="{{ URL::to('/') }}/Single_school_account/assets/js/core/bootstrap.min.js"></script>
-  <script src="{{ URL::to('/') }}/Single_school_account/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="{{ URL::to('/') }}/Single_school_account/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="{{ URL::to('/') }}/Single_school_account/assets/js/plugins/chartjs.min.js"></script>
-  <script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
-
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["M", "T", "W", "T", "F", "S", "S"],
-        datasets: [{
-          label: "Sales",
-          tension: 0.4,
-          borderWidth: 0,
-          borderRadius: 4,
-          borderSkipped: false,
-          backgroundColor: "rgba(255, 255, 255, .8)",
-          data: [50, 20, 10, 22, 50, 10, 40],
-          maxBarThickness: 6
-        }, ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
+    <!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+    <script src="{{ URL::to('/') }}/Single_school_account/build/js/script.js"></script>
+    <script>
+      const setup = () => {
+        const getTheme = () => {
+          if (window.localStorage.getItem('dark')) {
+            return JSON.parse(window.localStorage.getItem('dark'))
           }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              suggestedMin: 0,
-              suggestedMax: 500,
-              beginAtZero: true,
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-              color: "#fff"
-            },
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
 
+          return !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        }
 
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
+        const setTheme = (value) => {
+          window.localStorage.setItem('dark', value)
+        }
 
-    new Chart(ctx2, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Mobile apps",
-          tension: 0,
-          borderWidth: 0,
-          pointRadius: 5,
-          pointBackgroundColor: "rgba(255, 255, 255, .8)",
-          pointBorderColor: "transparent",
-          borderColor: "rgba(255, 255, 255, .8)",
-          borderColor: "rgba(255, 255, 255, .8)",
-          borderWidth: 4,
-          backgroundColor: "transparent",
-          fill: true,
-          data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
+        const getColor = () => {
+          if (window.localStorage.getItem('color')) {
+            return window.localStorage.getItem('color')
           }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
+          return 'cyan'
+        }
 
-    var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+        const setColors = (color) => {
+          const root = document.documentElement
+          root.style.setProperty('--color-primary', `var(--color-${color})`)
+          root.style.setProperty('--color-primary-50', `var(--color-${color}-50)`)
+          root.style.setProperty('--color-primary-100', `var(--color-${color}-100)`)
+          root.style.setProperty('--color-primary-light', `var(--color-${color}-light)`)
+          root.style.setProperty('--color-primary-lighter', `var(--color-${color}-lighter)`)
+          root.style.setProperty('--color-primary-dark', `var(--color-${color}-dark)`)
+          root.style.setProperty('--color-primary-darker', `var(--color-${color}-darker)`)
+          this.selectedColor = color
+          window.localStorage.setItem('color', color)
+          //
+        }
 
-    new Chart(ctx3, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Mobile apps",
-          tension: 0,
-          borderWidth: 0,
-          pointRadius: 5,
-          pointBackgroundColor: "rgba(255, 255, 255, .8)",
-          pointBorderColor: "transparent",
-          borderColor: "rgba(255, 255, 255, .8)",
-          borderWidth: 4,
-          backgroundColor: "transparent",
-          fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
+        const updateBarChart = (on) => {
+          const data = {
+            data: randomData(),
+            backgroundColor: 'rgb(207, 250, 254)',
           }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#f8f9fa',
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
+          if (on) {
+            barChart.data.datasets.push(data)
+            barChart.update()
+          } else {
+            barChart.data.datasets.splice(1)
+            barChart.update()
+          }
+        }
+
+        const updateDoughnutChart = (on) => {
+          const data = random()
+          const color = 'rgb(207, 250, 254)'
+          if (on) {
+            doughnutChart.data.labels.unshift('Seb')
+            doughnutChart.data.datasets[0].data.unshift(data)
+            doughnutChart.data.datasets[0].backgroundColor.unshift(color)
+            doughnutChart.update()
+          } else {
+            doughnutChart.data.labels.splice(0, 1)
+            doughnutChart.data.datasets[0].data.splice(0, 1)
+            doughnutChart.data.datasets[0].backgroundColor.splice(0, 1)
+            doughnutChart.update()
+          }
+        }
+
+        const updateLineChart = () => {
+          lineChart.data.datasets[0].data.reverse()
+          lineChart.update()
+        }
+
+        return {
+          loading: true,
+          isDark: getTheme(),
+          toggleTheme() {
+            this.isDark = !this.isDark
+            setTheme(this.isDark)
           },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
+          setLightTheme() {
+            this.isDark = false
+            setTheme(this.isDark)
           },
-        },
-      },
-    });
-  </script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
+          setDarkTheme() {
+            this.isDark = true
+            setTheme(this.isDark)
+          },
+          color: getColor(),
+          selectedColor: 'cyan',
+          setColors,
+          toggleSidbarMenu() {
+            this.isSidebarOpen = !this.isSidebarOpen
+          },
+          isSettingsPanelOpen: false,
+          openSettingsPanel() {
+            this.isSettingsPanelOpen = true
+            this.$nextTick(() => {
+              this.$refs.settingsPanel.focus()
+            })
+          },
+          isNotificationsPanelOpen: false,
+          openNotificationsPanel() {
+            this.isNotificationsPanelOpen = true
+            this.$nextTick(() => {
+              this.$refs.notificationsPanel.focus()
+            })
+          },
+          isSearchPanelOpen: false,
+          openSearchPanel() {
+            this.isSearchPanelOpen = true
+            this.$nextTick(() => {
+              this.$refs.searchInput.focus()
+            })
+          },
+          isMobileSubMenuOpen: false,
+          openMobileSubMenu() {
+            this.isMobileSubMenuOpen = true
+            this.$nextTick(() => {
+              this.$refs.mobileSubMenu.focus()
+            })
+          },
+          isMobileMainMenuOpen: false,
+          openMobileMainMenu() {
+            this.isMobileMainMenuOpen = true
+            this.$nextTick(() => {
+              this.$refs.mobileMainMenu.focus()
+            })
+          },
+          updateBarChart,
+          updateDoughnutChart,
+          updateLineChart,
+        }
       }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7U4t3yO2FzV3B5ZyI2UkZ+2eoaFtmF6fZDl" crossorigin="anonymous"></script>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ URL::to('/') }}/Single_school_account/assets/js/material-dashboard.min.js?v=3.0.0"></script>
-</body>
 
+      
+    </script>
+  </body>
 </html>

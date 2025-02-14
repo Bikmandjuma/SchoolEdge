@@ -72,21 +72,7 @@
                                 <p class="text-dark mb-0"><i class="fas fa-check-circle text-primary me-1"></i> Unique Programs and Resources</p>
                             </div>
                         </div>
-                        <!--div class="row g-4 justify-content-between mb-5">
-                            <div class="col-xl-5"><a href="#" class="btn btn-primary rounded-pill py-3 px-5">Discover More</a></div>
-                            <div class="col-xl-7 mb-5">
-                                <div class="about-customer d-flex position-relative">
-                                    <img src="{{ URL::to('/') }}/Single_school_pages/img/customer-img-1.jpg" class="img-fluid btn-xl-square position-absolute" style="left: 0; top: 0;"  alt="Image">
-                                    <img src="{{ URL::to('/') }}/Single_school_pages/img/customer-img-2.jpg" class="img-fluid btn-xl-square position-absolute" style="left: 45px; top: 0;" alt="Image">
-                                    <img src="{{ URL::to('/') }}/Single_school_pages/img/customer-img-3.jpg" class="img-fluid btn-xl-square position-absolute" style="left: 90px; top: 0;" alt="Image">
-                                    <img src="{{ URL::to('/') }}/Single_school_pages/img/customer-img-1.jpg" class="img-fluid btn-xl-square position-absolute" style="left: 135px; top: 0;" alt="Image">
-                                    <div class="position-absolute text-dark" style="left: 220px; top: 10px;">
-                                        <p class="mb-0">5m+ Trusted</p>
-                                        <p class="mb-0">Global Customers</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div-->
+                        
                         <div class="row g-4 text-center align-items-center justify-content-center">
                             <div class="col-sm-4">
                                 <div class="bg-primary rounded p-4">
