@@ -360,7 +360,13 @@ class schoolController extends Controller
         
         // Validate the incoming request data
         $validator = Validator::make($request->all(), [
-            'role_name' => 'required|string|unique:user_roles,role_name|regex:/^[a-zA-Z]+$/',
+            'role_name' => 
+                'required',
+                'string',
+                'regex:/^[a-zA-Z]+$/',
+                Rule::unique('user_roles')->where(function ($query) use ($request, $school_id) {
+                    return $query->where('school_fk_id', $school_id);
+                })->ignore($request->role_id),
         ], [
             'role_name.required' => 'The role name is required.',
             'role_name.string' => 'The role name must be a string. Only text is allowed.',
@@ -394,21 +400,18 @@ class schoolController extends Controller
     public function school_employee_update_role(Request $request){
         $school_id = auth()->guard('school_employee')->user()->school_fk_id;
 
-        // Custom validation logic
         $validator = Validator::make($request->all(), [
             'role_id' => 'required|integer',
             'role_name' => [
                 'required',
                 'string',
-                Rule::unique('user_roles')->where(function ($query) use ($request, $school_id) { // Pass $school_id
+                Rule::unique('user_roles')->where(function ($query) use ($request, $school_id) {
                     return $query->where('school_fk_id', $school_id);
                 })->ignore($request->role_id),
             ],
         ]);
 
-
         if ($validator->fails()) {
-            // Check if the 'role_name' field has a uniqueness error
             if ($validator->errors()->has('role_name')) {
                 return redirect()->back()->with('error', ''.$request->role_name.' has already been added.')->withErrors($validator);
             }

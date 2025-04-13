@@ -1,220 +1,182 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 
 @section('content')
-<div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-xl-2 mb-xl-0 mb-4"></div>
-        <div class="col-xl-8 col-sm-4 mb-xl-0 mb-4">
-            <div class="card">
-                <div class="card-header p-3 pt-1 text-center">
-                    <div class="bg-gradient-secondary shadow-secondary border-radius-lg pb-1 pt-1">
-                        <h6 class="text-white text-capitalize" id="form-title">Student Info</h6>
-                    </div>
+<div class="container mx-auto py-4">
+    <div class="flex justify-center">
+        <div class="w-full max-w-4xl">
+            <div class="bg-white shadow-md rounded-lg">
+                <div class="text-center bg-gradient-to-r from-gray-600 to-gray-700 text-white py-2 rounded-t-lg">
+                    <h6 class="text-xl font-semibold" id="form-title">Add new student Info</h6>
                 </div>
-                <div class="card-body p-3 pt-2">
-                    <form id="student-form" role="form" class="text-start" action="" method="POST">
+                <div class="p-6">
+                    <form id="student-form" action="" method="POST" class="space-y-4">
                         @csrf
-                        
+
                         <!-- Student Info Section -->
                         <div id="student-info">
-                            <div class="row">
-                                <!-- First Name -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" name="firstname" class="form-control" value="{{ old('firstname') }}" required>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                @php
+                                    $fields = [
+                                        ['name' => 'firstname', 'label' => 'First Name'],
+                                        ['name' => 'middle_name', 'label' => 'Middle Name'],
+                                        ['name' => 'lastname', 'label' => 'Last Name'],
+                                        ['name' => 'province', 'label' => 'Province'],
+                                        ['name' => 'district', 'label' => 'District'],
+                                        ['name' => 'sector', 'label' => 'Sector'],
+                                        ['name' => 'cell', 'label' => 'Cell'],
+                                        ['name' => 'village', 'label' => 'Village'],
+                                    ];
+                                @endphp
+
+                                @foreach($fields as $field)
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                                        <input type="text" name="{{ $field['name'] }}" class="form-input w-full bg-blue-100 p-1 rounded border" value="{{ old($field['name']) }}" required>
+                                        <span class="text-red-500 text-sm hidden">This field is required</span>
                                     </div>
-                                </div>
-                                <!-- Middle Name -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Middle Name</label>
-                                        <input type="text" name="middle_name" class="form-control" value="{{ old('middle_name') }}">
-                                    </div>
-                                </div>
-                                <!-- Last Name -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" name="lastname" class="form-control" value="{{ old('lastname') }}" required>
-                                    </div>
-                                </div>
+                                @endforeach
+
                                 <!-- Gender -->
-                                <div class="col-md-4">
-                                    <div class="my-3">
-                                        <label class="form-label">Gender</label>
-                                        <div class="input-group">
-                                            <input type="radio" name="gender" value="Male" required> Male&nbsp;&nbsp;
-                                            <input type="radio" name="gender" value="Female"> Female
-                                        </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Gender</label>
+                                    <div class="flex items-center space-x-4 mt-1">
+                                        <label><input type="radio" name="gender" value="Male" class="mr-1"> Male</label>
+                                        <label><input type="radio" name="gender" value="Female" class="mr-1"> Female</label>
                                     </div>
+                                    <span class="text-red-500 text-sm hidden" id="gender-error">Please select gender</span>
                                 </div>
-                                <!-- Date of Birth -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">DoB yyyy-mm-dd</label>
-                                        <input type="text" id="dob" name="dob" class="form-control"  value="{{ old('dob') }}" required>
-                                        <span id="error_dob"></span>
-                                    </div>
-                                </div>
-                                <!-- Province, District, Sector, Cell, Village -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Province</label>
-                                        <input type="text" name="province" class="form-control" value="{{ old('province') }}" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">District</label>
-                                        <input type="text" name="district" class="form-control" value="{{ old('district') }}" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Sector</label>
-                                        <input type="text" name="sector" class="form-control" value="{{ old('sector') }}" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Cell</label>
-                                        <input type="text" name="cell" class="form-control" value="{{ old('cell') }}" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Village</label>
-                                        <input type="text" name="village" class="form-control" value="{{ old('village') }}" required>
-                                    </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">DoB yyyy-mm-dd</label>
+                                    <input type="text" name="dob" id="dob" class="form-input w-full bg-blue-100 p-1 rounded border" value="{{ old('dob') }}" required>
+                                    <span class="text-red-500 text-sm" id="error_dob"></span>
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <button type="button" class="btn bg-gradient-info w-40 my-4 mb-2" onclick="showNextSection()">Next</button>
+
+                            <div class="text-center mt-6">
+                                <button type="button" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600" onclick="showNextSection()">Next</button>
                             </div>
                         </div>
 
-                        <!-- Parent Info Section (Initially Hidden) -->
-                        <div id="parent-info" style="display: none;">
-                            <div class="row">
-                                <!-- Father's Name -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Father's Name</label>
-                                        <input type="text" name="father_name" class="form-control" required>
+                        <!-- Parent Info Section -->
+                        <div id="parent-info" class="hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                @php
+                                    $parentFields = [
+                                        ['name' => 'father_name', 'label' => "Father's Name", 'required' => true],
+                                        ['name' => 'father_phone', 'label' => "Father's Phone", 'required' => true],
+                                        ['name' => 'mother_name', 'label' => "Mother's Name", 'required' => true],
+                                        ['name' => 'mother_phone', 'label' => "Mother's Phone", 'required' => true],
+                                        ['name' => 'guardian_name', 'label' => "Guardian's Name", 'required' => false],
+                                        ['name' => 'guardian_phone', 'label' => "Guardian's Phone", 'required' => false],
+                                    ];
+                                @endphp
+
+                                @foreach($parentFields as $field)
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                                        <input type="text" name="{{ $field['name'] }}" class="form-input w-full bg-blue-100 p-1 rounded border" {{ $field['required'] ? 'required' : '' }}>
+                                        @if($field['required'])
+                                            <span class="text-red-500 text-sm hidden">This field is required</span>
+                                        @endif
                                     </div>
-                                </div>
-                                <!-- Father's Phone -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Father's Phone</label>
-                                        <input type="text" name="father_phone" class="form-control" required>
-                                    </div>
-                                </div>
-                                <!-- Mother's Name -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Mother's Name</label>
-                                        <input type="text" name="mother_name" class="form-control" required>
-                                    </div>
-                                </div>
-                                <!-- Mother's Phone -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Mother's Phone</label>
-                                        <input type="text" name="mother_phone" class="form-control" required>
-                                    </div>
-                                </div>
-                                <!-- Guardian's Name -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Guardian's Name</label>
-                                        <input type="text" name="guardian_name" class="form-control">
-                                    </div>
-                                </div>
-                                <!-- Guardian's Phone -->
-                                <div class="col-md-4">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Guardian's Phone</label>
-                                        <input type="text" name="guardian_phone" class="form-control">
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-                            <div class="text-center">
-                                <button type="button" class="btn bg-gradient-secondary w-40 my-4 mb-2" onclick="showPreviousSection()">Back</button>
-                                <button type="submit" class="btn bg-gradient-info w-40 my-4 mb-2">Submit</button>
+                            <div class="text-center mt-6">
+                                <button type="button" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 mr-2" onclick="showPreviousSection()">Back</button>
+                                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">Submit</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-xl-2 mb-xl-0 mb-4"></div>
     </div>
 </div>
-@endsection
 
 <script>
     function showNextSection() {
-        // Validate all fields in the "Student Info" section
-        const studentInfoSection = document.getElementById('student-info');
-        const inputs = studentInfoSection.querySelectorAll('input[required]');
-        let allFilled = true;
+        let isValid = true;
 
+        const inputs = document.querySelectorAll('#student-info input[required]');
         inputs.forEach(input => {
+            const errorSpan = input.nextElementSibling;
             if (!input.value.trim()) {
-                allFilled = false;
-                input.classList.add('is-invalid');
+                input.classList.add('border-red-500');
+                errorSpan.classList.remove('hidden');
+                isValid = false;
             } else {
-                input.classList.remove('is-invalid');
+                input.classList.remove('border-red-500');
+                errorSpan.classList.add('hidden');
             }
         });
 
-        if (allFilled) {
+        const genderInputs = document.querySelectorAll('input[name="gender"]');
+        const genderError = document.getElementById('gender-error');
+        if (![...genderInputs].some(input => input.checked)) {
+            genderError.classList.remove('hidden');
+            isValid = false;
+        } else {
+            genderError.classList.add('hidden');
+        }
+
+        const dob = document.getElementById("dob");
+        const dobError = document.getElementById("error_dob");
+        const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+        if (!datePattern.test(dob.value)) {
+            dobError.textContent = "Valid format is yyyy-mm-dd";
+            dob.classList.add('border-red-500');
+            isValid = false;
+        } else {
+            dobError.textContent = "";
+            dob.classList.remove('border-red-500');
+        }
+
+        if (isValid) {
             document.getElementById('form-title').innerText = "Parent Info";
-            studentInfoSection.style.display = "none";
-            document.getElementById('parent-info').style.display = "block";
+            document.getElementById('student-info').classList.add('hidden');
+            document.getElementById('parent-info').classList.remove('hidden');
         }
     }
 
     function showPreviousSection() {
-        // Switch back to the "Student Info" section
         document.getElementById('form-title').innerText = "Student Info";
-        document.getElementById('parent-info').style.display = "none";
-        document.getElementById('student-info').style.display = "block";
+        document.getElementById('parent-info').classList.add('hidden');
+        document.getElementById('student-info').classList.remove('hidden');
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const dobInput = document.getElementById("dob");
 
-        // Listen for input changes and format the date
-        dobInput.addEventListener("input", function() {
-            // Remove any non-digit and non-hyphen characters
+        dobInput.addEventListener("input", function () {
             let value = dobInput.value.replace(/[^0-9-]/g, '');
-
-            // Automatically format as yyyy-mm-dd while typing
-            if (value.length >= 4 && value[4] !== '-') {
-                value = value.slice(0, 4) + '-' + value.slice(4);
-            }
-            if (value.length >= 7 && value[7] !== '-') {
-                value = value.slice(0, 7) + '-' + value.slice(7);
-            }
-
+            if (value.length >= 4 && value[4] !== '-') value = value.slice(0, 4) + '-' + value.slice(4);
+            if (value.length >= 7 && value[7] !== '-') value = value.slice(0, 7) + '-' + value.slice(7);
             dobInput.value = value;
         });
+    });
 
-        // Validate date format on form submission
-        dobInput.addEventListener("blur", function() {
+    document.addEventListener("DOMContentLoaded", function () {
+        const dobInput = document.getElementById("dob");
+        const dobError = document.getElementById("error_dob");
+
+        dobInput.addEventListener("input", function () {
+            let value = dobInput.value.replace(/[^0-9-]/g, ''); // Allow only numbers and hyphens
+            if (value.length >= 5 && value[4] !== '-') value = value.slice(0, 4) + '-' + value.slice(4); // Add hyphen after year
+            if (value.length >= 8 && value[7] !== '-') value = value.slice(0, 7) + '-' + value.slice(7); // Add hyphen after month
+            dobInput.value = value;
+
+            // Check if date format is valid
             const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-            if (!datePattern.test(dobInput.value)) {
-
-                var error = "Valid format is yyyy-mm-dd";
-                document.getElementById('error_dob').style.color = "red";
-                document.getElementById('error_dob').innerHTML = error;
-
-                dobInput.value = ""; // Clear the input if format is incorrect
-                dobInput.focus();
+            if (!datePattern.test(value)) {
+                dobError.textContent = "Valid format is yyyy-mm-dd , ex:2000-30-01";
+                dobInput.classList.add('border-red-500');
+            } else {
+                dobError.textContent = "";
+                dobInput.classList.remove('border-red-500');
             }
         });
     });
+
 </script>
+@endsection

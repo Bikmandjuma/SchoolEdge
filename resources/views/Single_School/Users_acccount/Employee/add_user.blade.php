@@ -1,164 +1,139 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
+
 @section('content')
-	
-	<div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-xl-2 mb-xl-0 mb-4"></div>
-	    <div class="col-xl-8 col-sm-4 mb-xl-0 mb-4">
-	          <div class="card">
-	            <div class="card-header p-3 pt-2 text-center">
-	            	<div class="bg-gradient-secondary shadow-secondary border-radius-lg  pb-1 pt-1">
-		                <h6 class="text-white text-capitalize">Add new employee</h6>
-		            </div>
-	          	</div>
-	          	<div class="card-body p-3 pt-2">
-	          		<form role="form" class="text-start" action="{{ route('school_employee_submit_user_data',$school_id) }}" method="POST">
-									    @csrf
-									    <div class="row">
-									        <!-- Input for First Name -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">First Name</label>
-									                <input type="text" name="firstname" class="form-control" value="{{ old('firstname') }}">
-									                @error('firstname')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
 
-									        <!-- Input for Middle Name -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">Middle Name</label>
-									                <input type="text" name="middle_name" class="form-control" value="{{ old('middle_name') }}">
-									            </div>
-									        </div>
+<div class="py-10 px-4 sm:px-8">
+    <div class="max-w-6xl mx-auto">
+        <div class="bg-white rounded-xl shadow-lg">
+            <div class="bg-gray-700 text-white text-center py-3 rounded-t-xl">
+                <h2 class="text-lg font-semibold">Add new employee</h2>
+            </div>
+            <div class="p-6">
+                <form action="{{ route('school_employee_submit_user_data', $school_id) }}" method="POST" class="space-y-6">
+                    @csrf
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        
+                        <!-- First Name -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">First Name</label>
+                            <input type="text" name="firstname" class="w-full border-gray-300 bg-blue-100 p-1 rounded-md shadow-sm focus:ring focus:ring-blue-200" value="{{ old('firstname') }}">
+                            @error('firstname')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Input for Last Name -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">Last Name</label>
-									                <input type="text" name="lastname" class="form-control" value="{{ old('lastname') }}">
-									                @error('lastname')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Middle Name -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Middle Name</label>
+                            <input type="text" name="middle_name" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 bg-blue-100 p-1" value="{{ old('middle_name') }}">
+                        </div>
 
-									        <!-- Input for Username -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">Username</label>
-									                <input type="text" name="username" class="form-control" value="{{ old('username') }}">
-									                @error('username')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Last Name -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Last Name</label>
+                            <input type="text" name="lastname" class="w-full border-gray-300 rounded-md bg-blue-100 p-1 shadow-sm focus:ring focus:ring-blue-200" value="{{ old('lastname') }}">
+                            @error('lastname')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Input for Email -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">Email</label>
-									                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
-									                @error('email')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Username -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Username</label>
+                            <input type="text" name="username" class="w-full border-gray-300 rounded-md shadow-sm bg-blue-100 p-1 focus:ring focus:ring-blue-200" value="{{ old('username') }}">
+                            @error('username')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Input for Phone Number -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">Phone Number</label>
-									                <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
-									                @error('phone')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Email</label>
+                            <input type="email" name="email" class="w-full border-gray-300 bg-blue-100 p-1 rounded-md shadow-sm focus:ring focus:ring-blue-200" value="{{ old('email') }}">
+                            @error('email')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Modern Input for Date of Birth -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <input type="date" name="dob" class="form-control" value="{{ old('dob') }}">
-									                @error('dob')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Phone -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Phone Number</label>
+                            <input type="text" name="phone" class="w-full border-gray-300 rounded-md bg-blue-100 p-1 shadow-sm focus:ring focus:ring-blue-200" value="{{ old('phone') }}">
+                            @error('phone')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Input for User Role Selection -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									               
-									                <select name="user_role" class="form-control">
-																	    <option value="">Select user_role</option>
-																	    @foreach($user_role_data as $data)
-																	        <option value="{{ $data->id }}">{{ $data->role_name }}</option>
-																	    @endforeach
-																	</select>
+                        <!-- DOB -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Date of Birth</label>
+                            <input type="date" name="dob" class="w-full border-gray-300 rounded-md shadow-sm bg-blue-100 p-1 focus:ring focus:ring-blue-200" value="{{ old('dob') }}">
+                            @error('dob')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									                @error('user_role')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Role -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">User Role</label>
+                            <select name="user_role" class="w-full border-gray-300 bg-blue-100 p-1 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                                <option value="">Select user_role</option>
+                                @foreach($user_role_data as $data)
+                                    <option value="{{ $data->id }}">{{ $data->role_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('user_role')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Input for Password -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">Password</label>
-									                <input type="password" name="password" class="form-control">
-									                @error('password')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Password -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Password</label>
+                            <input type="password" name="password" class="w-full border-gray-300 rounded-md bg-blue-100 p-1 shadow-sm focus:ring focus:ring-blue-200">
+                            @error('password')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Input for Confirm Password -->
-									        <div class="col-md-4">
-									            <div class="input-group input-group-outline my-3">
-									                <label class="form-label">Confirm Password</label>
-									                <input type="password" name="password_confirmation" class="form-control">
-									                @error('password_confirmation')
-									                    <span class="error-message text-danger">{{ $message }}</span>
-									                @enderror
-									            </div>
-									        </div>
+                        <!-- Confirm Password -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Confirm Password</label>
+                            <input type="password" name="password_confirmation" class="w-full border-gray-300 rounded-md shadow-sm bg-blue-100 p-1 focus:ring focus:ring-blue-200">
+                            @error('password_confirmation')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-									        <!-- Radio buttons for gender selection -->
-									        <div class="col-md-4">
-									            <div class="gender-details my-3">
-									                <span class="gender-title">Gender</span>
-									                <div class="input-group">
-									                    <div class="form-check me-3">
-									                        <input type="radio" name="gender" id="dot-1" class="form-check-input" value="Male">
-									                        <label class="form-check-label" for="dot-1">Male</label>
-									                    </div>
-									                    <div class="form-check">
-									                        <input type="radio" name="gender" id="dot-2" class="form-check-input" value="Female">
-									                        <label class="form-check-label" for="dot-2">Female</label>
-									                    </div>
-									                    @error('gender')
-									                        <span class="error-message text-danger">{{ $message }}</span>
-									                    @enderror
-									                </div>
-									            </div>
-									        </div>
-									    </div>
+                        <!-- Gender -->
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Gender</label>
+                            <div class="flex items-center space-x-4 mt-2">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="gender" value="Male" class="form-radio text-blue-500 bg-blue-100 p-1">
+                                    <span class="ml-2">Male</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="gender" value="Female" class="form-radio bg-blue-100 p-1 text-pink-500">
+                                    <span class="ml-2">Female</span>
+                                </label>
+                            </div>
+                            @error('gender')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
-									    <!-- Submit button -->
-									    <div class="text-center">
-									        <button type="submit" class="btn bg-gradient-info w-40 my-4 mb-2"><i class="fa fa-plus"></i>&nbsp;Register</button>
-									    </div>
-									</form>
-
-	          	</div>
-	          </div>
-	    	</div>
-        <div class="col-xl-2 mb-xl-0 mb-4"></div>
-      </div>
+                    <!-- Submit -->
+                    <div class="text-center">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow">
+                            <i class="fa fa-plus mr-1"></i> Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
 @endsection

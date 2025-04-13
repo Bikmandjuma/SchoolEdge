@@ -1,96 +1,76 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
+
 @section('content')
-    
-    @php
-        $user = auth()->guard('school_employee')->user();
-    @endphp
+@php
+    $user = auth()->guard('school_employee')->user();
+@endphp
 
-<style type="text/css">
-	#permission_id:hover{
-		cursor: pointer;
-		color: black;
-	}
-
-</style>
-	<div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-gradient-secondary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">All school's employees</h6>
-              </div>
-            </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee,role</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">contact</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DoB,Sex</th>
-                      @if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
-                      <th colspan="3" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                      <th class="text-secondary opacity-7"></th>
-                      @endif
-                    </tr>
-                  </thead>
-                  <tbody>
-                  	@foreach($all_users_data as $data)
-	                    <tr>
-	                      <td>
-	                        <div class="d-flex px-2 py-1">
-	                          <div>
-	                            <img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ $data->image }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1" style="width:50px;height: 50px;border-radius: 50%;border: 1px solid gray;">
-	                          </div>
-	                          <div class="d-flex flex-column justify-content-center">
-	                            <h6 class="mb-0 text-sm">{{ $data->firstname." ".$data->middle_name." ".$data->lastname }}</h6>
-	                            <p class="text-xs text-secondary mb-0">{{ $data->role ? $data->role->role_name : 'No Role Assigned' }}</p>
-
-	                          </div>
-	                        </div>
-	                      </td>
-	                      <td>
-	                        <p class="text-xs font-weight-bold mb-0">{{ $data->email }}</p>
-	                        <p class="text-xs text-secondary mb-0">{{ $data->phone }}</p>
-	                      </td>
-	                      <td>
-	                      	<div class="d-flex flex-column justify-content-center">
-	                            <h6 class="mb-0 text-sm">{{ $data->dob }}</h6>
-	                            <p class="text-xs text-secondary mb-0">{{ $data->gender }}</p>
-
-	                          </div>
-	                      </td>
-
-	                      
-	                      <td class="align-middle text-center text-sm">
-													@if(auth()->guard('school_employee')->user()->hasPermission('Edit_user_info') || $user->role->role_name === 'Admin')
-
-															<span id="permission_id" class="badge badge-sm bg-gradient-info p-2">Edit</span>          	
-	                        		
-	                        @endif
-	              
-	              					@if(auth()->guard('school_employee')->user()->hasPermission('View_user_info') || $user->role->role_name === 'Admin')
-	                      		<span class="badge badge-sm bg-gradient-secondary" onclick="window.location.href='{{ route('view_specific_user_info',['school_id' => Crypt::encrypt($school_id) , 'user_id' => Crypt::encrypt($data->id)]) }}'">View</span>
-	                      	@endif
-
-	                     		@if(auth()->guard('school_employee')->user()->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
-
-	                        		<span id="permission_id" class="badge badge-sm bg-gradient-success p-2" onclick="window.location.href='{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}'">Permission</span>
-	                        
-	                        @endif
-
-	                      </td>
-	                      
-	                    </tr>
-	                @endforeach
-                   
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+        <div class="bg-gradient-to-r from-gray-800 to-gray-600 px-6 py-4">
+            <h2 class="text-white text-lg font-semibold">All School Employees</h2>
         </div>
-      </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100 text-gray-700 text-xs font-bold uppercase tracking-wider">
+                    <tr>
+                        <th class="px-6 py-3 text-left">Employee / Role</th>
+                        <th class="px-6 py-3 text-left">Contact</th>
+                        <th class="px-6 py-3 text-left">DoB / Gender</th>
+                        @if($user->hasPermission('Edit_user_info') || $user->hasPermission('View_user_info') || $user->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
+                            <th class="px-6 py-3 text-center" colspan="3">Actions</th>
+                        @endif
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                    @foreach($all_users_data as $data)
+                        <tr class="hover:bg-gray-50 transition duration-200">
+                            <td class="px-6 py-4 flex items-center space-x-4">
+                                <img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ $data->image }}"
+                                     alt="User Image"
+                                     class="w-12 h-12 rounded-full border border-gray-300 object-cover">
+                                <div>
+                                    <div class="font-medium text-gray-900">{{ $data->firstname }} {{ $data->middle_name }} {{ $data->lastname }}</div>
+                                    <div class="text-sm text-gray-500">{{ $data->role->role_name ?? 'No Role Assigned' }}</div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600">
+                                <div>{{ $data->email }}</div>
+                                <div>{{ $data->phone }}</div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600">
+                                <div>{{ $data->dob }}</div>
+                                <div>{{ $data->gender }}</div>
+                            </td>
+
+                            @if($user->hasPermission('Edit_user_info') || $user->hasPermission('View_user_info') || $user->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
+                                <td class="px-4 py-4 text-center space-x-2 whitespace-nowrap">
+                                    @if($user->hasPermission('Edit_user_info') || $user->role->role_name === 'Admin')
+                                        <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full transition">
+                                            Edit
+                                        </button>
+                                    @endif
+
+                                    @if($user->hasPermission('View_user_info') || $user->role->role_name === 'Admin')
+                                        <a href="{{ route('view_specific_user_info', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}"
+                                           class="bg-gray-500 hover:bg-gray-600 text-white text-xs font-semibold px-3 py-1 rounded-full transition">
+                                            View
+                                        </a>
+                                    @endif
+
+                                    @if($user->hasPermission('Manage_user_permission') || $user->role->role_name === 'Admin')
+                                        <a href="{{ route('user_permission_form', ['school_id' => Crypt::encrypt($school_id), 'user_id' => Crypt::encrypt($data->id)]) }}"
+                                           class="bg-green-500 hover:bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full transition">
+                                            Permission
+                                        </a>
+                                    @endif
+                                </td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-@endsection 
+</div>
+@endsection
