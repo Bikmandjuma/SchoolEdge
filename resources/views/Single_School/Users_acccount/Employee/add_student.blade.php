@@ -1,15 +1,31 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
-
 @section('content')
 <div class="container mx-auto py-4">
     <div class="flex justify-center">
         <div class="w-full max-w-4xl">
+
+            @if(session('info'))
+                <div class="bg-green-100 text-green-800 p-2 rounded mb-4">
+                    {{ session('info') }}
+                </div>
+            @endif
+
             <div class="bg-white shadow-md rounded-lg">
                 <div class="text-center bg-gradient-to-r from-gray-600 to-gray-700 text-white py-2 rounded-t-lg">
                     <h6 class="text-xl font-semibold" id="form-title">Add new student Info</h6>
                 </div>
                 <div class="p-6">
-                    <form id="student-form" action="" method="POST" class="space-y-4">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form id="student-form" action="{{ route('school_Add_new_student', ['school_id' => $school_id]) }}" method="POST" class="space-y-4">
                         @csrf
 
                         <!-- Student Info Section -->
@@ -50,6 +66,9 @@
                                     <label class="block text-sm font-medium text-gray-700">DoB yyyy-mm-dd</label>
                                     <input type="text" name="dob" id="dob" class="form-input w-full bg-blue-100 p-1 rounded border" value="{{ old('dob') }}" required>
                                     <span class="text-red-500 text-sm" id="error_dob"></span>
+                                    @error('dob')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -63,11 +82,11 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 @php
                                     $parentFields = [
-                                        ['name' => 'father_name', 'label' => "Father's Name", 'required' => true],
+                                        ['name' => 'father_names', 'label' => "Father's Name", 'required' => true],
                                         ['name' => 'father_phone', 'label' => "Father's Phone", 'required' => true],
-                                        ['name' => 'mother_name', 'label' => "Mother's Name", 'required' => true],
+                                        ['name' => 'mother_names', 'label' => "Mother's Name", 'required' => true],
                                         ['name' => 'mother_phone', 'label' => "Mother's Phone", 'required' => true],
-                                        ['name' => 'guardian_name', 'label' => "Guardian's Name", 'required' => false],
+                                        ['name' => 'guardian_names', 'label' => "Guardian's Name", 'required' => false],
                                         ['name' => 'guardian_phone', 'label' => "Guardian's Phone", 'required' => false],
                                     ];
                                 @endphp
@@ -169,7 +188,7 @@
             // Check if date format is valid
             const datePattern = /^\d{4}-\d{2}-\d{2}$/;
             if (!datePattern.test(value)) {
-                dobError.textContent = "Valid format is yyyy-mm-dd , ex:2000-30-01";
+                dobError.textContent = "Valid format is yyyy-mm-dd , ex:2000-12-20";
                 dobInput.classList.add('border-red-500');
             } else {
                 dobError.textContent = "";

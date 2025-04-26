@@ -1,139 +1,103 @@
 @extends('Single_School.Users_acccount.Employee.Cover')
 @section('content')
 
-    @php
-        $user = auth()->guard('school_employee')->user();
-    @endphp
+@php
+    $user = auth()->guard('school_employee')->user();
+@endphp
 
-<style type="text/css">
-  #search_student_data {
-    position: relative;
-    float: right;
-    margin-top: -3.5%;
-    margin-right: 20px;
-  }
+<div class="container mx-auto px-4 py-6">
 
-  #search_student_data input {
-    border-radius: 10px;
-    border: none;
-    font-size: 22px;
-    background-color: white;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-  }
+  <div class="px-4 py-2 border-b flex flex-wrap gap-3 bg-gray-100">
+      <a href="" class="flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-blue-100 hover:bg-blue-200 text-blue-800">
+        All Students <span class="ml-1 bg-blue-500 text-white rounded-full px-2">{{ $students_count }}</span>
+      </a>
+      <a href="" class="flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 hover:bg-indigo-200 text-indigo-800">
+        By Acad_Year <span class="ml-1 bg-indigo-500 text-white rounded-full px-2">{{ $acad_year_count ?? 0 }}</span>
+      </a>
+      <a href="" class="flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 hover:bg-yellow-200 text-yellow-800">
+        Unfinished Info <span class="ml-1 bg-yellow-500 text-white rounded-full px-2">{{ $unfinished_count ?? 0 }}</span>
+      </a>
+      <a href="" class="flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-red-100 hover:bg-red-200 text-red-800">
+        Unclassified <span class="ml-1 bg-red-500 text-white rounded-full px-2">{{ $unclassified_count ?? 0 }}</span>
+      </a>
+  </div>
 
-  /* Responsive styling */
-  @media (max-width: 768px) {
-    #search_student_data {
-      float: none;
-      margin-top: 10px;
-    }
-  }
-</style>
-
-<div class="container-fluid py-4">
-  <div class="row">
-    <div class="col-12">
-      <div class="card my-4">
-        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-          <div class="bg-gradient-secondary shadow-primary border-radius-lg pt-4 pb-3">
-            <h6 class="text-white text-capitalize ps-3 text-center">All Students Info</h6>
-            <form id="search_student_data" class="d-flex justify-content-center">
-              <input type="text" name="search_data" class="form-control w-75 w-md-50" placeholder="Search..." aria-label="Search">
-            </form>
-          </div>
-        </div>
-
-        <div class="card-body px-0 pb-2">
-          <div class="table-responsive p-0">
-            <table class="table align-items-center mb-0" id="student_table">
-              <thead>
-                <tr>
-                  <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">N<sub>o</sub></th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image, Names, Gender</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Address</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dob</th>
-                  @if(auth()->guard('school_employee')->user()->hasPermission('View_student_info') || auth()->guard('school_employee')->user()->hasPermission('Edit_student') || $user->role->role_name === 'Admin')
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                  @endif
-                </tr>
-              </thead>
-              <tbody>
-
-                @if($students_count == 0)
-                  <tr>
-                    <td colspan="5" class="text-center">No data found in our database</td>
-                  </tr>
-                @else
-
-                  @foreach($school_students as $index => $data)
-                    <tr class="student_row">
-                      <td class="align-middle text-center text-sm">{{ $index + 1 }}</td>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="{{ URL::to('/') }}/mainHomePage/img/school/students/{{ $data->image }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user image">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $data->firstname }} {{ $data->middle_name }} {{ $data->lastname }}</h6>
-                            <p class="text-xs text-secondary mb-0">{{ $data->gender }}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ $data->province }}-{{ $data->district }}-{{ $data->sector }}</p>
-                        <p class="text-xs text-secondary mb-0">{{ $data->cell }}-{{ $data->village }}</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="text-xs text-center">{{ $data->dob }}</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        @if(auth()->guard('school_employee')->user()->hasPermission('Edit_student') || $user->role->role_name === 'Admin')
-                          <a href="#" class="badge badge-sm bg-gradient-success">
-                            <i class="fa fa-edit"></i>&nbsp;Edit
-                          </a>
-                        @endif
-                        @if(auth()->guard('school_employee')->user()->hasPermission('View_student') || $user->role->role_name === 'Admin')
-                        <a href="#" class="badge badge-sm bg-gradient-info">
-                          <i class="fa fa-eye"></i>&nbsp;View
-                        </a>
-                        @endif
-                      </td>
-                    </tr>
-                  @endforeach
-                @endif
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div class="bg-gradient-to-r from-gray-800 to-gray-600 p-4 text-white flex flex-col md:flex-row justify-between items-center">
+      <h2 class="text-xl font-semibold text-center md:text-left mb-2 md:mb-0">All Students Info <span class="bg-blue-500 rounded-2xl pl-2 pr-2">{{ $students_count }}k</span> </h2>
+      <div class="w-full md:w-1/3">
+        <input type="text" id="search_input" placeholder="Search..." class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700">
       </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-700">
+        <thead class="bg-gray-100 text-xs uppercase text-gray-600">
+          <tr>
+            <th class="px-6 py-3 text-center">N<sub>o</sub></th>
+            <th class="px-6 py-3">Student Info</th>
+            <th class="px-6 py-3">Address</th>
+            <th class="px-6 py-3 text-center">DOB</th>
+            @if($user->hasPermission('View_student_info') || $user->hasPermission('Edit_student') || $user->role->role_name === 'Admin')
+            <th class="px-6 py-3 text-center">Actions</th>
+            @endif
+          </tr>
+        </thead>
+        <tbody id="student_table">
+          @if($students_count == 0)
+            <tr>
+              <td colspan="5" class="text-center px-6 py-4">No data found in our database</td>
+            </tr>
+          @else
+            @foreach($school_students as $index => $data)
+              <tr class="student_row border-t hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
+                <td class="px-6 py-4 flex items-center gap-4">
+                  <img src="{{ URL::to('/') }}/mainHomePage/img/school/students/{{ $data->image }}" alt="Student" class="w-10 h-10 rounded-full object-cover">
+                  <div>
+                    <div class="font-semibold">{{ $data->firstname }} {{ $data->middle_name }} {{ $data->lastname }}</div>
+                    <div class="text-xs text-gray-500">{{ $data->student_number }} , {{ $data->gender }}</div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm">{{ $data->province }} - {{ $data->district }} - {{ $data->sector }}</div>
+                  <div class="text-xs text-gray-500">{{ $data->cell }} - {{ $data->village }}</div>
+                </td>
+                <td class="px-6 py-4 text-center">{{ $data->dob }}</td>
+                @if($user->hasPermission('Edit_student') || $user->role->role_name === 'Admin' || $user->hasPermission('View_student'))
+                <td class="px-6 py-4 text-center">
+                  <div class="flex justify-center gap-2">
+                    @if($user->hasPermission('Edit_student') || $user->role->role_name === 'Admin')
+                      <a href="#" class="bg-green-500 hover:bg-green-600 text-white text-xs px-3 py-1 rounded-full">Edit</a>
+                    @endif
+                    @if($user->hasPermission('View_student') || $user->role->role_name === 'Admin')
+                      <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-full">View</a>
+                    @endif
+                  </div>
+                </td>
+                @endif
+              </tr>
+            @endforeach
+          @endif
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7U4t3yO2FzV3B5ZyI2UkZ+2eoaFtmF6fZDl" crossorigin="anonymous"></script>
+{{-- Search Script --}}
+<script>
+  document.getElementById('search_input').addEventListener('input', function () {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('.student_row');
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#search_student_data input[name="search_data"]').on('input', function() {
-      var searchTerm = $(this).val().toLowerCase();
-
-      // Filter each student row based on search term
-      $('#student_table .student_row').each(function() {
-        var studentName = $(this).find('td:nth-child(2)').text().toLowerCase();
-
-        // Show or hide the row if it matches the search term
-        if (studentName.includes(searchTerm)) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
+    rows.forEach(row => {
+      const nameText = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+      if (nameText.includes(searchTerm)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
     });
   });
 </script>

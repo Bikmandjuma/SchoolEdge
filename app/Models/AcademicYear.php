@@ -19,4 +19,12 @@ class AcademicYear extends Model
     {
         return $this->hasMany(AcademicTerm::class);
     }
+
+    // Relationship with School
+    public function school()
+    {
+        return $this->belongsTo(Customer::class, 'school_fk_id');
+    }
+
+    
 }

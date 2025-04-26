@@ -21,6 +21,7 @@ use App\Models\AcademicTerm;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendCodeResetPassword;
 use App\Models\ResetCodePassword;
+use App\Models\Student;
 
 class schoolController extends Controller
 {
@@ -354,11 +355,10 @@ class schoolController extends Controller
     }
 
     public function school_employee_add_new_role(Request $request,$school_id){
-        // Retrieve the terms and conditions for the specific user
+
         $school_ids = $school_id;
         $school_data = Customer::findOrFail($school_ids);
         
-        // Validate the incoming request data
         $validator = Validator::make($request->all(), [
             'role_name' => 
                 'required',
@@ -374,12 +374,8 @@ class schoolController extends Controller
             'role_name.regex' => 'The role name must contain only letters (a-z, A-Z).',
         ]);
 
-        // Check if validation fails
-        if ($validator->fails()) {
-            // Create a variable for the error message
-            $errorMessage = $validator->errors()->first(); // Get the first error message
-
-            // Redirect back with a Toastr error message
+        if ($validator->fails()) { 
+            $errorMessage = $validator->errors()->first();
             return redirect()->back()->with('error', $errorMessage)->withInput();
         }
 
@@ -520,15 +516,40 @@ class schoolController extends Controller
     public function school_view_student($school_id){
         $school_id = decrypt($school_id);
         $school_data = Customer::findOrFail($school_id);
-        $school_students = SchoolStudent::where('school_fk_id',$school_id)->get();
+        $school_students = Student::where('school_fk_id',$school_id)->get();
         $students_count = collect($school_students)->count();
+
+        $acad_year_count = Student::where('school_fk_id', $school_id)->distinct('lastname')->count();
+        $unclassified_count = Student::where('school_fk_id', $school_id)->whereNull('firstname')->count();
+
+        $unfinished_count = Student::where('school_fk_id', $school_id)
+            ->where(function ($query) {
+                $query->whereNull('father_names')
+                    ->orWhere('father_names', '')
+                    ->orWhereNull('father_phone')
+                    ->orWhere('father_phone', '')
+                    ->orWhereNull('mother_names')
+                    ->orWhere('mother_names', '')
+                    ->orWhereNull('mother_phone')
+                    ->orWhere('mother_phone', '')
+                    ->orWhereNull('guardian_names')
+                    ->orWhere('guardian_names', '')
+                    ->orWhereNull('guardian_phone')
+                    ->orWhere('guardian_phone', '');
+            })
+            ->count();
+
+
 
         return view('Single_School.Users_acccount.Employee.view_student_info', [
             'school_students' => $school_students,
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
             'school_logo' => $school_data->image,
-            'students_count' => $students_count
+            'students_count' => $students_count,
+            'acad_year_count' => $acad_year_count,
+            'unfinished_count' => $unfinished_count,
+            'unclassified_count' => $unclassified_count
         ]);
          
     }
@@ -661,43 +682,92 @@ class schoolController extends Controller
 
     // }
 
+    // public function school_manage_academic($school_id){
+    //     $school_id = Crypt::decrypt($school_id);
+    //     $school_data = Customer::findOrFail($school_id);
+
+    //     $academic_year = AcademicYear::where("school_fk_id", $school_id)
+    //                     ->latest('academic_year_name')
+    //                     ->first();
+
+    //     $fetch_academic_term = AcademicTerm::where('academic_year_fk_id', $academic_year->id)
+    //                           ->where('school_fk_id', $school_id)
+    //                           ->get();
+
+    //     $fetch_academic_term_count = collect($fetch_academic_term)->count();
+
+    //     return view('Single_School.Users_acccount.Employee.manage_academic', [
+    //         'school_id' => $school_data->id,
+    //         'school_name' => $school_data->school_name,
+    //         'school_logo' => $school_data->image,
+    //         'academic_year' => $academic_year,
+    //         'fetch_academic_term' => $fetch_academic_term,
+    //         'academic_term_count' => $fetch_academic_term_count    
+    //     ]); 
+    // }
+
     public function school_manage_academic($school_id){
         $school_id = Crypt::decrypt($school_id);
         $school_data = Customer::findOrFail($school_id);
 
+        // Fetch the latest academic year based on the starting year
         $academic_year = AcademicYear::where("school_fk_id", $school_id)
-                        ->latest('academic_year_name')
-                        ->first();
+            ->get()
+            ->sortByDesc(function ($year) {
+                return (int) substr($year->academic_year_name, 0, 4);
+            })
+            ->first();
 
-        $fetch_academic_term = AcademicTerm::where('academic_year_fk_id', $academic_year->id)
-                                           ->where('school_fk_id', $school_id)
-                                           ->get();
+        $fetch_academic_term = [];
+        $fetch_academic_term_count = 0;
 
-        $fetch_academic_term_count = collect($fetch_academic_term)->count();
+        if ($academic_year) {
+            $fetch_academic_term = AcademicTerm::where('academic_year_fk_id', $academic_year->id)
+                ->where('school_fk_id', $school_id)
+                ->get();
+
+            $fetch_academic_term_count = $fetch_academic_term->count();
+        }
 
         return view('Single_School.Users_acccount.Employee.manage_academic', [
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
-            'school_logo' => $school_data->image,
+            // 'school_logo' => $school_data->image,
             'academic_year' => $academic_year,
             'fetch_academic_term' => $fetch_academic_term,
             'academic_term_count' => $fetch_academic_term_count    
-        ]); 
+        ]);
     }
 
-    public function school_add_academic_year(Request $request,$school_id){
-
-        $request->validate([
-            'academic_year_name'=>'required|string|unique:academic_years,academic_year_name'
-        ]);
-
+    public function school_add_academic_year(Request $request, $school_id)
+    {
         $school_id = Crypt::decrypt($school_id);
+
+        $validator = Validator::make($request->all(), [
+            'academic_year_name' => [
+                'required',
+                'string',
+                Rule::unique('academic_years')->where(function ($query) use ($school_id) {
+                    return $query->where('school_fk_id', $school_id);
+                }),
+            ],
+        ],
+        [
+            'academic_year_name.required' => 'This ' . $request->academic_year_name . ' is required.',
+            'academic_year_name.unique' => 'This "' . $request->academic_year_name . '" has already been added !',
+        ]);
+ 
+        if ($validator->fails()) { 
+            $errorMessage = $validator->errors()->first();
+            return redirect()->back()->with('error', $errorMessage)->withInput();
+        }
+
         AcademicYear::create([
             'academic_year_name' => $request->academic_year_name,
-            'school_fk_id' => $school_id
+            'school_fk_id' => $school_id,
         ]);
 
-        return redirect()->back()->with('info','New academic year added !');
+        return redirect()->back()->with('info','New academic year added!');
     }
 
 
@@ -712,17 +782,22 @@ class schoolController extends Controller
                 'unique:academic_terms,term_name,NULL,id,academic_year_fk_id,' . crypt::decrypt($acad_fk_id) . ',school_fk_id,' . crypt::decrypt($school_id),
             ],
             'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
         ], [
             'term_names.required' => 'Term name field is required',
-            'term_names.starts_with' => 'Invalid input, you have to start with "Term " (space after Term)',
+            'term_names.starts_with' => 'Invalid input, you have to start with "Term " (space after Term) then number ex:Term 1',
             'term_names.regex' => 'Term name must follow the format "Term <number>" (e.g., "Term 1")',
             'term_names.unique' => 'Term name is already taken for this academic year !',
+            'end_date.after_or_equal' => 'End_date can not be before start date ',
         ]);
 
         if ($validator->fails()) {
             if ($validator->errors()->has('term_names')) {
                 return redirect()->back()->with('error', $validator->errors()->first('term_names'))->withErrors($validator)->withInput();
+            }
+
+            if ($validator->errors()->has('end_date')) {
+                return redirect()->back()->with('error', $validator->errors()->first('end_date'))->withErrors($validator)->withInput();
             }
 
             return redirect()->back()->withErrors($validator)->withInput();
@@ -760,6 +835,90 @@ class schoolController extends Controller
 
     }
 
+    public function add_student(Request $request,$school_id){ 
 
+        // dd($request->all());
+
+        try {
+            $year = date('y');
+            $schoolCode = "code" . $school_id;
+
+            $count = Student::where('school_fk_id', $school_id)->count() + 1;
+            $student_number = sprintf("%s_%s_%04d", $year, $schoolCode, $count);
+
+            \Log::info('Request data:', $request->all());
+
+            $validated = $request->validate([
+                'firstname' => 'required|string|max:255',
+                'middle_name' => 'nullable|string|max:255',
+                'lastname' => 'required|string|max:255',
+                'province' => 'required|string',
+                'district' => 'required|string',
+                'sector' => 'required|string',
+                'cell' => 'required|string',
+                'village' => 'required|string',
+                'gender' => 'required|in:Male,Female',
+                'dob' => 'required|date',
+                'father_names' => 'required|string',
+                'father_phone' => 'required|string',
+                'mother_names' => 'required|string',
+                'mother_phone' => 'required|string',
+                'guardian_names' => 'nullable|string',
+                'guardian_phone' => 'nullable|string',
+            ]);
+
+            $validated['school_fk_id'] = $school_id;
+            $validated['student_number'] = $student_number;
+
+            Student::create($validated);
+
+            return redirect()->back()->with('info', 'Student added successfully!');
+        } catch (\Throwable $e) {
+            \Log::error('Student insert error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
+
+
+    }
+
+    public function editTerm(Request $request, $term_id)
+    {
+
+        // Validate incoming data
+        $request->validate([
+            'term_name' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $term = AcademicTerm::findOrFail($term_id);
+
+        $latestYear = AcademicTerm::where('school_fk_id', $term->school_fk_id)
+                      ->get();
+
+        // Update values
+        $term->term_name = $request->term_name;
+        $term->start_date = $request->start_date;
+        $term->end_date = $request->end_date;
+        $term->save();
+
+        return redirect()->back()->with('info', 'Term updated successfully.');
+    }
+
+    public function view_Add_level($term_id,$school_id){
+        $term_id = crypt::decrypt($term_id);
+        $school_id = crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+        $term_data = AcademicTerm::findOrFail($term_id);
+        $academic_data = AcademicYear::findOrFail($term_data->academic_year_fk_id);
+
+        return view('Single_School.Users_acccount.Employee.view_Add_level',[
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'academic_term' => $term_data->term_name,
+            'academic_year' => $academic_data->academic_year_name
+        ]);
+
+    }
 
 }

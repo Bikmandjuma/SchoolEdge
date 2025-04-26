@@ -215,6 +215,16 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::post('school_add_term/{academic_fk_id}/{school_id}', [schoolController::class, 'school_add_term'])->name('school_add_term');
 
+    Route::post('school_add_student/{school_id}', [schoolController::class, 'add_student'])->name('school_Add_new_student');
+
+    // Route::get('/school/students/create', [StudentController::class, 'create'])->name('employee.students.create');
+    Route::get('students/by-academic-year', [schoolController::class, 'fetch_student_byAcade_Year'])->name('employee.students.byYear');
+    Route::get('students/unfinished', [schoolController::class, 'fetch_unfinished_student_info'])->name('employee.students.unfinished');
+    Route::get('students/unclassified', [schoolController::class, 'fetch_unclassified_student_info'])->name('employee.students.unclassified');
+    Route::get('Single_School_view_Add_level/{term_id}/{school_id}', [schoolController::class, 'view_Add_level'])->name('view_Add_level');
+
+    Route::put('edit_term/{term_id}', [schoolController::class, 'editTerm'])->name('school_employee.edit_term');
+
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 });
 //end of single school routes
