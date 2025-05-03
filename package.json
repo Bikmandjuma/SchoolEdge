@@ -1,6 +1,9 @@
 {
   "private": true,
   "type": "commonjs",
+  "presets": [
+    "@babel/preset-env"
+  ],
   "scripts": {
     "dev": "npm run development",
     "watch": "npm run watch",
@@ -9,8 +12,11 @@
     "production": "mix --production"
   },
   "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.1",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.4",
+    "babel-loader": "^10.0.0",
     "laravel-mix": "^6.0.49",
     "mini-css-extract-plugin": "^2.5.0",
     "postcss": "^8.4.39",
