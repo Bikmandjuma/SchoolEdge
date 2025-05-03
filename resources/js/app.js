@@ -1,17 +1,8 @@
-// import './bootstrap'
-// import { createApp } from 'vue'
-// import app from './components/app.vue'
-// import router from './router/index.js'
-
-// createApp(app).use(router).mount("#app");
+// console.log to confirm it runs
 console.log('App initialized');
 
-// resources/js/app.js
-
-// Import Toastr CSS
-import 'toastr/build/toastr.min.css';
-
-// Import Toastr JS
+// Import Toastr JS only (CSS is now handled in app.css)
 import toastr from 'toastr';
 
-// You can also import other libraries or scripts you need
+// You can use Toastr now
+toastr.success('JS Loaded');

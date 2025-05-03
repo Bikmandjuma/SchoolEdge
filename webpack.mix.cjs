@@ -17,10 +17,6 @@ mix.webpackConfig({
                         sourceType: 'unambiguous'
                     }
                 }
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'], // 👈 this handles CSS inside JS
             }
         ]
     }
