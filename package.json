@@ -5,12 +5,14 @@
   "presets": [
     "@babel/preset-env"
   ],
+  
   "scripts": {
     "dev": "npm run development",
     "watch": "npm run watch",
     "build": "npm run production",
     "development": "mix",
-    "production": "mix --production"
+    "production": "mix --production",
+    "start": "php artisan serve --host=0.0.0.0 --port=8080"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
