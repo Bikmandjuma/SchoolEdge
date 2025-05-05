@@ -14,6 +14,7 @@ use App\Models\UserRole;
 use App\Models\SchoolEmployee;
 use App\Models\SchoolStudent;
 use App\Models\PermissionData;
+use App\Models\Level;
 use Carbon\Carbon;
 use App\Models\UserPermission;
 use App\Models\AcademicYear;
@@ -905,20 +906,140 @@ class schoolController extends Controller
         return redirect()->back()->with('info', 'Term updated successfully.');
     }
 
-    public function view_Add_level($term_id,$school_id){
-        $term_id = crypt::decrypt($term_id);
-        $school_id = crypt::decrypt($school_id);
+    // public function view_Add_level($term_id,$school_id){
+    //     $term_id = crypt::decrypt($term_id);
+    //     $school_id = crypt::decrypt($school_id);
+    //     $school_data = Customer::findOrFail($school_id);
+    //     $term_data = AcademicTerm::findOrFail($term_id);
+    //     $academic_data = AcademicYear::findOrFail($term_data->academic_year_fk_id);
+
+    //     return view('Single_School.Users_acccount.Employee.view_Add_level',[
+    //         'school_id' => $school_data->id,
+    //         'school_name' => $school_data->school_name,
+    //         'academic_term' => $term_data->term_name,
+    //         'academic_year' => $academic_data->academic_year_name,
+    //         'term_id' => $term_id
+    //     ]);
+
+    // }
+
+    public function view_Add_level($term_id, $school_id) {
+        $term_id = Crypt::decrypt($term_id);
+        $school_id = Crypt::decrypt($school_id);
+
         $school_data = Customer::findOrFail($school_id);
         $term_data = AcademicTerm::findOrFail($term_id);
         $academic_data = AcademicYear::findOrFail($term_data->academic_year_fk_id);
 
-        return view('Single_School.Users_acccount.Employee.view_Add_level',[
+        $existing_levels = Level::where('term_fk_id', $term_id)
+                                ->where('school_fk_id', $school_id)
+                                ->get();
+
+        $levels = Level::with('levelClasses')
+                ->where('term_fk_id', $term_id)
+                ->where('school_fk_id', $school_id)
+                ->get();
+        // $levels = Level::with('levelClasses')->get();
+
+        return view('Single_School.Users_acccount.Employee.view_Add_level', [
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
             'academic_term' => $term_data->term_name,
-            'academic_year' => $academic_data->academic_year_name
+            'academic_year' => $academic_data->academic_year_name,
+            'term_id' => $term_id,
+            'existing_levels' => $existing_levels,
+            'levels' => $levels,
         ]);
 
     }
+
+    public function submit_level(Request $request, $term_id, $school_id){
+        $termId = $term_id;
+        $schoolId = $school_id;
+
+        $validator = Validator::make($request->all(), [
+            'level_name' => [
+                'required',
+                'string',
+                'starts_with:Level,Senior',
+                'regex:/^(Level|Senior) \d+$/',
+                'unique:levels,level_name,NULL,id,term_fk_id,' . $termId . ',school_fk_id,' . $schoolId,
+            ],
+        ],[
+            'level_name.required' => 'The name field is required.',
+            'level_name.starts_with' => 'Invalid input, you have to start with "Level" or "Senior", followed by a space and number (e.g., "Level 1").',
+            'level_name.regex' => 'Name must follow the format "Level <number>" or "Senior <number>".',
+            'level_name.unique' => 'Name is already taken for this Term!',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->with('error', $validator->errors()->first('level_name'))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            DB::table('levels')->insert([
+                'level_name' => $request->level_name,
+                'term_fk_id' => $termId,
+                'school_fk_id' => $schoolId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->back()->with('info', 'Data added successfully');
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Name is already taken for this term')->withInput();
+            }
+
+            return redirect()->back()->with('error', 'Something went wrong. Please try again later.')->withInput();
+        }
+    }
+
+    public function editLevel(Request $request, $level_id,$term_id,$school_id){
+
+        $level = Level::findOrFail($level_id);
+
+        $validator = Validator::make($request->all(), [
+            'senior_name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('levels', 'level_name')
+                    ->where('term_fk_id', $term_id)
+                    ->where('school_fk_id', $school_id)
+                    ->ignore($level_id),
+            ],
+        ], [
+            'senior_name.required' => 'Name is required.',
+            'senior_name.unique' => 'This Name already exists for the selected term and school.',
+        ]);
+
+        if ($validator->fails()) {
+        
+            if ($validator->errors()->has('term_names')) {
+                return redirect()->back()->with('error', $validator->errors()->first('term_names'))->withErrors($validator)->withInput();
+            }   
+        
+        } 
+
+        try {
+            $level->level_name = $request->senior_name;
+            $level->save();
+
+            return redirect()->back()->with('success', 'Level updated successfully.');
+        
+        }catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000) {
+                return redirect()->back()->with('error', ''.$request->senior_name.' is already taken for this term')->withInput();
+            }
+
+            return redirect()->back()->with('error', 'Something went wrong. Please try again later.')->withInput();
+        }
+
+    }
+
 
 }

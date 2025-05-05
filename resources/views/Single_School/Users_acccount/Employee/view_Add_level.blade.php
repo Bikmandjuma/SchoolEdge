@@ -11,27 +11,26 @@
                     <h6 class="text-white text-lg font-semibold">Add new level in <b>{{ $academic_term }}</b> , acad_year -><b>{{ $academic_year }}</b></h6>
                 </div>
                 <div class="mt-4">
-                    <form action="" method="POST">
+                    <form action="{{ url('school/submit_level') }}/{{ $term_id }}/{{ $school_id }}" method="POST">
                         @csrf
                         <div class="max-w-md mx-auto">
                             <div class="mb-4">
-                                <label class="block text-gray-700 mb-1">Add level/Senior ex:Level 1 / L1</label>
+                                <label class="block text-gray-700 mb-1">Add level/Senior ex:Level 1 / Senior 1</label>
                                 <input type="hidden" name="academic_id">
                                 <input 
                                       type="text" 
-                                      name="academic_year_name" 
-                                      id="academic_year_input"
+                                      name="level_name" 
+                                      id="level_input"
                                       class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                      value="{{ old('academic_name') }}" 
-                                      placeholder="e.g. 2021-2022"
-                                      pattern="^\d{4}-\d{4}$"
+                                      value="{{ old('level_name') }}" 
+                                      placeholder="e.g. level 1 or senior 1"
                                       required
-                                      oninput="validateAcademicYear(this)"
                                 >
 
-                                @error('academic_year_name')
+                               <!--  @error('level_name')
                                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                                @enderror
+                                @enderror -->
+
                             </div>
                             <div class="text-center p-2">
                                 <button class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition">Submit</button>
@@ -46,33 +45,82 @@
     </div>
 </div>
 
+ @if($levels->count())
+    <div class="w-full max-w-6xl mx-auto mt-8">
+        <h3 class="text-2xl font-bold mb-6 text-gray-800">Senior Levels & Classes</h3>
+
+        <!-- Tabs -->
+        <div x-data="{ activeTab: '{{ $levels->first()->id ?? '' }}' }">
+            <!-- Tab Buttons -->
+            <div class="flex flex-wrap gap-2 border-b border-gray-300 mb-4">
+                @foreach($levels as $level)
+                    <div class="flex items-center gap-1">
+                        <button
+                            @click="activeTab = '{{ $level->id }}'"
+                            class="px-4 py-2 rounded-t-lg text-sm font-semibold transition-all duration-300"
+                            :class="activeTab === '{{ $level->id }}' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-blue-100'"
+                        >
+                            {{ $level->level_name }}
+                        </button>
+
+                        <!-- Edit Icon Link -->
+                        <i 
+                          class="fa fa-edit text-blue-500 hover:cursor-pointer ml-2" 
+                          title="Edit {{ $level->level_name }}" 
+                          data-bs-toggle="modal" 
+                          data-bs-target="#editLevelModal"
+                          onclick="openEditModal('{{ $level->id }}', '{{ $level->level_name }}', '{{ $term_id }}', '{{ $school_id }}')"
+                        ></i>
+
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Tab Content -->
+            @foreach($levels as $level)
+                <div x-show="activeTab === '{{ $level->id }}'" class="bg-white shadow rounded-lg p-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-4">{{ $level->level_name }} Classes</h4>
+
+                    @if($level->classes && $level->classes->count())
+                        <ul class="space-y-2">
+                            @foreach($level->classes as $class)
+                                <li class="bg-gray-100 px-4 py-2 rounded text-gray-800 shadow-sm">
+                                    {{ $class->name }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-gray-500 italic">No classes found for {{ $level->level_name }}.</p>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+
+
 <!-- Edit Term Modal -->
-<div class="modal fade" id="editTermModal" tabindex="-1" aria-labelledby="editTermLabel" aria-hidden="true">
+<div class="modal fade" id="editLevelModal" tabindex="-1" aria-labelledby="editTermLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editTermLabel">Edit Term</h5>
+        <h5 class="modal-title" id="editTermLabel">Edit Level/Senior</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="editTermForm" method="POST" action="">
+      <form id="editLevelForm" method="POST" action="">
         @csrf
         @method('PUT')
         <div class="modal-body">
-          <input type="hidden" name="term_id" id="edit_term_id">
+          <input type="hidden" name="level_id" id="edit_level_id">
           <div class="mb-3">
-            <label class="form-label">Term Name</label>
-            <input type="text" class="form-control" name="term_name" id="edit_term_name" required>
+            <label class="form-label">Level/Senior Name</label>
+            <!-- <input type="text" class="form-control" name="senior_name"   required> -->
+
+            <input type="text" name="senior_name" value="{{ old('senior_name', $level->level_name) }}" class="form-control"  id="edit_level_name">
+
           </div>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Start Date</label>
-              <input type="date" class="form-control" name="start_date" id="edit_start_date" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">End Date</label>
-              <input type="date" class="form-control" name="end_date" id="edit_end_date" required>
-            </div>
-          </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500" data-bs-dismiss="modal">Close</button>
@@ -83,23 +131,16 @@
   </div>
 </div>
 
-<script>
-    function validateAcademicYear(input) {
-      const pattern = /^\d{4}-\d{4}$/;
-      if (!pattern.test(input.value)) {
-        input.setCustomValidity("Please enter a valid format like 2021-2022");
-      } else {
-        input.setCustomValidity("");
-      }
-    }
+<script type="text/javascript">
+  function openEditModal(id, name, term_id, school_id) {
+    console.log('Level ID:', id, 'Name:', name, 'Term ID:', term_id, 'School ID:', school_id);
+    const form = document.getElementById('editLevelForm');
+    form.action = `/school/edit_level/${id}/${term_id}/${school_id}`;
+    document.getElementById('edit_level_id').value = id;
+    document.getElementById('edit_level_name').value = name;
+  }
 
-    function openEditModal(id, name, start, end) {
-      const form = document.getElementById('editTermForm');
-      form.action = `/school/edit_term/${id}`;
-      document.getElementById('edit_term_id').value = id;
-      document.getElementById('edit_term_name').value = name;
-      document.getElementById('edit_start_date').value = start;
-      document.getElementById('edit_end_date').value = end;
-    }
 </script>
+
+
 @endsection
