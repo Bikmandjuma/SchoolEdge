@@ -79,7 +79,23 @@
             <!-- Tab Content -->
             @foreach($levels as $level)
                 <div x-show="activeTab === '{{ $level->id }}'" class="bg-white shadow rounded-lg p-6">
-                    <h4 class="text-lg font-semibold text-gray-700 mb-4">{{ $level->level_name }} Classes</h4>
+                    
+                    <div class="flex items-center justify-between mb-4">
+                      <h4 class="text-lg font-semibold text-gray-700">{{ $level->level_name }} Classes</h4>
+                      <!-- <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition">
+                        <i class="fa fa-plus"></i>&nbsp;Add Class
+                      </button> -->
+
+                      <button
+                          onclick="openAddClassModal('{{ $level->id }}', '{{ $level->level_name }}')"
+                          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition"
+                          data-bs-toggle="modal"
+                          data-bs-target="#addClassModal"
+                      >
+                          <i class="fa fa-plus"></i>&nbsp;Add Class
+                      </button>
+
+                    </div>
 
                     @if($level->classes && $level->classes->count())
                         <ul class="space-y-2">
@@ -98,8 +114,6 @@
     </div>
 @endif
 
-
-
 <!-- Edit Term Modal -->
 <div class="modal fade" id="editLevelModal" tabindex="-1" aria-labelledby="editTermLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -117,7 +131,7 @@
             <label class="form-label">Level/Senior Name</label>
             <!-- <input type="text" class="form-control" name="senior_name"   required> -->
 
-            <input type="text" name="senior_name" value="{{ old('senior_name', $level->level_name) }}" class="form-control"  id="edit_level_name">
+            <input type="text" name="senior_name" value="{{ old('senior_name') }}" class="form-control"  id="edit_level_name">
 
           </div>
 
@@ -131,16 +145,49 @@
   </div>
 </div>
 
+
+<!-- Add Class Modal -->
+<div class="modal fade" id="addClassModal" tabindex="-1" aria-labelledby="addClassModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="" method="POST">
+      @csrf
+      <input type="hidden" name="level_id" id="add-class-level-id">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addClassModalLabel">Add Class to <span id="add-class-level-name"></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="class-name" class="form-label">Class Name</label>
+            <input type="text" class="form-control" name="class_name" id="class-name" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Class</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 <script type="text/javascript">
-  function openEditModal(id, name, term_id, school_id) {
-    console.log('Level ID:', id, 'Name:', name, 'Term ID:', term_id, 'School ID:', school_id);
-    const form = document.getElementById('editLevelForm');
-    form.action = `/school/edit_level/${id}/${term_id}/${school_id}`;
-    document.getElementById('edit_level_id').value = id;
-    document.getElementById('edit_level_name').value = name;
-  }
+  
+    function openEditModal(id, name, term_id, school_id) {
+      console.log('Level ID:', id, 'Name:', name, 'Term ID:', term_id, 'School ID:', school_id);
+      const form = document.getElementById('editLevelForm');
+      form.action = `/school/edit_level/${id}/${term_id}/${school_id}`;
+      document.getElementById('edit_level_id').value = id;
+      document.getElementById('edit_level_name').value = name;
+    }
+
+    function openAddClassModal(levelId, levelName) {
+      document.getElementById('add-class-level-id').value = levelId;
+      document.getElementById('addClassModalLabel').textContent = `Add Class to ${levelName}`;
+      document.getElementById('add-class-level-name').textContent = levelName;
+    }
 
 </script>
-
 
 @endsection
