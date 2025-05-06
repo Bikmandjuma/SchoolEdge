@@ -16,6 +16,7 @@ use App\Models\SchoolStudent;
 use App\Models\PermissionData;
 use App\Models\Level;
 use Carbon\Carbon;
+use App\Models\LevelClass;
 use App\Models\UserPermission;
 use App\Models\AcademicYear;
 use App\Models\AcademicTerm;
@@ -1040,6 +1041,24 @@ class schoolController extends Controller
         }
 
     }
+
+    public function addLevelClass(Request $request, $term_id, $school_id)
+    {
+        $request->validate([
+            'class_name' => 'required|string|max:255',
+            'level_id' => 'required|exists:levels,id',
+        ]);
+
+        LevelClass::create([
+            'name' => $request->input('class_name'),
+            'level_fk_id' => $request->input('level_id'),
+            'term_fk_id' => $term_id,
+            'school_fk_id' => $school_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Class added successfully!');
+    }
+
 
 
 }

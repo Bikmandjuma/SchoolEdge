@@ -231,6 +231,7 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::post('submit_level/{term_id}/{school_id}', [schoolController::class, 'submit_level'])->name('school_employee.submit_level');
 
+    Route::post('add_LevelClass/{term_id}/{school_id}', [schoolController::class, 'addLevelClass'])->name('school_employee.addLevelClass');
 
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 
