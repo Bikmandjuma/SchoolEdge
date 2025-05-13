@@ -17,4 +17,5 @@ class PermissionGroupBy extends Model
     {
         return $this->hasMany(PermissionData::class, 'permissiongroupBy_fk_id');
     }
+
 }

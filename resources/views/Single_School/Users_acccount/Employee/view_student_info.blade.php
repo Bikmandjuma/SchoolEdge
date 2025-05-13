@@ -53,7 +53,7 @@
               <tr class="student_row border-t hover:bg-gray-50 transition">
                 <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
                 <td class="px-6 py-4 flex items-center gap-4">
-                  <img src="{{ URL::to('/') }}/mainHomePage/img/school/students/{{ $data->image }}" alt="Student" class="w-10 h-10 rounded-full object-cover">
+                  <img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ $data->image }}" alt="Student" class="w-10 h-10 rounded-full object-cover" style="border: 3px solid #eee;">
                   <div>
                     <div class="font-semibold">{{ $data->firstname }} {{ $data->middle_name }} {{ $data->lastname }}</div>
                     <div class="text-xs text-gray-500">{{ $data->student_number }} , {{ $data->gender }}</div>

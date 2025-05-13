@@ -60,4 +60,10 @@ class SchoolEmployee extends Authenticatable
     {
         return $this->belongsToMany(LevelClass::class, 'class_teacher');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

@@ -22,6 +22,7 @@ class Student extends Model
         'village',
         'gender',
         'dob',
+        'image',
         'father_names',
         'father_phone',
         'mother_names',

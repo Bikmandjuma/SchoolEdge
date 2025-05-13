@@ -13,7 +13,9 @@ use App\Models\Customer;
 use App\Models\UserRole;
 use App\Models\SchoolEmployee;
 use App\Models\SchoolStudent;
+use App\Models\PermissionGroupBy;
 use App\Models\PermissionData;
+use App\Models\Course;
 use App\Models\Level;
 use Carbon\Carbon;
 use App\Models\LevelClass;
@@ -321,9 +323,17 @@ class schoolController extends Controller
 
     public function school_employee_account_home($school_id){
         // Retrieve the terms and conditions for the specific user
-        $school_ids = Crypt::decrypt($school_id);
-        $school_data = Customer::findOrFail($school_ids);
-        $school_employees_count = SchoolEmployee::where('school_fk_id',$school_ids)->count();
+        $school_id = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+        $school_employees_count = SchoolEmployee::where('school_fk_id',$school_id)->count();
+
+        $school_employees_count = SchoolEmployee::where('school_fk_id', $school_id)->count();
+
+        $all_classes_count = LevelClass::where('school_fk_id', $school_id)->count();
+
+        $all_students_count = Student::where('school_fk_id', $school_id)->count();
+
+        $online_employees_count = SchoolEmployee::where('school_fk_id', $school_id)->where('last_active_at', '>=', now()->subMinutes(5))->count();
 
         return view("Single_School.Users_acccount.Employee.home",[
             'school_id' => $school_data->id,
@@ -332,6 +342,10 @@ class schoolController extends Controller
             'school_phone' => $school_data->phone,
             'school_logo' => $school_data->image,
             'school_employees_count' => $school_employees_count,
+            // 'school_employees_count' => $school_employees_count,
+            'all_classes_count' => $all_classes_count,
+            'all_students_count' => $all_students_count,
+            'online_employees_count' => $online_employees_count,
         ]);
 
     }
@@ -362,13 +376,14 @@ class schoolController extends Controller
         $school_data = Customer::findOrFail($school_ids);
         
         $validator = Validator::make($request->all(), [
-            'role_name' => 
+            'role_name' => [
                 'required',
                 'string',
                 'regex:/^[a-zA-Z]+$/',
-                Rule::unique('user_roles')->where(function ($query) use ($request, $school_id) {
-                    return $query->where('school_fk_id', $school_id);
-                })->ignore($request->role_id),
+                Rule::unique('user_roles')
+                    ->where(fn($query) => $query->where('school_fk_id', $school_id))
+                    ->ignore($request->role_id),
+            ]
         ], [
             'role_name.required' => 'The role name is required.',
             'role_name.string' => 'The role name must be a string. Only text is allowed.',
@@ -570,24 +585,75 @@ class schoolController extends Controller
     }
 
     // Show the form to assign permissions to a user
-    public function showAssignPermissionsForm_User($school_id, $user_id)
+    // public function showAssignPermissionsForm_User($school_id, $user_id)
+    // {
+    //     // Decrypt the IDs (if you're using encryption)
+    //     $school_id = Crypt::decrypt($school_id);
+    //     $user_id = Crypt::decrypt($user_id);
+
+    //     // Fetch the user and permissions for this school
+    //     $user = SchoolEmployee::findOrFail($user_id);
+    //     $permissions = PermissionData::paginate(30);  // or any other permissions logic
+    //     $school_data = Customer::findOrFail($school_id);
+
+    //     // Return the view with data
+    //     return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form',[
+    //         'user' => $user,
+    //         'permissions' => $permissions,
+    //         'school_id' => $school_data->id,
+    //         'school_name' => $school_data->school_name,
+    //         'school_logo' => $school_data->image
+    //     ]);
+    // }
+
+    // public function showAssignPermissionsForm_User($school_id, $user_id)
+    // {
+    //     $school_id = Crypt::decrypt($school_id);
+    //     $user_id = Crypt::decrypt($user_id);
+
+    //     // $school = School::findOrFail($school_id);
+    //     $user = SchoolEmployee::findOrFail($user_id);
+    //     $school = Customer::findOrFail($school_id);
+    //     $permissions = PermissionData::paginate(20);
+    //     $permissionGroups = PermissionGroupBy::paginate(2); // Or however you group permissions
+
+    //     return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form', [
+    //         'user' => $user,
+    //         'permissions' => $permissions,
+    //         'school_id' => $school->id,
+    //         'school_name' => $school->name,
+    //         'school_logo' => $school->logo,
+    //         'permissionGroups' => $permissionGroups // 🟢 Make sure this is included
+    //     ]);
+    // }
+
+    public function showAssignPermissionsForm_User(Request $request, $school_id, $user_id)
     {
-        // Decrypt the IDs (if you're using encryption)
         $school_id = Crypt::decrypt($school_id);
         $user_id = Crypt::decrypt($user_id);
 
-        // Fetch the user and permissions for this school
         $user = SchoolEmployee::findOrFail($user_id);
-        $permissions = PermissionData::paginate(30);  // or any other permissions logic
-        $school_data = Customer::findOrFail($school_id);
+        $school = Customer::findOrFail($school_id);
 
-        // Return the view with data
-        return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form',[
+        // 👇 Filter by group name if search is used
+        $search = $request->input('search');
+        $query = PermissionGroupBy::with('permissions');
+
+        if (!empty($search)) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        }
+
+        $permissionGroups = $query->paginate(2)->appends(['search' => $search]);
+        $permissions = PermissionData::paginate(20);
+
+        return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form', [
             'user' => $user,
             'permissions' => $permissions,
-            'school_id' => $school_data->id,
-            'school_name' => $school_data->school_name,
-            'school_logo' => $school_data->image
+            'school_id' => $school->id,
+            'school_name' => $school->name,
+            'school_logo' => $school->logo,
+            'permissionGroups' => $permissionGroups,
+            'search' => $search
         ]);
     }
 
@@ -839,8 +905,6 @@ class schoolController extends Controller
 
     public function add_student(Request $request,$school_id){ 
 
-        // dd($request->all());
-
         try {
             $year = date('y');
             $schoolCode = "code" . $school_id;
@@ -869,17 +933,21 @@ class schoolController extends Controller
                 'guardian_phone' => 'nullable|string',
             ]);
 
+            $validated['image'] = 'user_img.jpg';
             $validated['school_fk_id'] = $school_id;
             $validated['student_number'] = $student_number;
 
             Student::create($validated);
 
             return redirect()->back()->with('info', 'Student added successfully!');
-        } catch (\Throwable $e) {
-            \Log::error('Student insert error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
-        }
 
+        } catch (\Throwable $e) {
+            
+            \Log::error('Student insert error: ' . $e->getMessage());
+            
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        
+        }
 
     }
 
@@ -970,7 +1038,7 @@ class schoolController extends Controller
             'level_name.required' => 'The name field is required.',
             'level_name.starts_with' => 'Invalid input, you have to start with "Level" or "Senior", followed by a space and number (e.g., "Level 1").',
             'level_name.regex' => 'Name must follow the format "Level <number>" or "Senior <number>".',
-            'level_name.unique' => 'Name is already taken for this Term!',
+            'level_name.unique' =>  $request->level_name. ' is already taken for this Term!',
         ]);
 
         if ($validator->fails()) {
@@ -999,8 +1067,8 @@ class schoolController extends Controller
         }
     }
 
-    public function editLevel(Request $request, $level_id,$term_id,$school_id){
-
+    public function editLevel(Request $request, $level_id, $term_id, $school_id)
+    {
         $level = Level::findOrFail($level_id);
 
         $validator = Validator::make($request->all(), [
@@ -1008,39 +1076,48 @@ class schoolController extends Controller
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('levels', 'level_name')
-                    ->where('term_fk_id', $term_id)
-                    ->where('school_fk_id', $school_id)
-                    ->ignore($level_id),
-            ],
+                'starts_with:Level,Senior',
+                'regex:/^(Level|Senior) \d+$/',
+            ]
         ], [
             'senior_name.required' => 'Name is required.',
-            'senior_name.unique' => 'This Name already exists for the selected term and school.',
+            'senior_name.starts_with' => 'Invalid input, you have to start with "Level" or "Senior", followed by a space and number (e.g., "Level 1").',
+            'senior_name.regex' => 'Name must follow the format "Level <number>" or "Senior <number>".',
         ]);
 
+        // Custom duplicate check
+        $validator->after(function ($validator) use ($request, $level_id, $term_id, $school_id) {
+            $exists = Level::where('level_name', $request->senior_name)
+                ->where('term_fk_id', $term_id)
+                ->where('school_fk_id', $school_id)
+                ->where('id', '!=', $level_id)
+                ->exists();
+
+            if ($exists) {
+                $validator->errors()->add('senior_name', $request->senior_name. ' already exists for the selected term ');
+                return redirect()->back()->with('error', $request->senior_name . ' already exists for the selected term ');
+            }
+
+        });
+
         if ($validator->fails()) {
-        
-            if ($validator->errors()->has('term_names')) {
-                return redirect()->back()->with('error', $validator->errors()->first('term_names'))->withErrors($validator)->withInput();
-            }   
-        
-        } 
+            return redirect()->back()
+                ->with('error', $validator->errors()->first('senior_name'))
+                ->withErrors($validator)
+                ->withInput();
+            // return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         try {
             $level->level_name = $request->senior_name;
             $level->save();
 
             return redirect()->back()->with('success', 'Level updated successfully.');
-        
-        }catch (\Illuminate\Database\QueryException $ex) {
-            if ($ex->getCode() == 23000) {
-                return redirect()->back()->with('error', ''.$request->senior_name.' is already taken for this term')->withInput();
-            }
-
+        } catch (\Illuminate\Database\QueryException $ex) {
             return redirect()->back()->with('error', 'Something went wrong. Please try again later.')->withInput();
         }
-
     }
+
 
     public function addLevelClass(Request $request, $term_id, $school_id)
     {
@@ -1059,6 +1136,91 @@ class schoolController extends Controller
         return redirect()->back()->with('success', 'Class added successfully!');
     }
 
+    public function school_employee_manage_courses($school_id) {
+        $school_id = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_id);
+
+        $course_data = Course::where('school_fk_id',$school_id)->get();
+
+        $count_course_data = collect($course_data)->count();
+
+        return view("Single_School.Users_acccount.Employee.Manage_courses",[
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'course_data' => $course_data,
+            'count_course_data' => $count_course_data
+        ]);
+    }
+    public function school_employee_add_new_course(Request $request,$school_id) {
+
+        $school_id = $school_id;
+        $school_data = Customer::findOrFail($school_id);
+        
+        $validator = Validator::make($request->all(), [
+            'course_name' => [
+                'required',
+                'string',
+                'regex:/^[a-zA-Z]+$/',
+                Rule::unique('courses')
+                    ->where(fn($query) => $query->where('school_fk_id', $school_id))
+                    ->ignore($request->course_id),
+            ]
+        ], [
+            'course_name.required' => 'The course name is required.',
+            'course_name.string' => 'The course name must be a string. Only text is allowed.',
+            'course_name.unique' => 'The course name "' . $request->course_name . '" has already been added.',
+            'course_name.regex' => 'The course name must contain only letters (a-z, A-Z).',
+        ]);
+
+        if ($validator->fails()) { 
+            $errorMessage = $validator->errors()->first();
+            return redirect()->back()->with('error', $errorMessage)->withInput();
+        }
+
+        Course::create([
+            'course_name' => $request->course_name,
+            'school_fk_id' => $school_id,
+        ]);
+
+        return redirect()->route('school_employee_manage_courses',Crypt::encrypt($school_data->id))->with([
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'success' => "New curse added successfully !",
+        ]);
+
+    }
+
+    public function school_employee_update_course(Request $request){
+        $school_id = auth()->guard('school_employee')->user()->school_fk_id;
+
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required|integer',
+            'course_name' => [
+                'required',
+                'string',
+                Rule::unique('courses')->where(function ($query) use ($request, $school_id) {
+                    return $query->where('school_fk_id', $school_id);
+                })->ignore($request->course_id),
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            if ($validator->errors()->has('course_name')) {
+                return redirect()->back()->with('error', ''.$request->course_name.' has already been added.')->withErrors($validator);
+            }
+
+            // Redirect back with all validation errors
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Update the role if validation passes
+        $role = Course::find($request->course_id);
+        $role->course_name = $request->course_name;
+        $role->save();
+
+        return redirect()->back()->with('success', 'Course updated successfully.');
+    }
 
 
 }

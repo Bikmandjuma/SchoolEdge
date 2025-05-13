@@ -22,4 +22,10 @@ class PermissionData extends Model
     {
         return $this->belongsToMany(UserRole::class, 'role_permissions', 'permission_fk_id', 'role_fk_id');
     }
+
+    public function group()
+    {
+        return $this->belongsTo(PermissionGroupBy::class, 'permissiongroupBy_fk_id');
+    }
+
 }

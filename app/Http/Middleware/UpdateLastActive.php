@@ -15,14 +15,17 @@ class UpdateLastActive
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next ,$guard = null): Response
+    public function handle(Request $request, Closure $next,$guard = null): Response
     {
-        Log::info('UpdateLastActive middleware executed');
+        if (Auth::guard('school_employee')->check()) {
+            $user = Auth::guard('school_employee')->user();
+            $user->update(['last_active_at' => now()]);
 
-        if (Auth::guard('user')->check()) {
-            Auth::guard('user')->user()->update(['last_active_at' => now()]);
+            // Log to check if middleware is running
+            Log::info('User last_active_at updated', ['user_id' => $user->id, 'time' => now()]);
+        } else {
+            Log::warning('Middleware executed but user not authenticated');
         }
-
         return $next($request);
     }
 }

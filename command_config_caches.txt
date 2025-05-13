@@ -1,0 +1,23 @@
+railway run php artisan config:cache
+railway run php artisan config:clear
+railway run php artisan route:cache
+railway run php artisan route:clear
+railway run php artisan view:cache
+railway run php artisan view:clear
+railway run php artisan cache:clear
+
+railway run php artisan optimize
+
+
+php artisan config:cache
+php artisan config:clear
+php artisan route:cache
+php artisan route:clear
+php artisan view:cache
+php artisan view:clear
+php artisan cache:clear
+
+
+jwt api in laravel
+=================
+https://dev.to/zaiidmo/laravel-10-jwt-authentication-api-2k50

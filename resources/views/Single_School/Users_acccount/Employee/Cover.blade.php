@@ -48,6 +48,7 @@
             <!-- Sidebar links -->
             <nav aria-label="Main" class="flex-1 px-2 py-4 space-y-2 overflow-y-hidden hover:overflow-y-auto">
               <!-- Dashboards links -->
+              <div class="text-center items-center justify-center inline-block text-md font-bold tracking-wider uppercase text-primary-dark dark:text-light" style="font-size: 15px;font-weight: bold;">{{ $school_name }}</div>
               <div x-data="{ isActive: true, open: true}">
                 <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
                 @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admin')
@@ -209,7 +210,7 @@
               </div>
               @endif
 
-              @if(auth()->guard('school_employee')->user()->hasPermission('Academic_stuff') || auth()->guard('school_employee')->user()->hasPermission('Academic') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
+              @if(auth()->guard('school_employee')->user()->hasPermission('Academic_stuff') || auth()->guard('school_employee')->user()->hasPermission('Academic') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff') || auth()->guard('school_employee')->user()->hasPermission('Manage_courses'))
 
               <!-- Components links -->
               <div x-data="{ isActive: false, open: false }">
@@ -254,6 +255,16 @@
                   </span>
                 </a>
                 <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Employee">
+
+                  @if($user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_courses'))
+                  <a
+                    href="{{ route('school_employee_manage_courses',Crypt::encrypt($school_id)) }}"
+                    role="menuitem"
+                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
+                  >
+                    Courses
+                  </a>
+                  @endif
 
                   @if($user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Manage_academic_stuff'))
                   <a
@@ -627,6 +638,7 @@
             >
               <nav aria-label="Main" class="px-2 py-4 space-y-2">
                 <!-- Dashboards links -->
+
                 <div x-data="{ isActive: true, open: true}">
                   <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
                   @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admins')

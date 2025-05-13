@@ -211,6 +211,12 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::get('manage_academic/{school_id}', [schoolController::class, 'school_manage_academic'])->name('school_manage_academic');
 
+    Route::get('manage_courses/{school_id}', [schoolController::class, 'school_employee_manage_courses'])->name('school_employee_manage_courses');
+    
+    Route::post('add_course/{school_id}', [schoolController::class, 'school_employee_add_new_course'])->name('school_employee_add_new_course');
+
+    Route::post('school_employee_update_course', [schoolController::class, 'school_employee_update_course'])->name('school_employee_update_course');
+
     Route::post('school_add_academic_year/{school_id}', [schoolController::class, 'school_add_academic_year'])->name('school_add_academic_year');
 
     Route::post('school_add_term/{academic_fk_id}/{school_id}', [schoolController::class, 'school_add_term'])->name('school_add_term');
