@@ -81,14 +81,92 @@
       </div>
 
       <!-- Classes to Teach -->
-      <div class="bg-gray-50 p-4 rounded-xl shadow-sm">
+      <!-- <div class="bg-gray-50 p-4 rounded-xl shadow-sm">
         <h3 class="text-lg font-semibold text-gray-700 mb-4">Classes to Teach</h3>
         <ul class="text-sm text-gray-700">
           <li>No class</li>
         </ul>
+      </div> -->
+      <!-- Classes to Teach -->
+      <!-- <div class="bg-gray-50 p-4 rounded-xl shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-700">Classes to Teach</h3>
+
+          <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#assignModal">
+              Assign Class
+          </button>
+
+        </div>
+
+        <ul class="text-sm text-gray-700">
+          <li>No class assigned</li>
+        </ul>
+      </div> -->
+
+      <div class="bg-gray-50 p-4 rounded-xl shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-700">Classes to Teach</h3>
+
+          <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#assignModal">
+            Assign Class
+          </button>
+        </div>
+
+        <ul class="text-sm text-gray-700">
+          @forelse ($school_employees->teacherClasses as $assignment)
+            <li>
+              Class: {{ $assignment->classCourseFn->levelClassFn->name }} - 
+              Course: {{ $assignment->classCourseFn->course_name }}
+            </li>
+          @empty
+            <li>No class assigned</li>
+          @endforelse
+        </ul>
       </div>
+
+
     </div>
   </div>
 </div>
+
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="assignModalLabel">Assign Class to {{ $school_employees->firstname }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form action="{{ route('assign.class.to.teacher') }}" method="POST">
+        @csrf
+        <input type="hidden" name="employee_id" value="{{ $school_employees->id }}">
+        <input type="hidden" name="school_id" value="{{ $school_id }}">
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="class_course_id" class="form-label">Select Course (From Latest Term)</label>
+            <select name="class_course_id" id="class_course_id" required class="form-select">
+              @foreach ($latestClassCourses as $classCourse)
+                <option value="{{ $classCourse->id }}">
+                  Class: {{ $classCourse->levelClassFn->name }} - Course: {{ $classCourse->course_name }}
+                </option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Assign</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 
 @endsection

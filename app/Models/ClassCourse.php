@@ -26,7 +26,7 @@ class ClassCourse extends Model
         return $this->hasMany(TotalResult::class, 'classCourse_fk_id');
     }
 
-    public function student()
+    public function levelClassFn()
     {
         return $this->belongsTo(LevelClass::class, 'levelClass_fk_id');
     }

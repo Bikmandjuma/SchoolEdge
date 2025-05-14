@@ -195,7 +195,11 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::get('school_view_student/{school_id}', [schoolController::class, 'school_view_student'])->name('school_view_student');
 
-    Route::get('add_student_form/{school_id}', [schoolController::class, 'school_add_student_form'])->name('school_add_student_form');  
+    Route::put('/students/update/{id}', [SchoolController::class, 'updateStudent'])->name('student.update');
+
+    Route::get('add_student_form/{school_id}', [schoolController::class, 'school_add_student_form'])->name('school_add_student_form'); 
+
+    Route::get('view_student_data/{student_id}/{school_id}', [schoolController::class, 'school_view_specific_student_data'])->name('school_view_student_data');  
 
     Route::get('user_permission_form/{school_id}/{user_id}', [schoolController::class, 'showAssignPermissionsForm_User'])->name('user_permission_form');
 
@@ -246,6 +250,12 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
     Route::post('/class-courses/store', [schoolController::class, 'storeClassCourses'])->name('class_courses.store');
 
     Route::put('/class-courses/update', [schoolController::class, 'updateClassCourse'])->name('class_courses.update');
+
+    Route::post('/teacher-classes', [schoolController::class, 'store'])->name('teacher-classes.store');
+
+    Route::post('/assign-class-to-teacher', [SchoolController::class, 'assignClassToTeacher'])->name('assign.class.to.teacher');
+
+    Route::put('/edit-user-info/{user_id}', [SchoolController::class, 'updateUserInfo'])->name('edit_user_info');
 
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 

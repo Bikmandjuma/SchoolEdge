@@ -71,10 +71,6 @@
                     <td class="p-2 border">{{ $classCourse->quiz_mark_total }}</td>
                     <td class="p-2 border">{{ $classCourse->exam_total }}</td>
                     <td class="p-2 border">{{ $classCourse->total_mark }}</td>
-                    <!-- <td class="p-2 border text-blue-600 hover:underline cursor-pointer"
-                        onclick="openEditModal({{ $classCourse->id }}, '{{ $classCourse->course_name }}', {{ $classCourse->quiz_mark_total }}, {{ $classCourse->exam_total }})">
-                        ✏️ Edit
-                    </td> -->
                     <td class="p-2 border text-blue-600 hover:underline cursor-pointer"
                         onclick="openEditModal({{ $classCourse->id }}, '{{ $classCourse->course_name }}', {{ $classCourse->quiz_mark_total ?? 0 }}, {{ $classCourse->exam_total ?? 0 }})">
                         ✏️ Edit

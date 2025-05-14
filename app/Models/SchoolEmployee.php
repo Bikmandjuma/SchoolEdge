@@ -66,4 +66,15 @@ class SchoolEmployee extends Authenticatable
         return $this->belongsTo(User::class);
     }
 
+    // public function assignedCourses()
+    // {
+    //     return $this->hasMany(TeacherClass::class, 'schoolEmployee_fk_id');
+    // }
+
+    public function teacherClasses()
+    {
+        return $this->hasMany(TeacherClass::class, 'schoolEmployee_fk_id');
+    }
+
+
 }

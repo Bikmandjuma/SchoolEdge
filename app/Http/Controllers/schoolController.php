@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Customer;
 use App\Models\ClassCourse;
+use App\Models\TeacherClass;
 use App\Models\UserRole;
 use App\Models\SchoolEmployee;
 use App\Models\SchoolStudent;
@@ -514,6 +515,33 @@ class schoolController extends Controller
         ]);
     }
 
+    public function updateUserInfo(Request $request, $user_id)
+    {
+        $user = SchoolEmployee::findOrFail($user_id);
+
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|email|unique:school_employees,email,' . $user->id,
+            'phone' => 'required|string|unique:school_employees,phone,' . $user->id,
+        ]);
+
+        if ($validator->fails()) {
+            $errorMessage = $validator->errors()->first();
+            return redirect()->back()->with('error', $errorMessage)->withInput();
+        }
+
+        $user->update([
+            'firstname' => $request->firstname,
+            'middle_name' => $request->middle_name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+
+        return redirect()->back()->with('success', 'User updated successfully');
+    }
    
 
     public function school_employee_account_logout(){
@@ -651,8 +679,8 @@ class schoolController extends Controller
             'user' => $user,
             'permissions' => $permissions,
             'school_id' => $school->id,
-            'school_name' => $school->name,
-            'school_logo' => $school->logo,
+            'school_name' => $school->school_name,
+            'school_logo' => $school->image,
             'permissionGroups' => $permissionGroups,
             'search' => $search
         ]);
@@ -672,31 +700,84 @@ class schoolController extends Controller
         return redirect()->back()->with('info', 'Permissions updated!');
     }
 
-    public function view_specific_user_info($school_id,$user_id){
+    // public function view_specific_user_info($school_id,$user_id){
+    //     $school_id = Crypt::decrypt($school_id);
+    //     $user_id = Crypt::decrypt($user_id);
+
+    //     $school_employees = SchoolEmployee::findOrFail($user_id);
+    //     $school_data = Customer::findOrFail($school_id);
+
+    //     $school_employees->time_ago = Carbon::parse($school_employees->created_at)->diffForHumans();
+
+    //     $permissions = SchoolEmployee::find($school_employees->id)
+    //                     ->permissions
+    //                     ->pluck('name');
+    //     $count_permission = collect($permissions)->count();
+
+    //     return view('Single_School.Users_acccount.Employee.view_specific_user_info', [
+    //         'school_employees' => $school_employees,
+    //         'school_id' => $school_data->id,
+    //         'school_name' => $school_data->school_name,
+    //         'school_logo' => $school_data->image,
+    //         'joined' => $school_employees->time_ago,
+    //         'user_permission' => $permissions,
+    //         'count_permission' => $count_permission
+    //     ]);     
+
+    // }
+
+    public function view_specific_user_info($school_id, $user_id)
+    {
         $school_id = Crypt::decrypt($school_id);
         $user_id = Crypt::decrypt($user_id);
 
         $school_employees = SchoolEmployee::findOrFail($user_id);
         $school_data = Customer::findOrFail($school_id);
-
         $school_employees->time_ago = Carbon::parse($school_employees->created_at)->diffForHumans();
 
-        $permissions = SchoolEmployee::find($school_employees->id)
-                        ->permissions
-                        ->pluck('name');
-        $count_permission = collect($permissions)->count();
+        $permissions = $school_employees->permissions->pluck('name');
+        $count_permission = $permissions->count();
+
+        $latestTermId = AcademicTerm::where('school_fk_id', $school_id)
+                        ->orderBy('created_at', 'desc')
+                        ->value('id');
+
+        $latestClassCourses = ClassCourse::whereHas('levelClassFn', function ($q) use ($school_id, $latestTermId) {
+            $q->where('school_fk_id', $school_id)
+              ->where('term_fk_id', $latestTermId);
+        })->with('levelClassFn')->get();
+
+        $school_employee = SchoolEmployee::with('teacherClasses.classCourseFn.levelClassFn')->find($user_id);
 
         return view('Single_School.Users_acccount.Employee.view_specific_user_info', [
             'school_employees' => $school_employees,
+            'school_employee' => $school_employee,
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
             'school_logo' => $school_data->image,
             'joined' => $school_employees->time_ago,
             'user_permission' => $permissions,
-            'count_permission' => $count_permission
-        ]);     
-
+            'count_permission' => $count_permission,
+            'latestClassCourses' => $latestClassCourses
+        ]);
     }
+
+    public function assignClassToTeacher(Request $request)
+    {
+        $request->validate([
+            'employee_id' => 'required|exists:school_employees,id',
+            'school_id' => 'required|exists:customers,id',
+            'class_course_id' => 'required|exists:class_courses,id',
+        ]);
+
+        TeacherClass::create([
+            'schoolEmployee_fk_id' => $request->employee_id,
+            'classCourse_fk_id' => $request->class_course_id,
+        ]);
+
+        return back()->with('success', 'Class successfully assigned to the employee.');
+    }
+
 
     public function my_files($school_id){
         $school_id = Crypt::decrypt($school_id);
@@ -951,6 +1032,50 @@ class schoolController extends Controller
         }
 
     }
+
+    public function updateStudent(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'province' => 'required|string',
+            'district' => 'required|string',
+            'sector' => 'required|string',
+            'cell' => 'required|string',
+            'village' => 'required|string',
+            'gender' => 'required|in:Male,Female',
+            'dob' => 'required|date',
+            'father_names' => 'required|string',
+            'father_phone' => 'required|string',
+            'mother_names' => 'required|string',
+            'mother_phone' => 'required|string',
+            'guardian_names' => 'nullable|string',
+            'guardian_phone' => 'nullable|string',
+        ]);
+
+        $student = Student::findOrFail($id);
+        $student->update($validated);
+
+        return redirect()->back()->with('success', 'Student updated successfully.');
+    }
+
+    public function school_view_specific_student_data($student_id,$school_id){
+        $student_id = Crypt::decrypt($student_id);
+        $school_id = Crypt::decrypt($school_id);
+
+        $school_data = Customer::findOrFail($school_id);
+
+        $student = Student::with(['studentClasses.classCourseFn.levelClassFn'])->findOrFail($student_id);
+
+        return view('Single_School.Users_acccount.Employee.view_student_specific_data',[
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'student' => $student
+        ]);
+    }
+
 
     public function editTerm(Request $request, $term_id)
     {

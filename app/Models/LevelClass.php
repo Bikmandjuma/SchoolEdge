@@ -15,7 +15,7 @@ class LevelClass extends Model
         'term_fk_id',
         'school_fk_id'
     ];
-
+    
      // A senior class belongs to a level
     public function level()
     {

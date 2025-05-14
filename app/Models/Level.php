@@ -15,12 +15,6 @@ class Level extends Model
         'school_fk_id',
     ];
 
-    // A Level has many classes
-    // public function levelClasses()
-    // {
-    //     return $this->hasMany(LevelClass::class, 'level_fk_id');
-    // }
-
     public function levelClasses()
     {
         return $this->hasMany(LevelClass::class, 'level_fk_id');

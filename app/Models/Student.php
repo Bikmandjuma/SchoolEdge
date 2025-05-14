@@ -38,5 +38,15 @@ class Student extends Model
         return $this->belongsTo(School::class, 'school_fk_id');
     }
 
+    public function levelClassFn()
+    {
+        return $this->belongsTo(LevelClass::class, 'levelClass_fk_id');
+    }
+
+    public function studentClasses()
+    {
+        return $this->hasMany(StudentClassAssignment::class,'student_fk_id');
+    }
+
 
 }

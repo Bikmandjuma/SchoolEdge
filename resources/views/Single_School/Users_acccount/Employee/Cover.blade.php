@@ -49,7 +49,7 @@
             <nav aria-label="Main" class="flex-1 px-2 py-4 space-y-2 overflow-y-hidden hover:overflow-y-auto">
               <!-- Dashboards links -->
               <div class="flex text-center items-center justify-center inline-block text-md font-bold tracking-wider uppercase text-primary-dark dark:text-light" style="font-size: 15px;font-weight: bold;">
-                <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_logo }}" class="w-10 h-10"> 
+                <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_logo }}" class="w-10 h-10 rounded-full"> 
                 &nbsp;{{ $school_name }}
 
               </div>
@@ -145,7 +145,7 @@
               </div>
               @endif
 
-              @if(auth()->guard('school_employee')->user()->hasPermission('employee') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_employee') || auth()->guard('school_employee')->user()->hasPermission('view_employee') || auth()->guard('school_employee')->user()->hasPermission('Employee'))
+              @if(auth()->guard('school_employee')->user()->hasPermission('Employee') || $user->role->role_name === 'Admin' || auth()->guard('school_employee')->user()->hasPermission('Add_employee') || auth()->guard('school_employee')->user()->hasPermission('View_employee'))
 
               <!-- Components links -->
               <div x-data="{ isActive: false, open: false }">
@@ -355,67 +355,6 @@
               </div>
               @endif
 
-              <!-- Components links -->
-              <!-- <div x-data="{ isActive: false, open: false }">
-                <a
-                  href="#"
-                  @click="$event.preventDefault(); open = !open"
-                  class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-primary-100 dark:hover:bg-primary"
-                  :class="{ 'bg-primary-100 dark:bg-primary': isActive || open }"
-                  role="button"
-                  aria-haspopup="true"
-                  :aria-expanded="(open || isActive) ? 'true' : 'false'"
-                >
-                  <span aria-hidden="true">
-                    <svg
-                      class="w-5 h-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                      />
-                    </svg>
-                  </span>
-                  <span class="ml-2 text-sm"> Employees </span>
-                  <span aria-hidden="true" class="ml-auto">
-                    <svg
-                      class="w-4 h-4 transition-transform transform"
-                      :class="{ 'rotate-180': open }"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </a>
-                <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Employee">
-                  <a
-                    href="#"
-                    role="menuitem"
-                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
-                  >
-                    Add employees
-                  </a>
-
-                   <a
-                    href="#"
-                    role="menuitem"
-                    class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700"
-                  >
-                    View employees
-                  </a>
-                 
-                </div>
-              </div>
- -->
             </nav>
 
             
@@ -738,10 +677,6 @@
 
           <!-- Main content -->
           <main>
-            <!-- Content header -->
-            <!-- <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6 dark:border-primary-darker">
-              <h1 class="text-2xl font-semibold">Dashboard</h1>
-            </div> -->
 
             @yield('content')
 
@@ -750,28 +685,6 @@
         </div>
       </div>
     </div>
-
-
-<!-- Logout Modal -->
-<!-- <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header p-3 pt-2">
-               
-                <h5 class="modal-title text-end pt-1 ms-auto" id="logoutModalLabel">Logout</h5>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="modal-body text-center">
-                <p class="mb-0">Are you sure you want to logout?</p>
-            </div>
-            <div class="modal-footer p-3">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <a href="{{ route('school_employee.logout',$school_id) }}" class="btn btn-danger">Logout</a>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 
     <!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
@@ -907,7 +820,6 @@
           updateLineChart,
         }
       }
-
       
     </script>
   </body>
