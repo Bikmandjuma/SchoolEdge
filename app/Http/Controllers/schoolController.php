@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Customer;
+use App\Models\ClassCourse;
 use App\Models\UserRole;
 use App\Models\SchoolEmployee;
 use App\Models\SchoolStudent;
@@ -34,7 +35,6 @@ class schoolController extends Controller
         $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
 
         $school_employee_data = SchoolEmployee::where('school_fk_id',Crypt::decrypt($school_id))->get();
-        
         return view("Single_School.Landing_pages.Home",[
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
@@ -267,6 +267,7 @@ class schoolController extends Controller
         return view("Single_School.Users_acccount.Employee.admin_self_registration",[
             'school_id' => $school_data->id,
             'school_username' => $school_data->username,
+            'school_logo' => $school_data->image,
         ]);
 
     }
@@ -800,7 +801,7 @@ class schoolController extends Controller
         return view('Single_School.Users_acccount.Employee.manage_academic', [
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
-            // 'school_logo' => $school_data->image,
+            'school_logo' => $school_data->image,
             'academic_year' => $academic_year,
             'fetch_academic_term' => $fetch_academic_term,
             'academic_term_count' => $fetch_academic_term_count    
@@ -1013,6 +1014,7 @@ class schoolController extends Controller
         return view('Single_School.Users_acccount.Employee.view_Add_level', [
             'school_id' => $school_data->id,
             'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
             'academic_term' => $term_data->term_name,
             'academic_year' => $academic_data->academic_year_name,
             'term_id' => $term_id,
@@ -1221,6 +1223,95 @@ class schoolController extends Controller
 
         return redirect()->back()->with('success', 'Course updated successfully.');
     }
+
+    public function updateClass(Request $request, $classId)
+    {
+        $request->validate([
+            'class_name' => 'required|string|max:255',
+        ]);
+
+        $class = LevelClass::findOrFail($classId);
+        $class->name = $request->class_name;
+        $class->save();
+
+        return back()->with('success', 'Class name updated successfully!');
+    }
+
+    public function add_view_levelClass($classId, $className, $schoolId)
+    {
+        $class_id = Crypt::decrypt($classId);
+        $class_name = Crypt::decrypt($className);
+        $school_id = Crypt::decrypt($schoolId);
+
+        $school_data = Customer::findOrFail($school_id);
+        $levelClass = LevelClass::findOrFail($class_id);
+        $term_name = AcademicTerm::findOrFail($levelClass->term_fk_id);
+
+        $assignedCourses = ClassCourse::where('levelClass_fk_id', $class_id)
+            ->pluck('course_name')
+            ->toArray();
+
+        $courses = Course::where('school_fk_id', $school_id)
+            ->whereNotIn('course_name', $assignedCourses)
+            ->get();
+
+        $classCourses = ClassCourse::where('levelClass_fk_id', $class_id)->get();
+
+        return view('Single_School.Users_acccount.Employee.view_Add_CourseClass',[
+                'school_id' => $school_data->id,
+                'school_name' => $school_data->school_name,
+                'school_logo' => $school_data->image,
+                'levelClass' => $levelClass,
+                'class_name' => $levelClass->name,
+                'courses' => $courses,
+                'term_name' => $term_name,
+                'classCourses' => $classCourses,
+        ]);
+
+    }
+
+    public function storeClassCourses(Request $request)
+    {
+        $classId = $request->input('levelClass_fk_id');
+
+        foreach ($request->courses as $courseId => $courseData) {
+            if (!isset($courseData['selected'])) continue;
+
+            ClassCourse::create([
+                'levelClass_fk_id' => $classId,
+                'course_name' => $courseData['course_name'],
+                'quiz_mark_total' => $courseData['quiz_mark_total'],
+                'exam_total' => $courseData['exam_total'],
+                'total_mark' => $courseData['quiz_mark_total'] + $courseData['exam_total'],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Courses assigned successfully.');
+    }
+
+    public function updateClassCourse(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:class_courses,id',
+            'quiz_mark_total' => 'nullable|numeric|min:0',
+            'exam_total' => 'nullable|numeric|min:0',
+            'total_mark' => 'nullable|numeric|min:0',
+        ]);
+
+        $classCourse = ClassCourse::find($request->id);
+
+        if (!$classCourse) {
+            return back()->with('error', 'Class Course not found.');
+        }
+
+        $classCourse->quiz_mark_total = $request->quiz_mark_total;
+        $classCourse->exam_total = $request->exam_total;
+        $classCourse->total_mark = $request->quiz_mark_total + $request->exam_total;
+        $classCourse->save();
+
+        return back()->with('success', 'Class course updated successfully.');
+    }
+
 
 
 }

@@ -27,10 +27,6 @@
                                       required
                                 >
 
-                               <!--  @error('level_name')
-                                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                                @enderror -->
-
                             </div>
                             <div class="text-center p-2">
                                 <button class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition">Submit</button>
@@ -94,24 +90,58 @@
 
                     </div>
 
-                    <!-- @if($level->classes && $level->classes->count())
-                        <ul class="space-y-2">
-                            @foreach($level->classes as $class)
-                                <li class="bg-gray-100 px-4 py-2 rounded text-gray-800 shadow-sm">
-                                    {{ $class->name }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <p class="text-gray-500 italic">No classes found for {{ $level->level_name }}.</p>
-                    @endif -->
-
                     @if($level->levelClasses && $level->levelClasses->count())
+                    
                         @foreach($level->levelClasses as $class)
-                            <li class="bg-gray-100 px-4 py-2 rounded text-gray-800 shadow-sm mb-2">
-                                {{ $class->name }}
+                            <!-- <li class="bg-gray-100 px-4 py-2 rounded text-gray-800 shadow-sm mb-2 flex justify-between items-center">
+                                <span>{{ $class->name }}</span>
+
+                                <i 
+                                    class="fa fa-edit text-blue-500 hover:cursor-pointer ml-2" 
+                                    title="Edit {{ $class->name }}" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editClassModal"
+                                    onclick="openEditClassModal('{{ $class->id }}', '{{ $class->name }}')"
+                                ></i>
+
+                                <button
+                                  onclick="openAddClassModal('')"
+                                  class="bg-pink-400 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition"
+                              >
+                                  <i class="fa fa-plus"></i>&nbsp;Add courses
+                              </button>
+                            </li> -->
+                            <li class="bg-gray-100 px-4 py-2 rounded text-gray-800 shadow-sm mb-2 flex justify-between items-center">
+                                <!-- Left side: Class name and edit icon -->
+                                <div class="flex items-center gap-2">
+                                    <span>{{ $class->name }}</span>
+
+                                    <i 
+                                        class="fa fa-edit text-blue-500 hover:cursor-pointer" 
+                                        title="Edit {{ $class->name }}" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editClassModal"
+                                        onclick="openEditClassModal('{{ $class->id }}', '{{ $class->name }}')"
+                                    ></i>
+                                </div>
+
+                                <button
+                                    onclick="AddViewCoursesInClass(
+                                        '{{ Crypt::encrypt($class->id) }}',
+                                        '{{ Crypt::encrypt($class->name) }}',
+                                        '{{ Crypt::encrypt($school_id) }}'
+                                    )"
+                                    class="bg-pink-400 hover:bg-pink-500 text-white font-medium px-4 py-2 rounded-md transition"
+                                >
+                                    Add & View courses
+                                </button>
+
+
+
                             </li>
+
                         @endforeach
+
                     @else
                         <p class="text-gray-500 italic">No classes found for {{ $level->level_name }}.</p>
                     @endif
@@ -137,7 +167,6 @@
           <input type="hidden" name="level_id" id="edit_level_id">
           <div class="mb-3">
             <label class="form-label">Level/Senior Name</label>
-            <!-- <input type="text" class="form-control" name="senior_name"   required> -->
 
             <input type="text" name="senior_name" value="{{ old('senior_name') }}" class="form-control"  id="edit_level_name">
 
@@ -178,6 +207,33 @@
   </div>
 </div>
 
+<!-- Edit Class Modal -->
+<div class="modal fade" id="editClassModal" tabindex="-1" aria-labelledby="editClassModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" id="editClassForm" action="">
+      @csrf
+      @method('PUT')
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editClassModalLabel">Edit Class</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="class_id" id="edit-class-id">
+          <div class="mb-3">
+            <label for="edit-class-name" class="form-label">Class Name</label>
+            <input type="text" class="form-control" name="class_name" id="edit-class-name" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 
 <script type="text/javascript">
 
@@ -199,6 +255,19 @@
 
         const form = document.querySelector('#addClassModal form');
         form.action = `/school/add_LevelClass/${term_id}/${school_id}`;
+    }
+
+    function openEditClassModal(classId, className) {
+        const form = document.getElementById('editClassForm');
+        form.action = `/school/edit_level_class/${classId}`;
+        document.getElementById('edit-class-id').value = classId;
+        document.getElementById('edit-class-name').value = className;
+    }
+
+    function AddViewCoursesInClass(classId, className, schoolId) {
+        const url = `/school/add_view_levelClass/${classId}/${className}/${schoolId}`;
+        window.location.href = url;
+        console.log(url);
     }
 
 </script>

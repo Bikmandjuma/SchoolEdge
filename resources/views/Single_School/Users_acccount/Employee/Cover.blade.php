@@ -48,7 +48,11 @@
             <!-- Sidebar links -->
             <nav aria-label="Main" class="flex-1 px-2 py-4 space-y-2 overflow-y-hidden hover:overflow-y-auto">
               <!-- Dashboards links -->
-              <div class="text-center items-center justify-center inline-block text-md font-bold tracking-wider uppercase text-primary-dark dark:text-light" style="font-size: 15px;font-weight: bold;">{{ $school_name }}</div>
+              <div class="flex text-center items-center justify-center inline-block text-md font-bold tracking-wider uppercase text-primary-dark dark:text-light" style="font-size: 15px;font-weight: bold;">
+                <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_logo }}" class="w-10 h-10"> 
+                &nbsp;{{ $school_name }}
+
+              </div>
               <div x-data="{ isActive: true, open: true}">
                 <!-- active & hover classes 'bg-primary-100 dark:bg-primary' -->
                 @if(auth()->guard('school_employee')->user()->hasPermission('Dashboard') || $user->role->role_name === 'Admin')

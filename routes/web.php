@@ -239,6 +239,14 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::post('add_LevelClass/{term_id}/{school_id}', [schoolController::class, 'addLevelClass'])->name('school_employee.addLevelClass');
 
+    Route::put('edit_level_class/{classId}', [schoolController::class, 'updateClass']);
+
+    Route::get('add_view_levelClass/{classId}/{className}/{schoolId}', [schoolController::class, 'add_view_levelClass']);
+
+    Route::post('/class-courses/store', [schoolController::class, 'storeClassCourses'])->name('class_courses.store');
+
+    Route::put('/class-courses/update', [schoolController::class, 'updateClassCourse'])->name('class_courses.update');
+
     Route::get('logout/{school_id}', [schoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 
 });
