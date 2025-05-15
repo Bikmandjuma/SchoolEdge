@@ -613,50 +613,7 @@ class schoolController extends Controller
    
     }
 
-    // Show the form to assign permissions to a user
-    // public function showAssignPermissionsForm_User($school_id, $user_id)
-    // {
-    //     // Decrypt the IDs (if you're using encryption)
-    //     $school_id = Crypt::decrypt($school_id);
-    //     $user_id = Crypt::decrypt($user_id);
-
-    //     // Fetch the user and permissions for this school
-    //     $user = SchoolEmployee::findOrFail($user_id);
-    //     $permissions = PermissionData::paginate(30);  // or any other permissions logic
-    //     $school_data = Customer::findOrFail($school_id);
-
-    //     // Return the view with data
-    //     return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form',[
-    //         'user' => $user,
-    //         'permissions' => $permissions,
-    //         'school_id' => $school_data->id,
-    //         'school_name' => $school_data->school_name,
-    //         'school_logo' => $school_data->image
-    //     ]);
-    // }
-
-    // public function showAssignPermissionsForm_User($school_id, $user_id)
-    // {
-    //     $school_id = Crypt::decrypt($school_id);
-    //     $user_id = Crypt::decrypt($user_id);
-
-    //     // $school = School::findOrFail($school_id);
-    //     $user = SchoolEmployee::findOrFail($user_id);
-    //     $school = Customer::findOrFail($school_id);
-    //     $permissions = PermissionData::paginate(20);
-    //     $permissionGroups = PermissionGroupBy::paginate(2); // Or however you group permissions
-
-    //     return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form', [
-    //         'user' => $user,
-    //         'permissions' => $permissions,
-    //         'school_id' => $school->id,
-    //         'school_name' => $school->name,
-    //         'school_logo' => $school->logo,
-    //         'permissionGroups' => $permissionGroups // 🟢 Make sure this is included
-    //     ]);
-    // }
-
-    public function showAssignPermissionsForm_User(Request $request, $school_id, $user_id)
+    public function showAssignPermissionsForm_User($school_id, $user_id)
     {
         $school_id = Crypt::decrypt($school_id);
         $user_id = Crypt::decrypt($user_id);
@@ -664,67 +621,42 @@ class schoolController extends Controller
         $user = SchoolEmployee::findOrFail($user_id);
         $school = Customer::findOrFail($school_id);
 
-        // 👇 Filter by group name if search is used
-        $search = $request->input('search');
-        $query = PermissionGroupBy::with('permissions');
-
-        if (!empty($search)) {
-            $query->where('name', 'LIKE', '%' . $search . '%');
-        }
-
-        $permissionGroups = $query->paginate(2)->appends(['search' => $search]);
-        $permissions = PermissionData::paginate(20);
+        $permissionGroups = PermissionGroupBy::with('permissions')->get(); // All permissions grouped
 
         return view('Single_School.Users_acccount.Employee.User_Assign_Permission_Form', [
             'user' => $user,
-            'permissions' => $permissions,
             'school_id' => $school->id,
-            'school_name' => $school->school_name,
-            'school_logo' => $school->image,
+            'school_name' => $school->name,
+            'school_logo' => $school->logo,
             'permissionGroups' => $permissionGroups,
-            'search' => $search
         ]);
     }
 
-    public function postAssignPermissions_User(Request $request, $school_id, $userId){
-        // Decrypt the school_id and user_id
+    public function postAssignPermissions_User(Request $request, $school_id, $userId)
+    {
         $school_id = Crypt::decrypt($school_id);
         $userId = Crypt::decrypt($userId);
 
-        // Find the user
         $user = SchoolEmployee::findOrFail($userId);
 
-        // Sync permissions based on the checkbox input
-        $user->permissions()->sync($request->permissions);  // Sync the selected permissions
+        // Get permissions from comma-separated string
+        $rawPermissions = $request->input('permissions', '');
+        $permissionIds = array_filter(explode(',', $rawPermissions), function ($id) {
+            return !empty($id) && is_numeric($id);
+        });
+
+        // Validate each permission exists
+        foreach ($permissionIds as $id) {
+            if (!PermissionData::where('id', $id)->exists()) {
+                return redirect()->back()->withErrors(['Invalid permission ID: ' . $id]);
+            }
+        }
+
+        $user->permissions()->sync($permissionIds);
 
         return redirect()->back()->with('info', 'Permissions updated!');
     }
 
-    // public function view_specific_user_info($school_id,$user_id){
-    //     $school_id = Crypt::decrypt($school_id);
-    //     $user_id = Crypt::decrypt($user_id);
-
-    //     $school_employees = SchoolEmployee::findOrFail($user_id);
-    //     $school_data = Customer::findOrFail($school_id);
-
-    //     $school_employees->time_ago = Carbon::parse($school_employees->created_at)->diffForHumans();
-
-    //     $permissions = SchoolEmployee::find($school_employees->id)
-    //                     ->permissions
-    //                     ->pluck('name');
-    //     $count_permission = collect($permissions)->count();
-
-    //     return view('Single_School.Users_acccount.Employee.view_specific_user_info', [
-    //         'school_employees' => $school_employees,
-    //         'school_id' => $school_data->id,
-    //         'school_name' => $school_data->school_name,
-    //         'school_logo' => $school_data->image,
-    //         'joined' => $school_employees->time_ago,
-    //         'user_permission' => $permissions,
-    //         'count_permission' => $count_permission
-    //     ]);     
-
-    // }
 
     public function view_specific_user_info($school_id, $user_id)
     {

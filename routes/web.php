@@ -203,6 +203,9 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
 
     Route::get('user_permission_form/{school_id}/{user_id}', [schoolController::class, 'showAssignPermissionsForm_User'])->name('user_permission_form');
 
+    Route::post('/assign-permissions/{school_id}/{user_id}', [schoolController::class, 'assignPermissions'])->name('user_assign_permissions');
+
+
     Route::post('postAssignPermissions_User/{school_id}/{user_id}', [schoolController::class, 'postAssignPermissions_User'])->name('user_assign_permissions');
 
     Route::get('view_specific_user_info/{school_id}/{user_id}', [schoolController::class, 'view_specific_user_info'])->name('view_specific_user_info');
