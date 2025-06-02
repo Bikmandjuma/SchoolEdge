@@ -983,15 +983,17 @@ body{
 .why-choose .choose-left p{
 	margin-bottom:35px;
 }
-.why-choose .choose-left .list{}
-.why-choose .choose-left .list li {
+.why-choose .choose-right .list{
+	margin-top: 1px;
+}
+.why-choose .choose-right .list li {
 	color: #868686;
 	margin-bottom: 12px;
 }
-.why-choose .choose-left .list li:last-child{
+.why-choose .choose-right .list li:last-child{
 	margin-bottom:0px;
 }
-.why-choose .choose-left .list li i{
+.why-choose .choose-right .list li i{
 	height:15px;
 	width:15px;
 	line-height:15px;
@@ -1007,7 +1009,11 @@ body{
 .why-choose{
 	background:#fff;
 }
-.why-choose .choose-right{
+
+.choose-right{
+	margin-top: 20px;
+}
+/*.why-choose .choose-right{
 	height:100%;
 	width:100%;
 	background-image:url('img/school_edge.png');
@@ -1015,8 +1021,8 @@ body{
 	background-position:center;
 	background-repeat:no-repeat;
 	position:relative;
-}
-.why-choose .choose-right .video {
+}*/
+/*.why-choose .choose-right .video {
 	color: #fff;
 	height: 70px;
 	width: 70px;
@@ -1061,7 +1067,7 @@ body{
 .why-choose .video-image .waves-block .wave-3 {
     -webkit-animation-delay: 2s;
     animation-delay: 2s;
-}
+}*/
 /*=======================
 	End Why choose CSS
 =========================*/

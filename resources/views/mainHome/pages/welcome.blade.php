@@ -249,12 +249,14 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-6 col-12">
+					<div class="col-lg-12 col-12">
 						<!-- Start Choose Left -->
 						<div class="choose-left">
 							<h3>Who We Are</h3>
 							<p>SchoolEdge is an all-in-one educational management platform designed to revolutionize school operations. We provide tools for every school activity—finance, administration, secretarial tasks, library management, and more—enabling staff to efficiently manage their responsibilities within the system. Additionally, our platform offers real-time progress tracking and personalized support to prevent students from falling behind and reduce dropout rates, ensuring academic success for all. </p>
+						</div>
 
+						<div class="choose-right">
 							<div class="row">
 								<div class="col-lg-6">
 									<ul class="list">
@@ -271,26 +273,8 @@
 									</ul>
 								</div>
 							</div>
-						</div>
-						<!-- End Choose Left -->
-					</div>
-					<div class="col-lg-6 col-12">
-						<!-- Start Choose Rights -->
-						<div class="choose-right">
-							<div class="video-image">
-								<!-- Video Animation -->
-								<div class="promo-video">
-									<div class="waves-block">
-										<div class="waves wave-1"></div>
-										<div class="waves wave-2"></div>
-										<div class="waves wave-3"></div>
-									</div>
-								</div>
-								<!--/ End Video Animation -->
-								<a href="https://about-bikman-ntiruhungwa.my.canva.site/dagt7r9e9-g" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
-							</div>
-						</div>
-						<!-- End Choose Rights -->
+	   					</div>
+
 					</div>
 				</div>
 			</div>
