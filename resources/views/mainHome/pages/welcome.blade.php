@@ -258,20 +258,21 @@
 
 						<div class="choose-right">
 							<div class="row">
-								<div class="col-lg-6">
+								<div class="col-lg-4">
 									<ul class="list">
 										<li><i class="fa fa-caret-right"></i>Innovative Solutions. </li>
 										<li><i class="fa fa-caret-right"></i>Streamlined Management.</li>
 										<li><i class="fa fa-caret-right"></i>Data-Driven Insights.</li>
 									</ul>
 								</div>
-								<div class="col-lg-6">
+								<div class="col-lg-4">
 									<ul class="list">
 										<li><i class="fa fa-caret-right"></i>Dedicated Support. </li>
 										<li><i class="fa fa-caret-right"></i>User-Friendly Interface.</li>
 										<li><i class="fa fa-caret-right"></i>Secure Environment.</li>
 									</ul>
 								</div>
+								
 							</div>
 	   					</div>
 
